@@ -1,0 +1,22 @@
+:d2d2-logo.png
+	satellite 0 0 64 48
+	out-of-bnds 10 10 200 200
+	
+:display/editor.png
+    grid        		 0 0 16 16
+    area_collision  	 23 0 1 1
+    area_damaging        16 0 1 1
+    area_door_teleport   18 1 1 1
+    area_checkpoint 	 18 0 1 1
+    area_hook       	 22 1 1 1
+    area_trigger		 21 1 1 1
+    cursor      		 0 16 16 32
+    textures_packed 	 32 0 16 16
+
+:display/weapons-and-pickups.png
+
+	wp-default-bullet 		16 0 16 16 
+	wp-default-bullet-d0 	32 0 32 32 
+	wp-default-bullet-d1 	64 0 32 32 
+	wp-default-bullet-d2 	96 0 32 32 
+	wp-default-bullet-d3 	128 0 32 32

@@ -1,0 +1,17 @@
+Category:
+    1 Area
+    2 Scenery
+    3 Actor
+    4 Dynamic
+    5 Animated scenery
+
+Area types
+    1 Collision
+    2 Dorr teleport
+    3 Damaging
+    4 Chechpoint (0 - startm, 1 - finish, 2 - continute)
+    5 Hook
+    6 Trigger
+    7 Water
+    8 Wind
+~                        
