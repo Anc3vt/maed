@@ -73,4 +73,10 @@ public class AreaTrigger extends Area {
 			if(count > 1) throw new RuntimeException("invalid areapattern " + test);
 		}
 	}
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
 }

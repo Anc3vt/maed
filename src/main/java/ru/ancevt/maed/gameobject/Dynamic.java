@@ -243,11 +243,7 @@ public class Dynamic extends Sprite implements
 		return movingSpeedY;
 	}
 
-	@Override
-	public void onEachFrame() {
-		
-		super.onEachFrame();
-	}
+	
 
 	@Override
 	public void toVelocityX(float value) {
@@ -257,6 +253,12 @@ public class Dynamic extends Sprite implements
 	@Override
 	public void toVelocityY(float value) {
 		setVelocityY(getVelocityY() + value);
+		
+	}
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
 		
 	}
 

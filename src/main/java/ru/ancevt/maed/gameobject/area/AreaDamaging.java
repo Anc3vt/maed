@@ -62,4 +62,10 @@ public class AreaDamaging extends Area implements IDamaging {
 	public String toString() {
 		return getClass().getSimpleName() + getId();
 	}
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -85,7 +85,7 @@ walk=\
 	damage=144,208,48,48 |\
 	collision-area = -8,-16,16,37 
 
-
+30010 | 3 | turtle | idle=224,112,16,32;240,112,16,32 | collision-area = -8,-3,16,18
 
 20600 | 5 | dragon | idle=\
 160,0,48,16;\

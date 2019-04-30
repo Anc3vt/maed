@@ -58,6 +58,12 @@ public class AreaCollision extends Area implements ITight {
 	public String toString() {
 		return this.getClass().getSimpleName() + getId();
 	}
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 	

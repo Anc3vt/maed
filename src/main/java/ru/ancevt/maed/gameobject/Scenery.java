@@ -62,4 +62,9 @@ public class Scenery extends Sprite implements IGameObject, IRepeatable, IRotata
 		return getTexture().getHeight();
 	}
 
+	@Override
+	public void process() {
+		
+	}
+
 }

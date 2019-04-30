@@ -1,5 +1,7 @@
 package ru.ancevt.maed.gameobject;
 
+import ru.ancevt.d2d2.common.PlainRect;
+import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.BotController;
 import ru.ancevt.maed.common.Controller;
@@ -29,6 +31,9 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	private float jumpPower;
 	
 	private int jumpTime;
+	
+	private PlainRect collRect;
+	
 	private boolean jumping;
 	
 	public Actor(MapkitItem mapkitItem, int gameObjectId) {
@@ -39,9 +44,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setAnimation(AKey.IDLE);
 		setController(new BotController());
 	}
-	
 	@Override
-	public void onEachFrame() {
+	public void process() {
 		boolean act = false;
 		if(controller.isRight()) {
 			go(1);
@@ -70,21 +74,22 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		}
 		
 		if(jumpTime > 0) jumpTime --;
-
+	
 		if(!controller.isA()) jumping = false;
+
 		
 		if(getDirection() != 0 && getFloor() != null && !(this instanceof UserActor)) {
 			setAnimation(AKey.WALK);
-			toVelocityX(speed * getDirection());
+			//dtoVelocityX(speed * getDirection());
 		}
 		
-		super.onEachFrame();
 	}
+	
 	
 	public void jump() {
 		if(!jumping && getFloor() != null) {
-			jumping = true;
-			setVelocityY(-jumpPower);
+			if(this instanceof UserActor) jumping = true;
+ 			setVelocityY(-jumpPower);
 			jumpTime = JUMP_TIME;
 			setAnimation(AKey.JUMP);
 		} else {
@@ -171,7 +176,19 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	@Override
 	public void setCollisionVisible(boolean b) {
+		if(collisionVisible == b) return;
 		this.collisionVisible = b;
+
+		if(collRect != null && collRect.hasParent()) collRect.removeFromParent();
+		
+		if(collisionEnabled) {
+			collRect = new PlainRect();
+			collRect.setColor(Color.DARK_GREEN);
+			collRect.setXY(getCollisionX(), getCollisionY());
+			collRect.setSize(getCollisionWidth(), getCollisionHeight());
+			collRect.setAlpha(0.5f);
+			add(collRect);
+		}
 	}
 
 	@Override
@@ -371,6 +388,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	public int getStartDirection() {
 		return startDirection;
 	}
-	
+
 
 }

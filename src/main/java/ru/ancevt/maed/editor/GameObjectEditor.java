@@ -24,6 +24,7 @@ import ru.ancevt.maed.gameobject.IRotatable;
 import ru.ancevt.maed.gameobject.IScalable;
 import ru.ancevt.maed.gameobject.ITight;
 import ru.ancevt.maed.gameobject.area.Area;
+import ru.ancevt.maed.gameobject.area.AreaCollision;
 import ru.ancevt.maed.map.DataLine;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
@@ -254,8 +255,8 @@ public class GameObjectEditor {
 				rotateLeftSelected();
 				break;	
 			case KeyEvent.VK_BACK_SPACE:
-				if(selectedGameObject instanceof ITight) {
-					final ITight t = (ITight)selectedGameObject;
+				if(selectedGameObject instanceof AreaCollision ) {
+					final AreaCollision t = (AreaCollision)selectedGameObject;
 					t.setFloorOnly(!t.isFloorOnly());
 				} else 
 					reverseDirection();
@@ -450,6 +451,7 @@ public class GameObjectEditor {
 				final IDirectioned d = (IDirectioned) gameObject;
 				d.setDirection(d.getDirection() * -1);
 				d.setStartDirection(d.getDirection());
+				
 			}  
 			if(gameObject instanceof IScalable) {
 				final IScalable s = (IScalable) gameObject;

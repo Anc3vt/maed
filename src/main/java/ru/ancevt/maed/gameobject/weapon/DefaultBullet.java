@@ -41,14 +41,6 @@ public class DefaultBullet extends Bullet implements IDamaging {
 	}
 	
 	@Override
-	public void onEachFrame() {
-		if(sprite.hasParent())
-			moveX(getDirection() * SPEED);
-		
-		super.onEachFrame();
-	}
-	
-	@Override
 	public int getDamagingPower() {
 		return DAMAGING_POWER;
 	}
@@ -100,6 +92,14 @@ public class DefaultBullet extends Bullet implements IDamaging {
 	public int getStartDirection() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void process() {
+		if(sprite.hasParent())
+			moveX(getDirection() * SPEED);
+		
+		super.onEachFrame();
 	}
 
 	

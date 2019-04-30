@@ -64,4 +64,10 @@ public class AreaDoorTeleport extends Area {
 	public String toString() {
 		return getClass().getSimpleName() + getId() + "[" + targetRoomId + "," + targetX + "," + targetY + "]";
 	}
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -94,24 +94,28 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	
 	@Override
 	public void onCollide(ICollisioned collideWith) {
-		if(collideWith instanceof AreaTrigger && lastAreaTrigger != collideWith) {
+		if(collideWith instanceof AreaTrigger ) {
 			final AreaTrigger at = (AreaTrigger)collideWith;
 			
-			lastAreaTrigger = at;
-			
-			if(at.isJump() && at.isRight() && getDirection() == 1) jump(); else
-			if(at.isJump() && at.isLeft() && getDirection() == -1) jump(); else
-			
-			if(at.isLeft() && getDirection() == 1) setDirection(-1); else
-			if(at.isRight() && getDirection() == -1) setDirection(2);
+			if(at.isJump() && !at.isLeft() && !at.isRight()) {
+				jump();
+			} 
+			if(at.isJump() && at.isLeft() && getDirection() < 0) {
+				jump();
+			} 
+			if(at.isJump() && at.isRight() && getDirection() > 0) {
+				jump();
+			} 
+				
+			if(!at.isJump() && at.isRight() && getDirection() == -1) go(1);
+			if(!at.isJump() && at.isLeft() && getDirection() == 1) go(-1);
 		}
-		
 		
 		super.onCollide(collideWith);
 	}
 	
 	@Override
-	public void onEachFrame() {
+	public void process() {
 		if(face2face) {
 			final float userX = World.getWorld().getUserActor().getX();
 			if(userX < getX()) go(-1); else go(1);

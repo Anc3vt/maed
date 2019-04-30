@@ -108,14 +108,14 @@ abstract public class Animated extends DisplayObjectContainer implements IAnimat
 	@Override
 	public void setDirection(int direction) {
 		this.direction = direction;
+		/*
 		for(int i = 0; i < animations.length; i ++) {
 			final FrameSet fs = animations[i];
 			if(fs == null) continue;
-			fs.setScaleX(
-				getDirection()	
-			);
+			fs.setScaleX(getDirection());
 		}
-		
+		*/
+		setScaleX(getDirection());
 	}
 	
 	@Override

@@ -56,6 +56,8 @@ public class PlayProcessor {
 		for (int i = 0; i < world.getGameObjectsCount(); i++) {
 			final IGameObject o1 = world.getGameObject(i);
 
+			o1.process();
+			
 			if(o1 instanceof IGravitied) {
 				gravitied = (IGravitied)o1;
 				gravitied.setFloor(null);

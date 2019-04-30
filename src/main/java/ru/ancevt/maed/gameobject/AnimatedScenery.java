@@ -80,21 +80,20 @@ public class AnimatedScenery extends Sprite implements IGameObject,
 		this.slowing = slowing;
 	}
 	
-	@Override
-	public void onEachFrame() {
-		slowingCounter ++;
-		if (slowingCounter >= slowing) {
-			slowingCounter = 0;
-			nextFrame();
-		}
-		super.onEachFrame();
-	}
-	
 	private final void nextFrame() {
 		final float frameCount = mapkitItem.getTextureCount(AKey.IDLE);
 		currentFrame ++;
 		if(currentFrame >= frameCount) currentFrame = 0;
 		setTexture(mapkitItem.getTexture(AKey.IDLE, currentFrame));
+	}
+
+	@Override
+	public void process() {
+		slowingCounter ++;
+		if (slowingCounter >= slowing) {
+			slowingCounter = 0;
+			nextFrame();
+		}
 	}
 }
 

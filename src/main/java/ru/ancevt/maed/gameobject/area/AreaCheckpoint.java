@@ -106,4 +106,10 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 	public int getStartDirection() {
 		return 1;
 	}
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
 }

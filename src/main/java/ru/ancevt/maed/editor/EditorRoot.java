@@ -116,9 +116,10 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		healthbar.setMax(world.getUserActor().getMaxHealth());
 		
 		
-		final Ava ava = new Ava();
-		
-		world.addGameObject(ava, 5, false);
+		while(Viewport.WIDTH * rootLayer.getScaleX() < D2D2.getRenderer().getWidth()) {
+			rootLayer.toScale(1.01f, 1.01f);
+		}
+		update();
 	}
 	
 	public void loadMap(String mapFileName) {

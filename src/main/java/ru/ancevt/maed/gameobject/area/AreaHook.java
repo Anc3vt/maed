@@ -33,4 +33,10 @@ public class AreaHook extends Area {
 		return getClass().getSimpleName() + getId();
 	}
 
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

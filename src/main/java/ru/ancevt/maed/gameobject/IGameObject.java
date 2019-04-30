@@ -8,4 +8,5 @@ public interface IGameObject extends IDisplayObject {
     boolean isSaveable();
     MapkitItem getMapkitItem();
     IGameObject copy();
+    void process();
 }
