@@ -15,7 +15,7 @@ public class Grid extends DisplayObjectContainer implements IColored {
 	public static final int SIZE = 16;
 	
 	private static final float ALPHA = 0.075f;
-	public static final int DEFAULT_COLOR = 0xFFFFFF;
+	public static final int DEFAULT_COLOR = 0x000000;
 	
 	private List<Line> lines;
 	private Color color;

@@ -1,6 +1,6 @@
 package ru.ancevt.maed.common;
 
-import ru.ancevt.maed.gameobject.Actor;
+import ru.ancevt.maed.gameobject.Actor_legacy;
 import ru.ancevt.maed.gameobject.IActioned;
 import ru.ancevt.maed.gameobject.ICollisioned;
 import ru.ancevt.maed.gameobject.IDamaging;
@@ -11,7 +11,6 @@ import ru.ancevt.maed.gameobject.IHookable;
 import ru.ancevt.maed.gameobject.IMoveable;
 import ru.ancevt.maed.gameobject.ITight;
 import ru.ancevt.maed.gameobject.UserActor;
-import ru.ancevt.maed.gameobject.action.ActionProcessor;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleport;
 import ru.ancevt.maed.gameobject.area.AreaHook;
 import ru.ancevt.maed.world.IWorld;
@@ -57,14 +56,17 @@ public class PlayProcessor {
 		for (int i = 0; i < world.getGameObjectsCount(); i++) {
 			final IGameObject o1 = world.getGameObject(i);
 
-			if(o1 instanceof IActioned) {
-				processAction((IActioned)o1);
-			}
-			
 			if(o1 instanceof IGravitied) {
 				gravitied = (IGravitied)o1;
 				gravitied.setFloor(null);
 				processGravity(gravitied);
+			}
+			
+			if(o1 instanceof IActioned) {
+				final IActioned ac = (IActioned)o1;
+				if(ac.getActionProgram() != null) {
+					ac.actionProcess();
+				}
 			}
 			
 			for (int j = 0; j < world.getGameObjectsCount(); j++) {
@@ -98,7 +100,7 @@ public class PlayProcessor {
 			processTight((ITight) o1, (ITight) o2);
 		}
 		if(o1 instanceof UserActor && o2 instanceof AreaDoorTeleport) {
-			processDoorTeleport((Actor)o1, (AreaDoorTeleport)o2);
+			processDoorTeleport((Actor_legacy)o1, (AreaDoorTeleport)o2);
 		}
 		if(o1 instanceof IHookable && o2 instanceof AreaHook) {
 			processHook((IHookable)o1, (AreaHook)o2);
@@ -217,7 +219,7 @@ public class PlayProcessor {
 		}
 	}
 	
-	private final void processDoorTeleport(final Actor actor, final AreaDoorTeleport area) {
+	private final void processDoorTeleport(final Actor_legacy actor, final AreaDoorTeleport area) {
 		if(getWorld().isSwitchingRoomsNow()) return;
 		
 		final int targetRoomId = area.getTargetRoomId();
@@ -225,10 +227,6 @@ public class PlayProcessor {
 		final float targetY = area.getTargetY();
 		
 		getWorld().switchRoom(targetRoomId, targetX, targetY);
-	}
-	
-	private final void processAction(final IActioned o) {
-		ActionProcessor.process(o);
 	}
 	
 	public final void setSpeed(int value) {

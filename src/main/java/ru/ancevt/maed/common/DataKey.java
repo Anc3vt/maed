@@ -40,7 +40,6 @@ public class DataKey {
 		ALPHA 			= "alpha";
 	
 	public static final String //other keys
-		ACTION 			= "action",
 		WEAPON_POS_X 	= "weapon-pos-x",
 		WEAPON_POS_Y	= "weapon-pos-y",
 		START_X			= "start-x",
@@ -62,6 +61,7 @@ public class DataKey {
 		COLLISION_ENABLED = "collision-enabled",
 		PUSHABLE		= "pushable",
 		FACE_TO_FACE	= "face-to-face",
+		ACTION_PROGRAM = "action-program",
 		REACTS_ON_MARKERS = "reacts-on-markers",
 		HEIGHT			= "height",
 		TRIGGER_OPTIONS = "trigger-options";

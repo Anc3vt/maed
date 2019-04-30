@@ -10,6 +10,7 @@ import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Root;
+import ru.ancevt.maed.common.CommonPanel;
 import ru.ancevt.maed.common.HealthBar;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.common.Viewport;
@@ -113,6 +114,8 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		
 		add(healthbar, 300, 10);
 		healthbar.setMax(world.getUserActor().getMaxHealth());
+		
+		add(CommonPanel.getInstance());
 	}
 	
 	public void loadMap(String mapFileName) {
@@ -271,6 +274,8 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 						}
 						
 						world.spawnUserActor(startX, startY);
+						world.getUserActor().setHealth(1000);
+						world.getUserActor().setAlive(true);
 						if(startCheckpoint != null) world.getUserActor().setDirection(startCheckpoint.getDirection());
 						
 						camera.setBoundsLock(true);

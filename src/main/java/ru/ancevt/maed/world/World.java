@@ -11,7 +11,7 @@ import ru.ancevt.d2d2.display.texture.TextureManager;
 import ru.ancevt.maed.common.AnimationKey;
 import ru.ancevt.maed.common.Direction;
 import ru.ancevt.maed.common.PlayProcessor;
-import ru.ancevt.maed.gameobject.Actor;
+import ru.ancevt.maed.gameobject.Actor_legacy;
 import ru.ancevt.maed.gameobject.Ava;
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.IResettable;
@@ -409,7 +409,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 		this.listener = listener;
 	}
 	
-	public final void actorAttack(final Actor actor, final Weapon weapon) {
+	public final void actorAttack(final Actor_legacy actor, final Weapon weapon) {
         final Bullet bullet = weapon.getNextBullet();
 
         final boolean left = Direction.check(actor, Direction.LEFT);

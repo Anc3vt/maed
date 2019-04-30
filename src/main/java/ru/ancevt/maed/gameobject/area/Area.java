@@ -1,6 +1,7 @@
 package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.common.BorderedRect;
+import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.text.BitmapText;
 import ru.ancevt.maed.common.DataKey;
 import ru.ancevt.maed.gameobject.ICollisioned;
@@ -35,6 +36,7 @@ abstract public class Area extends BorderedRect implements IGameObject, ICollisi
 		id = gameObjectId;
 		
 		bitmapText = new BitmapText();
+		bitmapText.setColor(Color.BLACK);
 		add(bitmapText);
 		setCollisionEnabled(true);
 	}
@@ -72,6 +74,16 @@ abstract public class Area extends BorderedRect implements IGameObject, ICollisi
 				return null;
 		}
 	}
+	
+//	@Override
+//	public void setWidth(float width) {
+//		if(getWidth() < 0) super.setWidth(1);
+//	}
+//	
+//	@Override
+//	public void setHeight(float width) {
+//		if(getHeight() < 0) super.setHeight(1);
+//	}
 	
 	public final void setText(final Object o) {
 		bitmapText.setText(o + new String());

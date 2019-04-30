@@ -16,9 +16,6 @@ public class AreaTrigger extends Area {
 		super(mapKitItem, gameObjectId);
 		setBorderColor(COLOR_STROKE);
 		setFillColor(COLOR_FILL);
-		
-		bitmapText = new BitmapText();
-		add(bitmapText);
 	}
 
 	@Override
@@ -44,6 +41,22 @@ public class AreaTrigger extends Area {
 		
 		this.triggerOptions = options;
 		setText(options);
+	}
+	
+	public final boolean isJump() {
+		return triggerOptions.contains("J");
+	}
+	
+	public final boolean isLeft() {
+		return triggerOptions.contains("<");
+	}
+
+	public final boolean isRight() {
+		return triggerOptions.contains(">");
+	}
+	
+	public final boolean isStop() {
+		return triggerOptions.contains("S");
 	}
 	
 	private static final void checkDublicate(String test) {

@@ -137,7 +137,7 @@ public class DataLine {
 			if(sourceKv.contains(EQUALS)) {
 				final String[] splitted = sourceKv.split(EQUALS);
 				final String key = splitted[0].trim();
-				final String value = splitted[1].trim();
+				final String value = splitted.length == 1 ? "" : splitted[1].trim();
 				
 				this.key = key;
 				this.value = value;

@@ -95,8 +95,8 @@ abstract public class Controller {
 		sb.append(
 			String.format(
 				"%c%c %c%c%c",
-				isLeft()  ? 'L' : 'l',
-				isRight() ? 'R' : 'r',
+				isLeft()  ? '*' : '.',
+				isRight() ? '*' : '.',
 				isC()     ? 'C' : 'c',
 				isB()     ? 'B' : 'b',
 				isA()     ? 'A' : 'a'

@@ -204,13 +204,20 @@ public class GameObjectEditor {
 
 			setLayer(num);
 			
-			if (EditorController.getInstance().isShift()) {
+			if (EditorController.getInstance().isAlt()) {
 				moveSelectedToLayer(num);
 			}
 			
 		}
 
 		switch (keyCode) {
+		
+			case KeyEvent.VK_R:
+				if(selectedGameObject instanceof Area) {
+					((Area) selectedGameObject).setSize(16, 16);
+				}
+				break;
+		
 			case KeyEvent.VK_ESCAPE:
 				cancelPlacing();
 				break;

@@ -8,7 +8,7 @@ import ru.ancevt.d2d2.display.texture.TextureAtlas;
 import ru.ancevt.d2d2.display.texture.TextureManager;
 import ru.ancevt.maed.common.AnimationKey;
 import ru.ancevt.maed.common.PlayerController;
-import ru.ancevt.maed.gameobject.Actor;
+import ru.ancevt.maed.gameobject.Actor_legacy;
 import ru.ancevt.maed.gameobject.GameObjectFactory;
 import ru.ancevt.maed.gameobject.Scenery;
 import ru.ancevt.maed.gameobject.area.AreaCollision;
@@ -36,7 +36,7 @@ public class TestRoot extends Root {
 		mapkit1.setTextureAtlas(mainCharTextureAtlas);
 		final MapkitItem item = mapkit1.createItem(avaDataLine());
 
-		Actor ava = new Actor(item, -1) {
+		Actor_legacy ava = new Actor_legacy(item, -1) {
 			@Override
 			public void onEachFrame() {
 				System.out.println(this.getFloor());

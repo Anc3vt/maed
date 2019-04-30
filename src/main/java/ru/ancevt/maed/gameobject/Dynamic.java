@@ -1,11 +1,10 @@
 package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.d2d2.display.Sprite;
-import ru.ancevt.maed.gameobject.action.ActionProgram;
 import ru.ancevt.maed.map.MapkitItem;
 
 public class Dynamic extends Sprite implements 
-		ITight, IGravitied, IActioned,
+		ITight, IGravitied, 
 		IScalable, IRotatable, IAlphable, IMoveable, IResettable {
 
 	private boolean collisionEnabled, collisionVisible;
@@ -17,7 +16,6 @@ public class Dynamic extends Sprite implements
 	private float velX, velY;
 	private ICollisioned floor;
 	private int id;
-	private ActionProgram actionProgram;
 	
 	public Dynamic(final MapkitItem mapKitItem, final int gameObjectId) {
 		super(mapKitItem.getTexture());
@@ -199,16 +197,6 @@ public class Dynamic extends Sprite implements
 	@Override
 	public int getId() {
 		return id;
-	}
-
-	@Override
-	public final void setActionProgram(final ActionProgram actionProgram) {
-		this.actionProgram = actionProgram;
-	}
-
-	@Override
-	public final ActionProgram getActionProgram() {
-		return actionProgram;
 	}
 
 	@Override

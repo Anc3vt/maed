@@ -29,6 +29,7 @@ public class Selection extends DisplayObjectContainer {
 		
 		if(gameObject instanceof IRepeatable || gameObject instanceof Area) {
 			repeatControl = new RepeatControl();
+			repeatControl.setAlpha(0.50f);
 			add(repeatControl, getWidth()-8, getHeight()-8);
 		}
 	}

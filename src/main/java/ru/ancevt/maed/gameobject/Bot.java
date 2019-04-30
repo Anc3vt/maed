@@ -1,22 +1,28 @@
 package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.maed.common.BotController;
-import ru.ancevt.maed.gameobject.action.ActionProgram;
+import ru.ancevt.maed.common.Direction;
+import ru.ancevt.maed.gameobject.actionprogram.ActionProcessor;
+import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
+import ru.ancevt.maed.gameobject.area.AreaTrigger;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
-public class Bot extends Actor implements IActioned, IDamaging {
+public class Bot extends Actor_legacy implements IActioned, IDamaging {
 
 	private int damagingPower;
 	private boolean reactsOnMarkers;
 	private boolean alwaysFaceToface;
-	private ActionProgram actionProgram;
+	private ActionProcessor actionProcessor;
 	
 	public Bot(MapkitItem mapKitItem, int gameObjectId) {
 		super(mapKitItem, gameObjectId);
 		setController(new BotController());
-		
-		// setWeapon(new DefaultWeapon());
+		actionProcessor = new ActionProcessor(this);
+		actionProcessor.setController(getController());
+		//setWeapon(new DefaultWeapon());\
+		getController().setEnabled(true);
 	}
 
 	@Override
@@ -45,23 +51,44 @@ public class Bot extends Actor implements IActioned, IDamaging {
 		result.setAlwaysFaceToface(isAlwaysFaceToface());
 		result.setFloorOnly(isFloorOnly());
 		
-		if(getActionProgram() != null)
-			result.setActionProgram(new ActionProgram(getActionProgram().toString()));
-		
 		return result;
 	}
 
 	@Override
-	public void onEachFrame() {
-		
-		
-		super.onEachFrame();
-	}
-
-	@Override
 	public void onCollide(ICollisioned collideWith) {
-		// TODO Auto-generated method stub
+
+		if(reactsOnMarkers && collideWith instanceof AreaTrigger) {
+			final AreaTrigger areaTrigger = (AreaTrigger) collideWith;
+			if(areaTrigger.isJump() 
+					&& (
+						(getDirection() == Direction.LEFT && areaTrigger.isLeft()) ||
+						(getDirection() == Direction.RIGHT && areaTrigger.isRight())
+					)) {
+				jump();
+			}
+			if(areaTrigger.isLeft()) {
+				getController().setLeft(true);
+			}
+			if(areaTrigger.isRight()) {
+				getController().setRight(true);
+			}
+			if (areaTrigger.isStop()) {
+				getController().setLeft(false);
+				getController().setRight(false);
+			}
+		}
 		
+		
+	}
+	
+	@Override
+	public void onEachFrame() {
+		super.onEachFrame();
+		
+		if(isAlwaysFaceToface()) {
+			final float userX = World.getWorld().getUserActor().getX();
+			setDirection(userX < getX() ? Direction.LEFT : Direction.RIGHT);
+		}
 	}
 
 	public boolean isReactsOnMarkers() {
@@ -81,30 +108,6 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	}
 
 	@Override
-	public void setActionProgram(ActionProgram actionProgram) {
-		this.actionProgram = actionProgram;
-		
-		/*
-		final ActionProgramDemonstrator demon = new ActionProgramDemonstrator();
-		demon.setActionProgram(actionProgram);
-		
-		final PlainRectangle rect = new PlainRectangle(200, 800);
-		rect.setColor(Color.BLACK);
-		rect.setAlpha(0.75f);
-		
-		final DisplayObjectContainer cont = D2D2.getCurrentCanvas().getRoot(); 
-		
-		cont.add(rect, 0, 0);
-		cont.add(demon, 8, 64);
-		*/
-	}
-
-	@Override
-	public ActionProgram getActionProgram() {
-		return actionProgram;
-	}
-
-	@Override
 	public void setDamagingPower(int damagingPower) {
 		this.damagingPower = damagingPower;
 	}
@@ -115,18 +118,34 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	}
 
 	@Override
-	public void setDamagingOwnerActor(Actor character) {
+	public void setDamagingOwnerActor(Actor_legacy character) {
 		
 	}
 
 	@Override
-	public Actor getDamagingOwnerActor() {
+	public Actor_legacy getDamagingOwnerActor() {
 		return null;
 	}
 	
 	@Override
 	public String toString() {
 		return "[Bot, id: " + getId() + "]";
+	}
+
+	@Override
+	public void setActionProgram(ActionProgram actionProgram) {
+		System.out.println(actionProgram);
+		actionProcessor.setActionProgram(actionProgram);
+	}
+
+	@Override
+	public ActionProgram getActionProgram() {
+		return actionProcessor.getActionProgram();
+	}
+	
+	@Override
+	public void actionProcess() {
+		actionProcessor.process();
 	}
 
 	

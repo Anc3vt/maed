@@ -2,7 +2,7 @@ package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.maed.common.DataKey;
 import ru.ancevt.maed.common.Direction;
-import ru.ancevt.maed.gameobject.action.ActionProgram;
+import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.Area;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleport;
@@ -192,8 +192,8 @@ public class GameObjectFactory {
 					r.setPushable(d.getBoolean(DataKey.PUSHABLE));
 			}
 
-			if (o instanceof Actor) {
-				final Actor r = (Actor) o;
+			if (o instanceof Actor_legacy) {
+				final Actor_legacy r = (Actor_legacy) o;
 				if (d.containsKey(DataKey.JUMP_POWER))
 					r.setJumpPower(d.getFloat(DataKey.JUMP_POWER));
 				else
@@ -227,6 +227,12 @@ public class GameObjectFactory {
 					if(d.containsKey(DataKey.CHECKPOINT_TYPE))
 						ac.setCheckPointType(d.getInt(DataKey.CHECKPOINT_TYPE));
 				}
+				
+				if (o instanceof AreaTrigger) {
+					final AreaTrigger at = (AreaTrigger) r;
+					if(d.containsKey(DataKey.TRIGGER_OPTIONS))
+						at.setTriggerOptions(d.getString(DataKey.TRIGGER_OPTIONS));
+				}
 			}
 			
 			if(o instanceof Bot) {
@@ -235,13 +241,12 @@ public class GameObjectFactory {
 					r.setReactsOnMarkers(d.getBoolean(DataKey.REACTS_ON_MARKERS));
 				if(d.containsKey(DataKey.FACE_TO_FACE))
 					r.setAlwaysFaceToface(d.getBoolean(DataKey.FACE_TO_FACE));
+				if(d.containsKey(DataKey.ACTION_PROGRAM))
+					r.setActionProgram(ActionProgram.parse(d.getString(DataKey.ACTION_PROGRAM)));
 			}
 			
-			if(o instanceof IActioned) {
-				final IActioned r = (IActioned)o;
-				if(d.containsKey(DataKey.ACTION))
-					r.setActionProgram(new ActionProgram(d.getString(DataKey.ACTION)));
-			}
+			
+			
 
 		} catch (Exception ex) {
 			System.err.println("Error when set up game object");
@@ -320,8 +325,8 @@ public class GameObjectFactory {
 			s.append(kv(DataKey.PUSHABLE, r.isPushable()));
 		}
 
-		if (o instanceof Actor) {
-			final Actor r = (Actor) o;
+		if (o instanceof Actor_legacy) {
+			final Actor_legacy r = (Actor_legacy) o;
 			s.append(kv(DataKey.JUMP_POWER, r.getJumpPower()));
 			s.append(kv(DataKey.WEAPON_POS_X, r.getWeaponX()));
 			s.append(kv(DataKey.WEAPON_POS_Y, r.getWeaponY()));
@@ -358,15 +363,9 @@ public class GameObjectFactory {
 			final boolean faceToFace = r.isAlwaysFaceToface();
 			s.append(kv(DataKey.REACTS_ON_MARKERS, reactsOnMarkers));
 			s.append(kv(DataKey.FACE_TO_FACE, faceToFace));
+			s.append(kv(DataKey.ACTION_PROGRAM, r.getActionProgram().stringify()));
 		}
 		
-		if (o instanceof IActioned) {
-			final IActioned r = (IActioned) o;
-			final ActionProgram program = r.getActionProgram();
-			
-			if(program != null)
-				s.append(kv(DataKey.ACTION, program.toString()));
-		}
 
 		return s.toString();
 	}
