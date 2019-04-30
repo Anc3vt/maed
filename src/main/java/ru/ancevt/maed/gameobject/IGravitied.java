@@ -5,6 +5,8 @@ public interface IGravitied extends IMoveable {
 	void setWeight(final float weight);
 	void setFloor(final ICollisioned floor);
 	ICollisioned getFloor();
+	void toVelocityX(float value);
+	void toVelocityY(float value);
 	void setVelocityX(float velocityX);
 	void setVelocityY(float velocityY);
 	void setVelocity(float vX, float vY);

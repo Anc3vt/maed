@@ -2,7 +2,7 @@ package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.d2d2.display.texture.TextureAtlas;
 import ru.ancevt.d2d2.display.texture.TextureManager;
-import ru.ancevt.maed.common.AnimationKey;
+import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.gameobject.weapon.DefaultWeapon;
 import ru.ancevt.maed.gameobject.weapon.Weapon;
@@ -20,7 +20,7 @@ public class Ava extends UserActor {
 		super(createMapkitItemIfNotExists(), -1);
 		GameObjectFactory.setUpGameObject(this, createDataLine());
 		setController(PlayerController.getInstance());
-		setAnimation(AnimationKey.IDLE, true);
+		setAnimation(AKey.IDLE, true);
 		setController(PlayerController.getInstance());
 		setGravityEnabled(true);
 		
@@ -59,11 +59,12 @@ public class Ava extends UserActor {
 	        s.append("hook = 240,288,48,48 |");
 	        s.append("hook-attack = 336,288,48,48 |");
 	        s.append("damage = 48,336,48,48 |");
+	        
 	        s.append("collision-area = -8,-16,16,32 |");
 	        s.append("weight = 0.3 |");
 	        s.append("speed = 0.7 |");
 	        s.append("max-health = 50 |");
-	        s.append("jump-power = 2.1 |");
+	        s.append("jump-power = 2.0 |");
 	        s.append("weapon-pos-x = 14.0 |");
 	        s.append("weapon-pos-y = -5.0 |");
 	        s.append("start-x = 128 | start-y = 128 |");

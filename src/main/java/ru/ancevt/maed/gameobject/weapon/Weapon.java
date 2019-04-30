@@ -1,6 +1,6 @@
 package ru.ancevt.maed.gameobject.weapon;
 
-import ru.ancevt.maed.gameobject.Actor_legacy;
+import ru.ancevt.maed.gameobject.Actor;
 
 abstract public class Weapon {
 
@@ -9,7 +9,7 @@ abstract public class Weapon {
 	public static final int TYPE_DEFAULT = 0;
 	
 	private Bullet[] bulletPull;
-	private Actor_legacy owner;
+	private Actor owner;
 	private int bulletIterator;
 	
 	public Weapon() {
@@ -48,11 +48,11 @@ abstract public class Weapon {
 		}
 	}
 
-	public Actor_legacy getOwner() {
+	public Actor getOwner() {
 		return owner;
 	}
 
-	public void setOwner(Actor_legacy owner) {
+	public void setOwner(Actor owner) {
 		this.owner = owner;
 		for(int i = 0; i < bulletPull.length; i ++)
 			bulletPull[i].setDamagingOwnerActor(owner);

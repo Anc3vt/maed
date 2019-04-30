@@ -1,7 +1,7 @@
 package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.d2d2.display.Sprite;
-import ru.ancevt.maed.common.AnimationKey;
+import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
 
@@ -18,7 +18,7 @@ public class AnimatedScenery extends Sprite implements IGameObject,
 	private int slowingCounter;
 	
 	AnimatedScenery(final MapkitItem mapkitImem, int gameObjectId) {
-		super(mapkitImem.getTexture(AnimationKey.IDLE, 0));
+		super(mapkitImem.getTexture(AKey.IDLE, 0));
 		this.mapkitItem = mapkitImem;
 		id = gameObjectId;
 		
@@ -91,10 +91,10 @@ public class AnimatedScenery extends Sprite implements IGameObject,
 	}
 	
 	private final void nextFrame() {
-		final float frameCount = mapkitItem.getTextureCount(AnimationKey.IDLE);
+		final float frameCount = mapkitItem.getTextureCount(AKey.IDLE);
 		currentFrame ++;
 		if(currentFrame >= frameCount) currentFrame = 0;
-		setTexture(mapkitItem.getTexture(AnimationKey.IDLE, currentFrame));
+		setTexture(mapkitItem.getTexture(AKey.IDLE, currentFrame));
 	}
 }
 

@@ -63,9 +63,6 @@ public class EntryPoint {
 		stage.setStageSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		prepareInput(window.canvas());
-		
-		// Entry point
-		stage.setRoot(TestRoot.getInstance());
 	}
 	
 	private static final void prepareInput(Component component) {

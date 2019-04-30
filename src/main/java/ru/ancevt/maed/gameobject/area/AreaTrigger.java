@@ -1,7 +1,6 @@
 package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
-import ru.ancevt.d2d2.display.text.BitmapText;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
 

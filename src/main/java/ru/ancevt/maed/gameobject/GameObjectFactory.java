@@ -1,7 +1,6 @@
 package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.maed.common.DataKey;
-import ru.ancevt.maed.common.Direction;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.Area;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
@@ -21,7 +20,8 @@ public class GameObjectFactory {
 	public static final float DEFAULT_ALPHA = 1.0f;
 	public static final int DEFAULT_DAMAGING_POWER = 0;
 	public static final float DEFAULT_WEIGHT = 1.0f;
-	public static final int DEFAULT_DIRECTION = Direction.RIGHT;
+	public static final int DEFAULT_DIRECTION = 1;
+	public static final int DEFAULT_START_DIRECTION = 1;
 	public static final int DEFAULT_MAX_HEALTH = 100;
 	public static final float DEFAULT_JUMP_POWER = 3.5f;
 	public static final boolean DEFAULT_FLOOR_ONLY = false;
@@ -136,6 +136,11 @@ public class GameObjectFactory {
 					r.setDirection(d.getInt(DataKey.DIRECTION));
 				else
 					r.setDirection(DEFAULT_DIRECTION);
+				
+				if (d.containsKey(DataKey.START_DIRECTION))
+					r.setStartDirection(d.getInt(DataKey.START_DIRECTION));
+				else
+					r.setStartDirection(DEFAULT_START_DIRECTION);
 			}
 
 			if (o instanceof IMoveable) {
@@ -192,8 +197,8 @@ public class GameObjectFactory {
 					r.setPushable(d.getBoolean(DataKey.PUSHABLE));
 			}
 
-			if (o instanceof Actor_legacy) {
-				final Actor_legacy r = (Actor_legacy) o;
+			if (o instanceof Actor) {
+				final Actor r = (Actor) o;
 				if (d.containsKey(DataKey.JUMP_POWER))
 					r.setJumpPower(d.getFloat(DataKey.JUMP_POWER));
 				else
@@ -205,7 +210,7 @@ public class GameObjectFactory {
 				final float wy = d.containsKey(DataKey.WEAPON_POS_Y) ? d.getFloat(DataKey.WEAPON_POS_Y)
 						: DEFAULT_WEAPON_POS_Y;
 
-				r.setWeaponLocation(wx, wy);
+				r.setWeaponXY(wx, wy);
 
 			}
 
@@ -238,14 +243,12 @@ public class GameObjectFactory {
 			if(o instanceof Bot) {
 				final Bot r = (Bot)o;
 				if(d.containsKey(DataKey.REACTS_ON_MARKERS))
-					r.setReactsOnMarkers(d.getBoolean(DataKey.REACTS_ON_MARKERS));
+					r.setReactsOnTriggers(d.getBoolean(DataKey.REACTS_ON_MARKERS));
 				if(d.containsKey(DataKey.FACE_TO_FACE))
-					r.setAlwaysFaceToface(d.getBoolean(DataKey.FACE_TO_FACE));
+					r.setFace2Face(d.getBoolean(DataKey.FACE_TO_FACE));
 				if(d.containsKey(DataKey.ACTION_PROGRAM))
 					r.setActionProgram(ActionProgram.parse(d.getString(DataKey.ACTION_PROGRAM)));
 			}
-			
-			
 			
 
 		} catch (Exception ex) {
@@ -295,6 +298,7 @@ public class GameObjectFactory {
 		if (o instanceof IDirectioned) {
 			final IDirectioned r = (IDirectioned) o;
 			s.append(kv(DataKey.DIRECTION, r.getDirection()));
+			s.append(kv(DataKey.START_DIRECTION, r.getStartDirection()));
 		}
 
 		if (o instanceof IMoveable) {
@@ -325,8 +329,8 @@ public class GameObjectFactory {
 			s.append(kv(DataKey.PUSHABLE, r.isPushable()));
 		}
 
-		if (o instanceof Actor_legacy) {
-			final Actor_legacy r = (Actor_legacy) o;
+		if (o instanceof Actor) {
+			final Actor r = (Actor) o;
 			s.append(kv(DataKey.JUMP_POWER, r.getJumpPower()));
 			s.append(kv(DataKey.WEAPON_POS_X, r.getWeaponX()));
 			s.append(kv(DataKey.WEAPON_POS_Y, r.getWeaponY()));
@@ -359,11 +363,15 @@ public class GameObjectFactory {
 		
 		if(o instanceof Bot) {
 			final Bot r = (Bot)o;
-			final boolean reactsOnMarkers = r.isReactsOnMarkers();
-			final boolean faceToFace = r.isAlwaysFaceToface();
+			final boolean reactsOnMarkers = r.isReactsOnTriggers();
+			final boolean faceToFace = r.isFace2Face();
 			s.append(kv(DataKey.REACTS_ON_MARKERS, reactsOnMarkers));
 			s.append(kv(DataKey.FACE_TO_FACE, faceToFace));
 			s.append(kv(DataKey.ACTION_PROGRAM, r.getActionProgram().stringify()));
+		}
+		
+		if (o instanceof IDirectioned) {
+			
 		}
 		
 

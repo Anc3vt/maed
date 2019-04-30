@@ -83,7 +83,7 @@ walk=\
 	fall=0,208,48,48 |\ 
 	attack=48,208,48,48;96,208,48,48 |\ 
 	damage=144,208,48,48 |\
-	collision-area = -8,-16,16,32 
+	collision-area = -8,-16,16,37 
 
 
 

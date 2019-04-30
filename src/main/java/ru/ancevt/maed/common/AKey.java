@@ -1,6 +1,6 @@
 package ru.ancevt.maed.common;
 
-public abstract class AnimationKey {
+public abstract class AKey {
 	public static final int MAX_ANIMATIONS 	= 13;
 	public static final int SLOWING 		= 10;
 	

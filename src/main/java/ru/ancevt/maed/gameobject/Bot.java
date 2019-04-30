@@ -1,7 +1,5 @@
 package ru.ancevt.maed.gameobject;
 
-import ru.ancevt.maed.common.BotController;
-import ru.ancevt.maed.common.Direction;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProcessor;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
@@ -9,102 +7,38 @@ import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
 
-public class Bot extends Actor_legacy implements IActioned, IDamaging {
+public class Bot extends Actor implements IActioned, IDamaging {
 
 	private int damagingPower;
-	private boolean reactsOnMarkers;
-	private boolean alwaysFaceToface;
 	private ActionProcessor actionProcessor;
+	private boolean reactsOnTriggers;
+	private boolean face2face;
+	private AreaTrigger lastAreaTrigger;
 	
-	public Bot(MapkitItem mapKitItem, int gameObjectId) {
-		super(mapKitItem, gameObjectId);
-		setController(new BotController());
+	public Bot(MapkitItem mapkitItem, int gameObjectId) {
+		super(mapkitItem, gameObjectId);
 		actionProcessor = new ActionProcessor(this);
-		actionProcessor.setController(getController());
-		//setWeapon(new DefaultWeapon());\
-		getController().setEnabled(true);
-	}
-
-	@Override
-	public Bot copy() {
-		final Bot result = new Bot(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
-		
-		result.setXY(getX(), getY());
-		result.setStartXY(getStartX(), getStartY());
-		result.setWeight(getWeight());
-		result.setCollisionArea(
-			getCollisionX(),
-			getCollisionY(),
-			getCollisionWidth(),
-			getCollisionHeight()
-		);
-		result.setDirection(getDirection());
-		result.setMaxHealth(getMaxHealth());
-		result.setJumpPower(getJumpPower());
-		result.setSpeed(getSpeed());
-		result.setWeaponLocation(getWeaponX(), getWeaponY());
-		result.setDamagingPower(getDamagingPower());
-		result.setGravityEnabled(isGravityEnabled());
-		result.setPushable(isPushable());
-		result.setCollisionEnabled(isCollisionEnabled());
-		result.setReactsOnMarkers(isReactsOnMarkers());
-		result.setAlwaysFaceToface(isAlwaysFaceToface());
-		result.setFloorOnly(isFloorOnly());
-		
-		return result;
-	}
-
-	@Override
-	public void onCollide(ICollisioned collideWith) {
-
-		if(reactsOnMarkers && collideWith instanceof AreaTrigger) {
-			final AreaTrigger areaTrigger = (AreaTrigger) collideWith;
-			if(areaTrigger.isJump() 
-					&& (
-						(getDirection() == Direction.LEFT && areaTrigger.isLeft()) ||
-						(getDirection() == Direction.RIGHT && areaTrigger.isRight())
-					)) {
-				jump();
-			}
-			if(areaTrigger.isLeft()) {
-				getController().setLeft(true);
-			}
-			if(areaTrigger.isRight()) {
-				getController().setRight(true);
-			}
-			if (areaTrigger.isStop()) {
-				getController().setLeft(false);
-				getController().setRight(false);
-			}
-		}
-		
-		
 	}
 	
 	@Override
-	public void onEachFrame() {
-		super.onEachFrame();
+	public IGameObject copy() {
+		final Bot bot = new Bot(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		bot.setDamagingPower(damagingPower);
+		bot.setActionProgram(actionProcessor.getActionProgram().copy());
+		bot.setReactsOnTriggers(reactsOnTriggers);
+		bot.setFace2Face(face2face);
+		bot.setX(getX());
+		bot.setY(getY());
+		bot.setStartX(getStartX());
+		bot.setStartY(getStartY());;
+		bot.setSpeed(getSpeed());
+		bot.setMaxHealth(getMaxHealth());
+		bot.setDirection(getDirection());
+		bot.setWeight(getWeight());
+		bot.setJumpPower(getJumpPower());
 		
-		if(isAlwaysFaceToface()) {
-			final float userX = World.getWorld().getUserActor().getX();
-			setDirection(userX < getX() ? Direction.LEFT : Direction.RIGHT);
-		}
-	}
-
-	public boolean isReactsOnMarkers() {
-		return reactsOnMarkers;
-	}
-
-	public void setReactsOnMarkers(boolean reactsOnMarkers) {
-		this.reactsOnMarkers = reactsOnMarkers;
-	}
-
-	public boolean isAlwaysFaceToface() {
-		return alwaysFaceToface;
-	}
-
-	public void setAlwaysFaceToface(boolean alwaysFaceToface) {
-		this.alwaysFaceToface = alwaysFaceToface;
+		
+		return bot;
 	}
 
 	@Override
@@ -114,27 +48,21 @@ public class Bot extends Actor_legacy implements IActioned, IDamaging {
 
 	@Override
 	public int getDamagingPower() {
-		return this.damagingPower;
+		return damagingPower;
 	}
 
 	@Override
-	public void setDamagingOwnerActor(Actor_legacy character) {
+	public void setDamagingOwnerActor(Actor character) {
 		
 	}
 
 	@Override
-	public Actor_legacy getDamagingOwnerActor() {
+	public Actor getDamagingOwnerActor() {
 		return null;
-	}
-	
-	@Override
-	public String toString() {
-		return "[Bot, id: " + getId() + "]";
 	}
 
 	@Override
 	public void setActionProgram(ActionProgram actionProgram) {
-		System.out.println(actionProgram);
 		actionProcessor.setActionProgram(actionProgram);
 	}
 
@@ -142,11 +70,53 @@ public class Bot extends Actor_legacy implements IActioned, IDamaging {
 	public ActionProgram getActionProgram() {
 		return actionProcessor.getActionProgram();
 	}
-	
+
 	@Override
 	public void actionProcess() {
 		actionProcessor.process();
 	}
 
+	public void setReactsOnTriggers(boolean b) {
+		this.reactsOnTriggers = b;
+	}
+
+	public void setFace2Face(boolean b) {
+		this.face2face = b;
+	}
+
+	public boolean isFace2Face() {
+		return face2face;
+	}
+
+	public boolean isReactsOnTriggers() {
+		return reactsOnTriggers;
+	}
 	
+	@Override
+	public void onCollide(ICollisioned collideWith) {
+		if(collideWith instanceof AreaTrigger && lastAreaTrigger != collideWith) {
+			final AreaTrigger at = (AreaTrigger)collideWith;
+			
+			lastAreaTrigger = at;
+			
+			if(at.isJump() && at.isRight() && getDirection() == 1) jump(); else
+			if(at.isJump() && at.isLeft() && getDirection() == -1) jump(); else
+			
+			if(at.isLeft() && getDirection() == 1) setDirection(-1); else
+			if(at.isRight() && getDirection() == -1) setDirection(2);
+		}
+		
+		
+		super.onCollide(collideWith);
+	}
+	
+	@Override
+	public void onEachFrame() {
+		if(face2face) {
+			final float userX = World.getWorld().getUserActor().getX();
+			if(userX < getX()) go(-1); else go(1);
+		}
+		super.onEachFrame();
+	}
+
 }

@@ -1,19 +1,17 @@
 package ru.ancevt.maed.gameobject.actionprogram;
 
-import ru.ancevt.maed.common.CommonPanel;
 import ru.ancevt.maed.common.Controller;
-import ru.ancevt.maed.gameobject.Actor_legacy;
-import ru.ancevt.maed.gameobject.IDirectioned;
+import ru.ancevt.maed.gameobject.Bot;
 
 public class ActionProcessor {
 	
 	private ActionProgram actionProgram;
 	private Controller controller;
-	private Actor_legacy actor;
+	private Bot bot;
 	
-	public ActionProcessor(Actor_legacy directioned) {
+	public ActionProcessor(Bot bot) {
 		actionProgram = new ActionProgram();
-		this.actor = directioned;
+		this.bot = bot;
 	}
 	
 	public void setController(Controller controller) {
@@ -43,10 +41,13 @@ public class ActionProcessor {
 			
 			switch (actionKey) {
 				case Action.WALK:
-					actor.walk();
+					bot.go(bot.getDirection());
 					break;
-				case Action.STOP:
-					
+				case Action.LEFT:
+					if(!bot.isFace2Face()) bot.go(-1);
+					break;
+				case Action.RIGHT:
+					if(!bot.isFace2Face()) bot.go(1);
 					break;
 				case Action.ATTACK:
 					controller.setB(true);
@@ -57,7 +58,7 @@ public class ActionProcessor {
 				case Action.JUMP:
 					controller.setA(true);
 					break;
-				
+				case Action.P:
 				case Action.PAUSE:
 					pauseDelay = currentAction.getValue();
 					break;
@@ -66,7 +67,6 @@ public class ActionProcessor {
 				break;
 			}
 		}
-		CommonPanel.getInstance().setText("Text");
 	
 	}
 }

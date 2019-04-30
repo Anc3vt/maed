@@ -1,7 +1,6 @@
 package ru.ancevt.maed.world;
 
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
-import ru.ancevt.maed.common.Direction;
 import ru.ancevt.maed.common.Viewport;
 import ru.ancevt.maed.gameobject.IDirectioned;
 import ru.ancevt.maed.gameobject.IGameObject;
@@ -183,7 +182,7 @@ public class Camera implements IDirectioned {
 	private final void processAttached() {
 		if(attachedTo == null) return;
 		
-		final boolean left = Direction.check(this, Direction.LEFT);
+		final boolean left = false;
 		
 		final float smooth = 25f;
 		final float side = 80.0f;
@@ -227,6 +226,17 @@ public class Camera implements IDirectioned {
 
 	public void setAutoZoom(boolean autoZoom) {
 		this.autoZoom = autoZoom;
+	}
+
+	@Override
+	public void setStartDirection(int dir) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getStartDirection() {
+		return 1;
 	}
 }
 

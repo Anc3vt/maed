@@ -2,9 +2,12 @@ package ru.ancevt.maed.gameobject.actionprogram;
 
 public class Action {
 	public final static String WALK = "walk";
+	public final static String LEFT = "left";
+	public final static String RIGHT = "right";
 	public final static String UNARM = "unarm";
 	public final static String STOP = "stop";
 	public final static String PAUSE = "pause";
+	public final static String P = "p";
 	public final static String JUMP = "jump";
 	public final static String ATTACK = "attack";
 		

@@ -3,8 +3,7 @@ package ru.ancevt.maed.gameobject.weapon;
 import ru.ancevt.d2d2.common.PlainRect;
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
-import ru.ancevt.maed.common.Direction;
-import ru.ancevt.maed.gameobject.Actor_legacy;
+import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.ICollisioned;
 import ru.ancevt.maed.gameobject.IDirectioned;
 import ru.ancevt.maed.gameobject.IGameObject;
@@ -14,7 +13,7 @@ abstract public class Bullet extends DisplayObjectContainer implements ICollisio
 	
 	private boolean collisionEnabled;
 	private float collisionX, collisionY, collisionWidth, collisionHeight;
-	private Actor_legacy owner;
+	private Actor owner;
 	private PlainRect collisionRect;
 	private int direction;
 	
@@ -88,11 +87,11 @@ abstract public class Bullet extends DisplayObjectContainer implements ICollisio
 		return collisionHeight;
 	}
 
-	public void setDamagingOwnerActor(Actor_legacy actor) {
+	public void setDamagingOwnerActor(Actor actor) {
 		owner = actor;
 	}
 
-	public Actor_legacy getDamagingOwnerActor() {
+	public Actor getDamagingOwnerActor() {
 		return owner;
 	}
 	
@@ -126,9 +125,7 @@ abstract public class Bullet extends DisplayObjectContainer implements ICollisio
 	@Override
 	public void setDirection(int direction) {
 		this.direction = direction;
-		setScaleX(
-			Direction.check(this, Direction.LEFT) ? -1f : 1f	
-		);
+		setScaleX(direction);
 	}
 	
 	@Override

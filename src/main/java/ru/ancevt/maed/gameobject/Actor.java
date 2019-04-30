@@ -1,20 +1,16 @@
 package ru.ancevt.maed.gameobject;
 
-import ru.ancevt.maed.common.AnimationKey;
+import ru.ancevt.maed.common.AKey;
+import ru.ancevt.maed.common.BotController;
 import ru.ancevt.maed.common.Controller;
+import ru.ancevt.maed.gameobject.weapon.Weapon;
 import ru.ancevt.maed.map.MapkitItem;
 
 public class Actor extends Animated implements IGameObject, IDirectioned, IMoveable, IAnimated,
 IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
-	public Actor(MapkitItem mapKitItem, int gameObjectId) {
-		super(mapKitItem, gameObjectId);
-		setPushable(true);
-		setGravityEnabled(true);
-		setCollisionEnabled(true);
-		setAnimation(AnimationKey.IDLE);
-	}
-
+	private static int JUMP_TIME = 20;
+	
 	private boolean collisionEnabled;
 	private float collX, collY, collWidth, collHeight;
 	private boolean collisionVisible;
@@ -22,12 +18,118 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	private float weight;
 	private float speed;
 	private float startX, startY;
+	private int startDirection;
 	private ICollisioned floor;
 	private float velX, velY;
 	private boolean gravityEnabled;
 	private int maxHealth, health;
 	private float movingSpeedX, movingSpeedY;
+	private Weapon weapon;
+	private float weapX, weapY;
+	private float jumpPower;
 	
+	private int jumpTime;
+	private boolean jumping;
+	
+	public Actor(MapkitItem mapkitItem, int gameObjectId) {
+		super(mapkitItem, gameObjectId);
+		setPushable(true);
+		setGravityEnabled(true);
+		setCollisionEnabled(true);
+		setAnimation(AKey.IDLE);
+		setController(new BotController());
+	}
+	
+	@Override
+	public void onEachFrame() {
+		boolean act = false;
+		if(controller.isRight()) {
+			go(1);
+			act = true;
+		} else 
+		if(controller.isLeft()){
+			go(-1);
+			act = true;
+		} 
+		if(controller.isA() ) {
+			jump();
+			act = true;
+		}
+		
+		if(jumpTime > 0 && controller.isA()){
+			setVelocityY(-jumpPower);
+		}
+		
+		if(!act) setAnimation(AKey.IDLE, true);
+		
+		if(getVelocityY() < 0) {
+			setAnimation(AKey.JUMP);
+		} else {
+			if(getFloor() == null) 
+				setAnimation(AKey.FALL);
+		}
+		
+		if(jumpTime > 0) jumpTime --;
+
+		if(!controller.isA()) jumping = false;
+		
+		if(getDirection() != 0 && getFloor() != null && !(this instanceof UserActor)) {
+			setAnimation(AKey.WALK);
+			toVelocityX(speed * getDirection());
+		}
+		
+		super.onEachFrame();
+	}
+	
+	public void jump() {
+		if(!jumping && getFloor() != null) {
+			jumping = true;
+			setVelocityY(-jumpPower);
+			jumpTime = JUMP_TIME;
+			setAnimation(AKey.JUMP);
+		} else {
+			setAnimation(AKey.IDLE);
+		}
+	}
+	
+	public final void go(int direction) {
+		setDirection(direction);
+		setAnimation(AKey.WALK, true);
+		setVelocityX(getVelocityX() + speed * direction);
+	}
+	
+	public float getWeaponX() {
+		return weapX;
+	}
+	
+	public float getWeaponY() {
+		return weapY;
+	}
+	
+	public void setWeaponXY(float x, float y) {
+		
+	}
+	
+	public void setJumpPower(float value) {
+		this.jumpPower = value;
+	}
+	
+	public float getJumpPower() {
+		return jumpPower;
+	}
+	
+	
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+	
+	public Weapon getWeapon() {
+		return weapon;
+	}
+	
+	public void onHealthChanged(int health) {
+		
+	}
 	
 	@Override
 	public void setCollisionEnabled(boolean value) {
@@ -111,6 +213,16 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	public ICollisioned getFloor() {
 		return floor;
 	}
+	
+	@Override
+	public void toVelocityX(float value) {
+		velX += value;
+	}
+	
+	@Override
+	public void toVelocityY(float value) {
+		velY += value;
+	}
 
 	@Override
 	public void setVelocityX(float velocityX) {
@@ -152,6 +264,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	public void reset() {
 		setX(startX);
 		setY(startY);
+		setDirection(getStartDirection());
 	}
 
 	@Override
@@ -189,6 +302,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		if(health < 0) health = 0; else
 		if(health > maxHealth) health = maxHealth;
 		this.health = health;
+		
+		onHealthChanged(health);
 	}
 
 	@Override
@@ -245,6 +360,16 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	@Override
 	public float getMovingSpeedY() {
 		return movingSpeedY;
+	}
+
+	@Override
+	public void setStartDirection(int value) {
+		this.startDirection = value;
+	}
+
+	@Override
+	public int getStartDirection() {
+		return startDirection;
 	}
 	
 

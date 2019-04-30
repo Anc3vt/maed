@@ -4,7 +4,7 @@ import ru.ancevt.d2d2.display.texture.Texture;
 import ru.ancevt.d2d2.display.texture.TextureAtlas;
 import ru.ancevt.d2d2.display.texture.TextureManager;
 import ru.ancevt.d2d2.sound.Sound;
-import ru.ancevt.maed.common.AnimationKey;
+import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.DataKey;
 import ru.ancevt.maed.common.Path;
 import ru.ancevt.maed.common.SoundKey;
@@ -133,19 +133,19 @@ public class MapkitItem {
     private final Texture[][] prepareTextures() {
         final Texture[][] result = new Texture[MAX_TEXTURE_TYPES][];
 
-        result[AnimationKey.IDLE] = prepareTextureRegionsOfKey(DataKey.IDLE);
-        result[AnimationKey.WALK] = prepareTextureRegionsOfKey(DataKey.WALK);
-        result[AnimationKey.ATTACK] = prepareTextureRegionsOfKey(DataKey.ATTACK);
-        result[AnimationKey.JUMP] = prepareTextureRegionsOfKey(DataKey.JUMP);
-        result[AnimationKey.JUMP_ATTACK] = prepareTextureRegionsOfKey(DataKey.JUMP_ATTACK);
-        result[AnimationKey.WALK_ATTACK] = prepareTextureRegionsOfKey(DataKey.WALK_ATTACK);
-        result[AnimationKey.DAMAGE] = prepareTextureRegionsOfKey(DataKey.DAMAGE);
-        result[AnimationKey.DEFENSE] = prepareTextureRegionsOfKey(DataKey.DEFENSE);
-        result[AnimationKey.HOOK] = prepareTextureRegionsOfKey(DataKey.HOOK);
-        result[AnimationKey.HOOK_ATTACK] = prepareTextureRegionsOfKey(DataKey.HOOK_ATTACK);
-        result[AnimationKey.FALL] = prepareTextureRegionsOfKey(DataKey.FALL);
-        result[AnimationKey.FALL_ATTACK] = prepareTextureRegionsOfKey(DataKey.FALL_ATTACK);
-        result[AnimationKey.EXTRA_ANIMATION] = prepareTextureRegionsOfKey(DataKey.EXTRA_ANIMATION);
+        result[AKey.IDLE] = prepareTextureRegionsOfKey(DataKey.IDLE);
+        result[AKey.WALK] = prepareTextureRegionsOfKey(DataKey.WALK);
+        result[AKey.ATTACK] = prepareTextureRegionsOfKey(DataKey.ATTACK);
+        result[AKey.JUMP] = prepareTextureRegionsOfKey(DataKey.JUMP);
+        result[AKey.JUMP_ATTACK] = prepareTextureRegionsOfKey(DataKey.JUMP_ATTACK);
+        result[AKey.WALK_ATTACK] = prepareTextureRegionsOfKey(DataKey.WALK_ATTACK);
+        result[AKey.DAMAGE] = prepareTextureRegionsOfKey(DataKey.DAMAGE);
+        result[AKey.DEFENSE] = prepareTextureRegionsOfKey(DataKey.DEFENSE);
+        result[AKey.HOOK] = prepareTextureRegionsOfKey(DataKey.HOOK);
+        result[AKey.HOOK_ATTACK] = prepareTextureRegionsOfKey(DataKey.HOOK_ATTACK);
+        result[AKey.FALL] = prepareTextureRegionsOfKey(DataKey.FALL);
+        result[AKey.FALL_ATTACK] = prepareTextureRegionsOfKey(DataKey.FALL_ATTACK);
+        result[AKey.EXTRA_ANIMATION] = prepareTextureRegionsOfKey(DataKey.EXTRA_ANIMATION);
 
         return result;
     }

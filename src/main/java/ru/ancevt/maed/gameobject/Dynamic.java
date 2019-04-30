@@ -249,6 +249,17 @@ public class Dynamic extends Sprite implements
 		super.onEachFrame();
 	}
 
+	@Override
+	public void toVelocityX(float value) {
+		setVelocityX(getVelocityX() + value);
+	}
+
+	@Override
+	public void toVelocityY(float value) {
+		setVelocityY(getVelocityY() + value);
+		
+	}
+
 //	@Override
 //	public void process() {
 //		if(movingSpeedX != 0.0f || movingSpeedY != 0.0f) {

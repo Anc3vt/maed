@@ -4,6 +4,7 @@ import java.io.File;
 
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
+import ru.ancevt.maed.gameobject.GameObjectFactory;
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.world.World;
 
@@ -44,7 +45,7 @@ public class EditorInfoText extends DisplayObjectContainer {
 	}
 	
 	public void selectGameObject(IGameObject gameObject) {
-		slOther.setText(gameObject.toString());
+		slOther.setText(gameObject.toString() + " " + GameObjectFactory.gameObjectToDataLineString(gameObject, 0));
 	}
 	
 	public void mouseUpdate(int x, int y) {

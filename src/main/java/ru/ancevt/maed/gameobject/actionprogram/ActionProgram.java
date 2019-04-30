@@ -17,6 +17,10 @@ public class ActionProgram {
 	public final boolean isEmpty() {
 		return actions.isEmpty();
 	}
+	
+	public final ActionProgram copy() {
+		return ActionProgram.parse(stringify());
+	}
 
 	public static final ActionProgram parse(String source) {
 		source = source.replaceAll("\\n", "");

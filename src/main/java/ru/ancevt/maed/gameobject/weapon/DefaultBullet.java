@@ -2,7 +2,7 @@ package ru.ancevt.maed.gameobject.weapon;
 
 import ru.ancevt.d2d2.display.FrameSet;
 import ru.ancevt.d2d2.display.Sprite;
-import ru.ancevt.maed.common.Direction;
+import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.ICollisioned;
 import ru.ancevt.maed.gameobject.IDamaging;
 import ru.ancevt.maed.gameobject.ITight;
@@ -43,7 +43,7 @@ public class DefaultBullet extends Bullet implements IDamaging {
 	@Override
 	public void onEachFrame() {
 		if(sprite.hasParent())
-			moveX(Direction.check(this, Direction.LEFT) ? -SPEED : SPEED);
+			moveX(getDirection() * SPEED);
 		
 		super.onEachFrame();
 	}
@@ -80,6 +80,26 @@ public class DefaultBullet extends Bullet implements IDamaging {
 	public void onCollide(ICollisioned collideWith) {
 		if(collideWith instanceof ITight) 
 			destroy();
+	}
+
+	@Override
+	public void setDamagingOwnerActor(Actor character) {
+		
+	}
+
+	@Override
+	public Actor getDamagingOwnerActor() {
+		return null;
+	}
+
+	@Override
+	public void setStartDirection(int dir) {
+	}
+
+	@Override
+	public int getStartDirection() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

@@ -8,10 +8,9 @@ import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObject;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.texture.TextureManager;
-import ru.ancevt.maed.common.AnimationKey;
-import ru.ancevt.maed.common.Direction;
+import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.PlayProcessor;
-import ru.ancevt.maed.gameobject.Actor_legacy;
+import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.Ava;
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.IResettable;
@@ -372,7 +371,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 			}
 			
 			@Override
-			public void onHealthChanged(float health) {
+			public void onHealthChanged(int health) {
 				onUserActorHealthChanged(health);
 			}
 		};
@@ -397,7 +396,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 		userActor.setXY(x, y);
 		removeGameObject(userActor, false);
 		addGameObject(userActor, 5, false);
-		userActor.setAnimation(AnimationKey.IDLE);
+		userActor.setAnimation(AKey.IDLE);
 		camera.setAttachedTo(userActor);
 	}
 
@@ -409,11 +408,10 @@ public class World extends DisplayObjectContainer implements IWorld {
 		this.listener = listener;
 	}
 	
-	public final void actorAttack(final Actor_legacy actor, final Weapon weapon) {
+	public final void actorAttack(final Actor actor, final Weapon weapon) {
         final Bullet bullet = weapon.getNextBullet();
 
-        final boolean left = Direction.check(actor, Direction.LEFT);
-
+        final boolean left = false;
         bullet.setXY(
             actor.getX() + actor.getWeaponX() * (left ? -1f : 1f),
             actor.getY() + actor.getWeaponY()

@@ -1,6 +1,6 @@
 package ru.ancevt.maed.common;
 
-import ru.ancevt.maed.gameobject.Actor_legacy;
+import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.IActioned;
 import ru.ancevt.maed.gameobject.ICollisioned;
 import ru.ancevt.maed.gameobject.IDamaging;
@@ -100,7 +100,7 @@ public class PlayProcessor {
 			processTight((ITight) o1, (ITight) o2);
 		}
 		if(o1 instanceof UserActor && o2 instanceof AreaDoorTeleport) {
-			processDoorTeleport((Actor_legacy)o1, (AreaDoorTeleport)o2);
+			processDoorTeleport((Actor)o1, (AreaDoorTeleport)o2);
 		}
 		if(o1 instanceof IHookable && o2 instanceof AreaHook) {
 			processHook((IHookable)o1, (AreaHook)o2);
@@ -219,7 +219,7 @@ public class PlayProcessor {
 		}
 	}
 	
-	private final void processDoorTeleport(final Actor_legacy actor, final AreaDoorTeleport area) {
+	private final void processDoorTeleport(final Actor actor, final AreaDoorTeleport area) {
 		if(getWorld().isSwitchingRoomsNow()) return;
 		
 		final int targetRoomId = area.getTargetRoomId();

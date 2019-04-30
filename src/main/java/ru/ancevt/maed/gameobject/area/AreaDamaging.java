@@ -1,10 +1,10 @@
 package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
+import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.IDamaging;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
-import ru.ancevt.maed.gameobject.Actor_legacy;
 
 public class AreaDamaging extends Area implements IDamaging {
 
@@ -51,10 +51,10 @@ public class AreaDamaging extends Area implements IDamaging {
 	}
 
 	@Override
-	public void setDamagingOwnerActor(Actor_legacy character) {}
+	public void setDamagingOwnerActor(Actor character) {}
 
 	@Override
-	public Actor_legacy getDamagingOwnerActor() {
+	public Actor getDamagingOwnerActor() {
 		return null;
 	}
 	

@@ -45,6 +45,7 @@ public class DataKey {
 		START_X			= "start-x",
 		START_Y			= "start-y",
 		DIRECTION		= "direction",
+		START_DIRECTION = "start-direction",
 		CHECKPOINT_TYPE = "checkpoint-type",
 		FLOOR_ONLY		= "floor-only",
 		TARGET_ROOM		= "target-room",

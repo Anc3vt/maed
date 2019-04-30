@@ -1,7 +1,7 @@
 package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.d2d2.display.Sprite;
-import ru.ancevt.maed.common.AnimationKey;
+import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
 
@@ -11,7 +11,7 @@ public class Scenery extends Sprite implements IGameObject, IRepeatable, IRotata
 	private final int id;
 
 	Scenery(final MapkitItem mapkitItem, final int gameObjectId) {
-		super(mapkitItem.getTexture(AnimationKey.IDLE, 0));
+		super(mapkitItem.getTexture(AKey.IDLE, 0));
 		this.mapKititem = mapkitItem;
 		id = gameObjectId;
 	}

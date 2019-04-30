@@ -1,7 +1,6 @@
 package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
-import ru.ancevt.maed.common.Direction;
 import ru.ancevt.maed.gameobject.IDirectioned;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
@@ -15,7 +14,7 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 	private static final String STR_FINISH = "Finish";
 	private static final String STR_CONTINUE = "Continue";
 
-	private static final int DEFAULT_DIRECTION = Direction.RIGHT;
+	private static final int DEFAULT_DIRECTION = 1;
 
 	public static final int CHECKPOINT_TYPE_START = 0;
 	public static final int CHECKPOINT_TYPE_FINISH = 1;
@@ -71,10 +70,10 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 	private final void updateText() {
 		final StringBuilder s = new StringBuilder();
 
-		if (Direction.check(this, Direction.LEFT)) {
+		if (getDirection() == -1) {
 			s.append("<- ");
 		}
-		if (Direction.check(this, Direction.RIGHT)) {
+		if (getDirection() == 1) {
 			s.append("-> ");
 		}
 
@@ -96,5 +95,15 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + getId() +  "[" + getCheckPointType() + "]";
+	}
+
+	@Override
+	public void setStartDirection(int dir) {
+		
+	}
+
+	@Override
+	public int getStartDirection() {
+		return 1;
 	}
 }

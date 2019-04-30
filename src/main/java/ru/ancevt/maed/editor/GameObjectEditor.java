@@ -12,7 +12,6 @@ import ru.ancevt.d2d2.display.IDisplayObject;
 import ru.ancevt.d2d2.display.Root;
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.maed.common.DataKey;
-import ru.ancevt.maed.common.Direction;
 import ru.ancevt.maed.editor.awt.GameObjectEditWindow;
 import ru.ancevt.maed.gameobject.GameObjectFactory;
 import ru.ancevt.maed.gameobject.ICollisioned;
@@ -449,8 +448,9 @@ public class GameObjectEditor {
 			final IGameObject gameObject = selected.get(i);
 			if(gameObject instanceof IDirectioned) {
 				final IDirectioned d = (IDirectioned) gameObject;
-				d.setDirection(d.getDirection() == Direction.LEFT ? Direction.RIGHT : Direction.LEFT);
-			} else 
+				d.setDirection(d.getDirection() * -1);
+				d.setStartDirection(d.getDirection());
+			}  
 			if(gameObject instanceof IScalable) {
 				final IScalable s = (IScalable) gameObject;
 				s.setScaleX(s.getScaleX() > 0 ? -1 : 1);

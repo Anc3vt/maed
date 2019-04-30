@@ -4,8 +4,7 @@ import ru.ancevt.d2d2.display.DisplayObject;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.FrameSet;
 import ru.ancevt.d2d2.display.Sprite;
-import ru.ancevt.maed.common.AnimationKey;
-import ru.ancevt.maed.common.Direction;
+import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.map.MapkitItem;
 
 abstract public class Animated extends DisplayObjectContainer implements IAnimated {
@@ -23,13 +22,13 @@ abstract public class Animated extends DisplayObjectContainer implements IAnimat
 		this.id = gameObjectId;
 		
 		prepareAnimations();
-		setAnimation(AnimationKey.IDLE);
+		setAnimation(AKey.IDLE);
 	}
 	
 	private final void prepareAnimations() {
-		animations = new FrameSet[AnimationKey.MAX_ANIMATIONS];
+		animations = new FrameSet[AKey.MAX_ANIMATIONS];
 		
-		for(int animKey = 0; animKey < AnimationKey.MAX_ANIMATIONS; animKey ++) {
+		for(int animKey = 0; animKey < AKey.MAX_ANIMATIONS; animKey ++) {
 			
 			if(!mapkitItem.isAnimationKeyExists(animKey)) continue;
 			
@@ -50,7 +49,7 @@ abstract public class Animated extends DisplayObjectContainer implements IAnimat
 			
 			animations[animKey] = new FrameSet(frames);
 			animations[animKey].setLoop(true);
-			animations[animKey].setSlowing(AnimationKey.SLOWING);
+			animations[animKey].setSlowing(AKey.SLOWING);
 		}
 	}
 	
@@ -113,7 +112,7 @@ abstract public class Animated extends DisplayObjectContainer implements IAnimat
 			final FrameSet fs = animations[i];
 			if(fs == null) continue;
 			fs.setScaleX(
-				Direction.check(this, Direction.LEFT) ? -1f : 1f	
+				getDirection()	
 			);
 		}
 		
