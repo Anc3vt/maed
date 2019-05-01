@@ -2,6 +2,7 @@ package ru.ancevt.maed.world;
 
 import ru.ancevt.d2d2.display.IDisplayObject;
 import ru.ancevt.maed.gameobject.IGameObject;
+import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.map.Map;
 
 public interface IWorld extends IDisplayObject {
@@ -22,4 +23,6 @@ public interface IWorld extends IDisplayObject {
 	
 	void setPlayMode(boolean value);
 	boolean isPlayMode();
+	
+	UserActor getUserActor();
 }

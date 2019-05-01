@@ -43,7 +43,7 @@ public class Ava extends UserActor {
 		
 		return mapkitItem;
 	}
-
+	
 	private static final DataLine createDataLine() {
 		if(dataLine == null) {
 	        final StringBuilder s = new StringBuilder();

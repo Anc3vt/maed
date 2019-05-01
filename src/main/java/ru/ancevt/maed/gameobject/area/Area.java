@@ -21,6 +21,7 @@ abstract public class Area extends BorderedRect implements IGameObject, ICollisi
 	public static final int CHECKPOINT		= 4;
 	public static final int HOOK			= 5;
 	public static final int TRIGGER			= 6;
+	public static final int DOOR_TELEPORT_CP = 7;
 	
 	private MapkitItem mapKitItem;
 	private final int id;
@@ -63,13 +64,21 @@ abstract public class Area extends BorderedRect implements IGameObject, ICollisi
 		final int type = dataLine.getInt(DataKey.AREA_TYPE);
 		
 		switch (type) {
-			case COLLISION:  return new AreaCollision(mapkitItem, gameObjectId);
-			case DAMAGING:   return new AreaDamaging(mapkitItem, gameObjectId);
-			case CHECKPOINT: return new AreaCheckpoint(mapkitItem, gameObjectId);
-			case DOOR_TELEPORT: return new AreaDoorTeleport(mapkitItem,     gameObjectId);
-			case HOOK: return new AreaHook(mapkitItem, gameObjectId);
-			case TRIGGER: return new AreaTrigger(mapkitItem, gameObjectId);
-			
+			case COLLISION:
+				return new AreaCollision(mapkitItem, gameObjectId);
+			case DAMAGING:
+				return new AreaDamaging(mapkitItem, gameObjectId);
+			case CHECKPOINT:
+				return new AreaCheckpoint(mapkitItem, gameObjectId);
+			case DOOR_TELEPORT:
+				return new AreaDoorTeleport(mapkitItem, gameObjectId);
+			case HOOK:
+				return new AreaHook(mapkitItem, gameObjectId);
+			case TRIGGER:
+				return new AreaTrigger(mapkitItem, gameObjectId);
+			case DOOR_TELEPORT_CP:
+				return new AreaDoorTeleportCp(mapkitItem, gameObjectId);
+
 			default:
 				return null;
 		}

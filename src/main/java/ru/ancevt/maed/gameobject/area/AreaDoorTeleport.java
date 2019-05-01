@@ -28,7 +28,7 @@ public class AreaDoorTeleport extends Area {
 				Map.getCurrentMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
-		return null;
+		return result;
 	}
 
 	public int getTargetY() {

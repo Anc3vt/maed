@@ -9,11 +9,14 @@ import ru.ancevt.maed.world.World;
 
 public class Bot extends Actor implements IActioned, IDamaging {
 
+	private static final int REVERSE_DELAY = 50;
+	
 	private int damagingPower;
 	private ActionProcessor actionProcessor;
 	private boolean reactsOnTriggers;
 	private boolean face2face;
-	private AreaTrigger lastAreaTrigger;
+	
+	private int reverseDelay;
 	
 	public Bot(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
@@ -29,14 +32,13 @@ public class Bot extends Actor implements IActioned, IDamaging {
 		bot.setFace2Face(face2face);
 		bot.setX(getX());
 		bot.setY(getY());
-		bot.setStartX(getStartX());
-		bot.setStartY(getStartY());;
 		bot.setSpeed(getSpeed());
 		bot.setMaxHealth(getMaxHealth());
 		bot.setDirection(getDirection());
+		bot.setStartDirection(getStartDirection());
 		bot.setWeight(getWeight());
 		bot.setJumpPower(getJumpPower());
-		
+		bot.setCollisionArea(getCollisionX(), getCollisionY(), getCollisionWidth(), getCollisionHeight());
 		
 		return bot;
 	}
@@ -109,6 +111,15 @@ public class Bot extends Actor implements IActioned, IDamaging {
 				
 			if(!at.isJump() && at.isRight() && getDirection() == -1) go(1);
 			if(!at.isJump() && at.isLeft() && getDirection() == 1) go(-1);
+		}
+		
+		if (collideWith instanceof ITight && collideWith.getY() < getY()) {
+			reverseDelay ++;
+			
+			if(reverseDelay > REVERSE_DELAY) {
+				reverseDelay = 0;
+				setDirection(-getDirection());
+			}
 		}
 		
 		super.onCollide(collideWith);

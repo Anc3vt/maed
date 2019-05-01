@@ -13,12 +13,14 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 	private static final String STR_START = "Start";
 	private static final String STR_FINISH = "Finish";
 	private static final String STR_CONTINUE = "Continue";
+	private static final String STR_COMMON = "Common";
 
 	private static final int DEFAULT_DIRECTION = 1;
 
 	public static final int CHECKPOINT_TYPE_START = 0;
 	public static final int CHECKPOINT_TYPE_FINISH = 1;
 	public static final int CHECKPOINT_TYPE_CONTINUE = 2;
+	public static final int CHECKPOINT_TYPR_COMMON = 3;
 
 	private int checkPointType;
 
@@ -86,6 +88,9 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 			break;
 		case CHECKPOINT_TYPE_CONTINUE:
 			s.append(STR_CONTINUE);
+			break;
+		case CHECKPOINT_TYPR_COMMON:
+			s.append(STR_COMMON);
 			break;
 		}
 

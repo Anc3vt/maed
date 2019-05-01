@@ -11,8 +11,12 @@ import ru.ancevt.maed.gameobject.IHookable;
 import ru.ancevt.maed.gameobject.IMoveable;
 import ru.ancevt.maed.gameobject.ITight;
 import ru.ancevt.maed.gameobject.UserActor;
+import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleport;
+import ru.ancevt.maed.gameobject.area.AreaDoorTeleportCp;
 import ru.ancevt.maed.gameobject.area.AreaHook;
+import ru.ancevt.maed.map.Map;
+import ru.ancevt.maed.map.Room;
 import ru.ancevt.maed.world.IWorld;
 
 public class PlayProcessor {
@@ -104,6 +108,9 @@ public class PlayProcessor {
 		if(o1 instanceof UserActor && o2 instanceof AreaDoorTeleport) {
 			processDoorTeleport((Actor)o1, (AreaDoorTeleport)o2);
 		}
+		if(o1 instanceof UserActor && o2 instanceof AreaDoorTeleportCp) {
+			processDoorTeleport2((Actor)o1, (AreaDoorTeleportCp)o2);
+		}
 		if(o1 instanceof IHookable && o2 instanceof AreaHook) {
 			processHook((IHookable)o1, (AreaHook)o2);
 		}
@@ -115,9 +122,12 @@ public class PlayProcessor {
 	private final void processDamage(final IDestroyable o, final IDamaging damaging) {
 		if(damaging.getDamagingOwnerActor() == o) return;
 		
-		final int damagingPower = damaging.getDamagingPower();
-		
-		o.addHealth(-damagingPower);
+		if(!o.isUnattainable()) {
+			final int damagingPower = damaging.getDamagingPower();
+			
+			o.addHealth(-damagingPower);
+			o.onDamage(damaging);
+		}
 	}
 	
 	private final void processHook(final IHookable o, final AreaHook hook) {
@@ -229,6 +239,20 @@ public class PlayProcessor {
 		final float targetY = area.getTargetY();
 		
 		getWorld().switchRoom(targetRoomId, targetX, targetY);
+	}
+
+	private final void processDoorTeleport2(final Actor actor, final AreaDoorTeleportCp area) {
+		if(getWorld().isSwitchingRoomsNow()) return;
+		
+		final int checkpointId = area.getTargetCheckpointId();
+		for(int i = 0; i < Map.getCurrentMap().getRoomsCount(); i ++) {
+			final Room room = Map.getCurrentMap().getRoomByIndex(i);
+			final AreaCheckpoint cp = room.getCheckpointById(checkpointId);
+			if(cp != null) {
+				getWorld().switchRoom(room.getId(), cp.getX(), cp.getY());
+				getWorld().getUserActor().setDirectionOnDemand(cp.getDirection());
+			}
+		}
 	}
 	
 	public final void setSpeed(int value) {

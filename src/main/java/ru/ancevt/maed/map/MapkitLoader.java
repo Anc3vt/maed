@@ -75,8 +75,8 @@ public class MapkitLoader {
 		final String[] s= dataLineSource.split("||");
 		
 		try {
-			final int id = Integer.parseInt(s[0]);
-			final int j = Integer.parseInt(s[1]);
+			Integer.parseInt(s[0]);
+			Integer.parseInt(s[1]);
 			
 		} catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
 			throw new RuntimeException("imvalid mapkit item: " + dataLineSource);

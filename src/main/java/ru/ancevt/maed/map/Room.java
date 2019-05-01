@@ -5,6 +5,7 @@ import java.util.List;
 
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.gameobject.IGameObject;
+import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.world.WorldLayer;
 
 public class Room {
@@ -70,6 +71,18 @@ public class Room {
 	public void setSize(final int w, final int h) {
 		setWidth(w);
 		setHeight(h);
+	}
+	
+	public final AreaCheckpoint getCheckpointById(int id) {
+		for(int l = 0 ; l < gameObjects.length; l ++) {
+			for(int i = 0; i < gameObjects[l].size(); i ++) {
+				final IGameObject o = gameObjects[l].get(i);
+				if(o instanceof AreaCheckpoint) {
+					if(id == o.getId()) return (AreaCheckpoint)o;
+				}
+			}
+		}
+		return null;
 	}
 	
 	public final void addGameObject(final IGameObject gameObject, final int layer) {

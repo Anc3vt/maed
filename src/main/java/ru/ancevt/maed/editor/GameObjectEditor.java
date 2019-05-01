@@ -22,7 +22,6 @@ import ru.ancevt.maed.gameobject.IRepeatable;
 import ru.ancevt.maed.gameobject.IResettable;
 import ru.ancevt.maed.gameobject.IRotatable;
 import ru.ancevt.maed.gameobject.IScalable;
-import ru.ancevt.maed.gameobject.ITight;
 import ru.ancevt.maed.gameobject.area.Area;
 import ru.ancevt.maed.gameobject.area.AreaCollision;
 import ru.ancevt.maed.map.DataLine;

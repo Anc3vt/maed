@@ -11,6 +11,7 @@ public class DefaultMapkitItemFiller {
 	public final void fill() {
 		add("10010 | 1 | Collision    | area-type = 1");
 		add("10020 | 1 | DoorTeleport | area-type = 2");
+		add("10021 | 1 | DoorTeleport2| area-type = 7");
 		add("10030 | 1 | Damaging     | area-type = 3");
 		add("10040 | 1 | Checkpoint   | area-type = 4");
 		add("10050 | 1 | Hook         | area-type = 5");

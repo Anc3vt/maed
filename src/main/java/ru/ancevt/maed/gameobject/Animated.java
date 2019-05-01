@@ -15,6 +15,7 @@ abstract public class Animated extends DisplayObjectContainer implements IAnimat
 	private FrameSet currentFrameSet;
 	private final MapkitItem mapkitItem;
 	private final int id;
+	private int directionOnDemend;
 	
 	
 	public Animated(final MapkitItem mapKitItem, final int gameObjectId) {
@@ -104,17 +105,17 @@ abstract public class Animated extends DisplayObjectContainer implements IAnimat
 		}
 	}
 	
+	public void setDirectionOnDemand(int direction) {
+		directionOnDemend = direction;
+	}
+	
+	public int getDirectionOnDemend() {
+		return directionOnDemend;
+	}
 
 	@Override
 	public void setDirection(int direction) {
 		this.direction = direction;
-		/*
-		for(int i = 0; i < animations.length; i ++) {
-			final FrameSet fs = animations[i];
-			if(fs == null) continue;
-			fs.setScaleX(getDirection());
-		}
-		*/
 		setScaleX(getDirection());
 	}
 	

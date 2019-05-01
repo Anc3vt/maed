@@ -5,6 +5,7 @@ import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.Area;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleport;
+import ru.ancevt.maed.gameobject.area.AreaDoorTeleportCp;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
 import ru.ancevt.maed.map.DataLine;
 import ru.ancevt.maed.map.MapkitItem;
@@ -238,6 +239,12 @@ public class GameObjectFactory {
 					if(d.containsKey(DataKey.TRIGGER_OPTIONS))
 						at.setTriggerOptions(d.getString(DataKey.TRIGGER_OPTIONS));
 				}
+				
+				if (o instanceof AreaDoorTeleportCp) {
+					final AreaDoorTeleportCp at = (AreaDoorTeleportCp)r;
+					if(d.containsKey(DataKey.CHECKPOINT))
+						at.setTargetCheckpointId(d.getInt(DataKey.CHECKPOINT));
+				}
 			}
 			
 			if(o instanceof Bot) {
@@ -358,6 +365,11 @@ public class GameObjectFactory {
 				final AreaTrigger at = (AreaTrigger) r;
 				s.append(kv(DataKey.TRIGGER_OPTIONS, at.getTriggerOptions()));
 			}
+			
+			if (o instanceof AreaDoorTeleportCp) {
+				final AreaDoorTeleportCp at = (AreaDoorTeleportCp) r;
+				s.append(kv(DataKey.CHECKPOINT, at.getTargetCheckpointId()));
+			}
 
 		}
 		
@@ -370,11 +382,6 @@ public class GameObjectFactory {
 			s.append(kv(DataKey.ACTION_PROGRAM, r.getActionProgram().stringify()));
 		}
 		
-		if (o instanceof IDirectioned) {
-			
-		}
-		
-
 		return s.toString();
 	}
 

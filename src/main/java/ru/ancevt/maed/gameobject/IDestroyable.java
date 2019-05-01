@@ -6,4 +6,7 @@ public interface IDestroyable extends ICollisioned {
 	void setHealth(final int health);
 	int getHealth();
 	void addHealth(final int toHealth);
+	void onDamage(IDamaging damageFrom);
+	void setUnattainable(boolean value);
+	boolean isUnattainable();
 }

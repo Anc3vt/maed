@@ -51,6 +51,7 @@ public class DataKey {
 		TARGET_ROOM		= "target-room",
 		TARGET_X		= "target-x",
 		TARGET_Y		= "target-y",
+		CHECKPOINT = "checkpoint",
 		COLLISION_AREA  = "collision-area",
 		SPEED 			= "speed",
 		MAX_HEALTH 		= "max-health",

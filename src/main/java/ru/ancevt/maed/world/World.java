@@ -187,7 +187,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 			camera.process();
 		}
 	}
-	
+
 	@Override
 	public int getGameObjectsCount() {
 		return gameObjects.size();
@@ -311,6 +311,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 				if (state == Overlay.STATE_DONE) {
 					removeFromParent();
 					switchingRoomsNow = false;
+					userActor.setDirection(userActor.getDirectionOnDemend());
 				}
 			}
 		};

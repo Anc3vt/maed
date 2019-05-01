@@ -103,6 +103,8 @@ public class MapkitItem {
                     return tm.getTexture("area_checkpoint");
                 case Area.DOOR_TELEPORT:
                     return tm.getTexture("area_door_teleport");
+                case Area.DOOR_TELEPORT_CP:
+                    return tm.getTexture("area_door_teleleport_cp");
                 case Area.HOOK:
                     return tm.getTexture("area_hook");
                 case Area.TRIGGER:

@@ -13,7 +13,6 @@ import ru.ancevt.d2d2.display.Root;
 import ru.ancevt.maed.common.HealthBar;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.common.Viewport;
-import ru.ancevt.maed.gameobject.Ava;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapLoader;
@@ -115,11 +114,6 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		add(healthbar, 300, 10);
 		healthbar.setMax(world.getUserActor().getMaxHealth());
 		
-		
-		while(Viewport.WIDTH * rootLayer.getScaleX() < D2D2.getRenderer().getWidth()) {
-			rootLayer.toScale(1.01f, 1.01f);
-		}
-		update();
 	}
 	
 	public void loadMap(String mapFileName) {
@@ -155,6 +149,7 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		if(playMode) {
 			remove(gui);
 			world.remove(grid);
+			world.resetAllResettables();
 		} else {
 			add(gui);
 			world.add(grid);

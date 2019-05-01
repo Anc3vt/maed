@@ -8,10 +8,11 @@ import ru.ancevt.maed.common.Controller;
 import ru.ancevt.maed.gameobject.weapon.Weapon;
 import ru.ancevt.maed.map.MapkitItem;
 
-public class Actor extends Animated implements IGameObject, IDirectioned, IMoveable, IAnimated,
+abstract public class Actor extends Animated implements IGameObject, IDirectioned, IMoveable, IAnimated,
 IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	private static int JUMP_TIME = 20;
+	private static int UNUTAINABLE_TIME = 20;
 	
 	private boolean collisionEnabled;
 	private float collX, collY, collWidth, collHeight;
@@ -29,13 +30,14 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	private Weapon weapon;
 	private float weapX, weapY;
 	private float jumpPower;
+	private int unattainableTime;
 	
 	private int jumpTime;
 	
 	private PlainRect collRect;
 	
 	private boolean jumping;
-	
+
 	public Actor(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
 		setPushable(true);
@@ -82,6 +84,16 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 			setAnimation(AKey.WALK);
 			//dtoVelocityX(speed * getDirection());
 		}
+		
+		if(getFloor() != null && getFloor() instanceof IMoveable) {
+			moveX(((IMoveable)getFloor()).getMovingSpeedX());
+		}
+
+		if(unattainableTime > 0) {
+			setVisible(!isVisible());
+			unattainableTime--;
+		}
+		
 		
 	}
 	
@@ -176,18 +188,25 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	@Override
 	public void setCollisionVisible(boolean b) {
-		if(collisionVisible == b) return;
 		this.collisionVisible = b;
 
-		if(collRect != null && collRect.hasParent()) collRect.removeFromParent();
+		if(collRect != null && collRect.hasParent()) {
+			collRect.removeFromParent();
+			collRect = null;
+		}
 		
-		if(collisionEnabled) {
-			collRect = new PlainRect();
-			collRect.setColor(Color.DARK_GREEN);
-			collRect.setXY(getCollisionX(), getCollisionY());
-			collRect.setSize(getCollisionWidth(), getCollisionHeight());
-			collRect.setAlpha(0.5f);
+		if(collRect == null) {
+			collRect = new PlainRect(Color.DARK_GREEN);
+			collRect.setX(getCollisionX());
+			collRect.setY(getCollisionY());
+			collRect.setWidth(getCollisionWidth());
+			collRect.setHeight(getCollisionHeight());
 			add(collRect);
+		}
+		
+		if (!collisionVisible && collRect != null) {
+			collRect.removeFromParent();
+			collRect = null;
 		}
 	}
 
@@ -348,6 +367,18 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		startX = x;
 		startY = y;
 	}
+	
+	@Override
+	public void moveX(float value) {
+		movingSpeedX = value;
+		super.moveX(value);
+	}
+	
+	@Override
+	public void moveY(float value) {
+		movingSpeedY = value;
+		super.moveY(value);
+	}
 
 	@Override
 	public void setSpeed(float speed) {
@@ -389,5 +420,18 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		return startDirection;
 	}
 
-
+	@Override
+	public void onDamage(IDamaging damagingFrom) {
+		setUnattainable(true);
+		unattainableTime = UNUTAINABLE_TIME;
+	}
+	
+	@Override
+	public void setUnattainable(boolean value) {
+	}
+	
+	@Override
+	public boolean isUnattainable() {
+		return unattainableTime > 0;
+	}
 }

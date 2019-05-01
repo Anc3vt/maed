@@ -32,7 +32,7 @@ public class DataLine {
 		
 		for(final KV kv : data) {
 			final String key = kv.getKey();
-			final String value = kv.getValue();
+			final String value = (String)kv.getValue();
 			
 			if(key != null) {
 				sb.append(key + " = ");
@@ -75,10 +75,16 @@ public class DataLine {
 		return data.length;
 	}
 	
-	public final String getString(final int index) {
+	public final Object getObject(final int index) {
 		if (index >= data.length || index < 0) return null;
 		
 		return data[index].getValue();
+	}
+	
+	public final String getString(final int index) {
+		if (index >= data.length || index < 0) return null;
+		
+		return (String)data[index].getValue();
 	}
 	
 	public final int getInt(final int index) {
@@ -102,7 +108,7 @@ public class DataLine {
 	
 	public final String getString(final String key) {
 		for(final KV kv : data) {
-			if(key.equals(kv.getKey())) return kv.getValue();
+			if(key.equals(kv.getKey())) return (String)kv.getValue();
 		}
 		
 		return null;
@@ -151,7 +157,7 @@ public class DataLine {
 			return key;
 		}
 
-		public String getValue() {
+		public Object getValue() {
 			return value;
 		}
 	}

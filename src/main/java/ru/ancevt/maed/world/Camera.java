@@ -161,6 +161,7 @@ public class Camera implements IDirectioned {
 	public final void process() {
 		processAttached();
 		processAutoZoom();
+		zoom(0.01f);
 	}
 	
 	private final void processAutoZoom() {
