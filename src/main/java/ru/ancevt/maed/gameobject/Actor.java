@@ -90,7 +90,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		if(jumpTime > 0) jumpTime --;
 	
 		if(!controller.isA()) jumping = false;
-
 		
 		if(getDirection() != 0 && getFloor() != null && !(this instanceof UserActor)) {
 			setAnimation(AKey.WALK);
@@ -104,6 +103,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		if(unattainableTime > 0) {
 			setVisible(!isVisible());
 			unattainableTime--;
+		} else {
+			if(unattainableTime == 0) setVisible(true);
 		}
 		
 		if (controller.isB() && attackTime == 0) attack();
@@ -142,6 +143,10 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 			setVelocityY(-5);
 			setGravityEnabled(true);
 			hookTime = HOOK_TIME;
+		}
+		
+		if(isUnattainable()) {
+			setAnimation(AKey.DAMAGE);
 		}
 	}
 	
@@ -483,8 +488,12 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	@Override
 	public void onDamage(IDamaging damagingFrom) {
+		if(isUnattainable()) return;
+		
 		setUnattainable(true);
+		setAnimation(AKey.DAMAGE);
 		unattainableTime = UNUTAINABLE_TIME;
+		addHealth(-damagingFrom.getDamagingPower());
 	}
 	
 	@Override

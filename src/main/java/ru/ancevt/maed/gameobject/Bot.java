@@ -96,8 +96,10 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	
 	@Override
 	public void onCollide(ICollisioned collideWith) {
-		collideWith.onCollide(this);
-		
+		if(collideWith instanceof IDestroyable) {
+			final IDestroyable d = (IDestroyable)collideWith;
+			d.onDamage(this);
+		}
 		
 		if(collideWith instanceof AreaTrigger ) {
 			final AreaTrigger at = (AreaTrigger)collideWith;

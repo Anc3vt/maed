@@ -104,7 +104,6 @@ public class Camera implements IDirectioned {
 	private final void fixBounds() {	
 		if (boundWidth == 0 || boundHeight == 0) return;
 		
-		
 		final int halfViewportWidth = VIEWPORT_WIDTH / 2;
 		final int halfViewportHeight = VIEWPORT_HEIGHT / 2;
 
@@ -170,12 +169,10 @@ public class Camera implements IDirectioned {
 		
 		final float zoom = getZoom();
 		
-		/*
 		if(Math.abs(zoom - 1.0f) < 0.005f) {
 			setZoom(DEFAULT_ZOOM);
 			return;
 		}
-		*/
 		
 		if(zoom > 1.0f) setZoom(zoom - speed); else
 		if(zoom < 1.0f) setZoom(zoom + speed);
