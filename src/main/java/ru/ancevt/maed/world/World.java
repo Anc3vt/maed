@@ -10,7 +10,6 @@ import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.texture.TextureManager;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.PlayProcessor;
-import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.Ava;
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.IResettable;
@@ -18,8 +17,6 @@ import ru.ancevt.maed.gameobject.Scenery;
 import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.gameobject.area.Area;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
-import ru.ancevt.maed.gameobject.weapon.Bullet;
-import ru.ancevt.maed.gameobject.weapon.Weapon;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.Room;
 
@@ -103,7 +100,7 @@ public class World extends DisplayObjectContainer implements IWorld {
         	packedSceneryBack = SceneryPacker.pack(room, 0, 4);
             getLayer(TARGET_LAYER_INDEX_BG).add(packedSceneryBack);
 
-            packedSceneryFore = SceneryPacker.pack(room, 7, 8);
+            packedSceneryFore = SceneryPacker.pack(room, 6, 8);
             getLayer(TARGET_LAYER_INDEX_FG).add(packedSceneryFore);
 
             removeSceneries();
@@ -118,8 +115,8 @@ public class World extends DisplayObjectContainer implements IWorld {
         TextureManager.getInstance().unloadTextureAtlas(ps.getTexture().getTextureAtlas());
         System.gc();
     }
-	
-	private final void removeSceneries() {
+
+    private final void removeSceneries() {
         final List<IGameObject> toRemove = new ArrayList<IGameObject>();
 
         for(int i = 0; i < gameObjects.size(); i ++) {
@@ -408,18 +405,6 @@ public class World extends DisplayObjectContainer implements IWorld {
 	public void setWorldListener(WorldListener listener) {
 		this.listener = listener;
 	}
-	
-	public final void actorAttack(final Actor actor, final Weapon weapon) {
-        final Bullet bullet = weapon.getNextBullet();
-
-        final boolean left = false;
-        bullet.setXY(
-            actor.getX() + actor.getWeaponX() * (left ? -1f : 1f),
-            actor.getY() + actor.getWeaponY()
-        );
-
-        addGameObject(bullet, 5, false);
-    }
 
 	public final AreaCheckpoint detectStartCHeckpoint() {
 		for( int i = 0 ; i < gameObjects.size(); i ++ ) {

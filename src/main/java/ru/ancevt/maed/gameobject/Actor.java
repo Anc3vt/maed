@@ -5,14 +5,16 @@ import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.BotController;
 import ru.ancevt.maed.common.Controller;
-import ru.ancevt.maed.gameobject.weapon.Weapon;
+import ru.ancevt.maed.gameobject.area.AreaWater;
 import ru.ancevt.maed.map.MapkitItem;
 
 abstract public class Actor extends Animated implements IGameObject, IDirectioned, IMoveable, IAnimated,
 IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	private static int JUMP_TIME = 20;
+	private static int ATTACK_TIME = 20;
 	private static int UNUTAINABLE_TIME = 20;
+	private static int WATER_TIME = 20;
 	
 	private boolean collisionEnabled;
 	private float collX, collY, collWidth, collHeight;
@@ -27,12 +29,13 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	private boolean gravityEnabled;
 	private int maxHealth, health;
 	private float movingSpeedX, movingSpeedY;
-	private Weapon weapon;
 	private float weapX, weapY;
 	private float jumpPower;
 	private int unattainableTime;
+	private int attackTime;
 	
 	private int jumpTime;
+	private int waterTime;
 	
 	private PlainRect collRect;
 	
@@ -45,6 +48,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setCollisionEnabled(true);
 		setAnimation(AKey.IDLE);
 		setController(new BotController());
+		
 	}
 	@Override
 	public void process() {
@@ -64,6 +68,10 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		
 		if(jumpTime > 0 && controller.isA()){
 			setVelocityY(-jumpPower);
+		}
+		
+		if(waterTime > 0  && controller.isA()) {
+			setVelocityY(-0.8f);
 		}
 		
 		if(!act) setAnimation(AKey.IDLE, true);
@@ -94,7 +102,34 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 			unattainableTime--;
 		}
 		
+		if (controller.isB() && attackTime == 0) attack();
 		
+		if(attackTime > 0) {
+			attackTime --;
+			
+			if(movingSpeedX == 0)
+				setAnimation(AKey.ATTACK);
+			else 
+				setAnimation(AKey.WALK_ATTACK);
+			
+			if(getFloor() == null) {
+				if (movingSpeedY > 0) setAnimation(AKey.FALL_ATTACK);
+				if (movingSpeedY < 0) setAnimation(AKey.JUMP_ATTACK); 
+			}
+		}
+		
+		if(waterTime > 0) {
+			waterTime--;
+		}
+	}
+	
+	@Override
+	public boolean isInWater() {
+		return waterTime > 0;
+	}
+	
+	public void attack() {
+		attackTime = ATTACK_TIME;
 	}
 	
 	
@@ -136,13 +171,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	}
 	
 	
-	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
-	}
-	
-	public Weapon getWeapon() {
-		return weapon;
-	}
 	
 	public void onHealthChanged(int health) {
 		
@@ -217,7 +245,9 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	@Override
 	public void onCollide(ICollisioned collideWith) {
-		// TODO Auto-generated method stub
+		if(collideWith instanceof AreaWater) {
+			waterTime = WATER_TIME;
+		}
 	}
 
 	@Override

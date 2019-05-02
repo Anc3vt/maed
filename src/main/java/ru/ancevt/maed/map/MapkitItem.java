@@ -104,11 +104,15 @@ public class MapkitItem {
                 case Area.DOOR_TELEPORT:
                     return tm.getTexture("area_door_teleport");
                 case Area.DOOR_TELEPORT_CP:
-                    return tm.getTexture("area_door_teleleport_cp");
+                    return tm.getTexture("area_door_teleport_cp");
                 case Area.HOOK:
                     return tm.getTexture("area_hook");
                 case Area.TRIGGER:
                 	return tm.getTexture("area_trigger");
+                case Area.WATER:
+                	return tm.getTexture("area_water");
+                case Area.WIND:
+                	return tm.getTexture("area_wind");
 
                 default:
                     return null;

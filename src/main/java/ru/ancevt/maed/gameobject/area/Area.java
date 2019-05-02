@@ -22,16 +22,18 @@ abstract public class Area extends BorderedRect implements IGameObject, ICollisi
 	public static final int HOOK			= 5;
 	public static final int TRIGGER			= 6;
 	public static final int DOOR_TELEPORT_CP = 7;
+	public static final int WATER = 8;
+	public static final int WIND = 9;
 	
-	private MapkitItem mapKitItem;
+	private MapkitItem mapkitItem;
 	private final int id;
 
 	protected BitmapText bitmapText;
 
 	private boolean collisionEnabled;
 	
-	protected Area(final MapkitItem mapKitItem, final int gameObjectId) {
-		this.mapKitItem = mapKitItem;
+	protected Area(final MapkitItem mapkitItem, final int gameObjectId) {
+		this.mapkitItem = mapkitItem;
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setAlpha(ALPHA);
 		id = gameObjectId;
@@ -56,7 +58,7 @@ abstract public class Area extends BorderedRect implements IGameObject, ICollisi
 	
 	@Override
 	public MapkitItem getMapkitItem() {
-		return mapKitItem;
+		return mapkitItem;
 	}
 	
 	public static final Area createArea(final MapkitItem mapkitItem, final int gameObjectId) {
@@ -78,7 +80,11 @@ abstract public class Area extends BorderedRect implements IGameObject, ICollisi
 				return new AreaTrigger(mapkitItem, gameObjectId);
 			case DOOR_TELEPORT_CP:
 				return new AreaDoorTeleportCp(mapkitItem, gameObjectId);
-
+			case WATER:
+				return new AreaWater(mapkitItem, gameObjectId);
+			case WIND:
+				return new AreaWind(mapkitItem, gameObjectId);
+				
 			default:
 				return null;
 		}

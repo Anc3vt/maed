@@ -12,13 +12,13 @@ public class DataLine {
 	public static final DataLine parse(String sourceLine) {
 		final String[] splitted = sourceLine.split(DELIMITER);
 		
-		final KV[] data = new KV[splitted.length];
+		final KV[] dataKV = new KV[splitted.length];
 		
 		for(int i = 0; i < splitted.length; i ++) {
-			data[i] = new KV(splitted[i]);
+			dataKV[i] = new KV(splitted[i]);
 		}
 		
-		return new DataLine(data);
+		return new DataLine(dataKV);
 	}
 	
 	private KV[] data;

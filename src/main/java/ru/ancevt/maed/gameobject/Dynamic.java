@@ -262,6 +262,12 @@ public class Dynamic extends Sprite implements
 		
 	}
 
+	@Override
+	public boolean isInWater() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 //	@Override
 //	public void process() {
 //		if(movingSpeedX != 0.0f || movingSpeedY != 0.0f) {

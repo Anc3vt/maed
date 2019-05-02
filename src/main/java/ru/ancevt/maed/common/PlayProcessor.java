@@ -15,6 +15,7 @@ import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleport;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleportCp;
 import ru.ancevt.maed.gameobject.area.AreaHook;
+import ru.ancevt.maed.gameobject.area.AreaWind;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.Room;
 import ru.ancevt.maed.world.IWorld;
@@ -117,6 +118,14 @@ public class PlayProcessor {
 		if(o1 instanceof IDestroyable && o2 instanceof IDamaging) {
 			processDamage((IDestroyable)o1, (IDamaging)o2);
 		}
+		if(o1 instanceof IGravitied && o2 instanceof AreaWind) {
+			processWind((IGravitied)o1, (AreaWind)o2);
+		}
+	}
+	
+	private final void processWind(IGravitied g, AreaWind w) {
+		g.toVelocityX(w.getWindX());
+		g.toVelocityY(w.getWindY());
 	}
 	
 	private final void processDamage(final IDestroyable o, final IDamaging damaging) {
@@ -218,7 +227,12 @@ public class PlayProcessor {
 	private final void processGravity(final IGravitied o) {
 		if(o.isGravityEnabled()) {
 			final float fallSpeed = o.getWeight() * gravity;
-			o.setVelocityY(o.getVelocityY() + fallSpeed);
+			
+			if(o.isInWater()) {
+				o.setVelocityY(o.getVelocityY() + fallSpeed /10);
+			} else {
+				o.setVelocityY(o.getVelocityY() + fallSpeed);
+			}
 			
 			if(o.getVelocityY() > MAX_VELOCITY_Y) o.setVelocityY(MAX_VELOCITY_Y);
 			

@@ -7,6 +7,8 @@ import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleport;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleportCp;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
+import ru.ancevt.maed.gameobject.area.AreaWater;
+import ru.ancevt.maed.gameobject.area.AreaWind;
 import ru.ancevt.maed.map.DataLine;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.map.MapkitItem.Category;
@@ -245,6 +247,20 @@ public class GameObjectFactory {
 					if(d.containsKey(DataKey.CHECKPOINT))
 						at.setTargetCheckpointId(d.getInt(DataKey.CHECKPOINT));
 				}
+				
+				if (o instanceof AreaWater) {
+					final AreaWater aw = (AreaWater)r;
+					if(d.containsKey(DataKey.DENSITY))
+						aw.setDensity(d.getFloat(DataKey.DENSITY));
+				}
+				
+				if (o instanceof AreaWind) {
+					final AreaWind aw = (AreaWind)r;
+					if(d.containsKey(DataKey.WIND_X))
+						aw.setWindX(d.getFloat(DataKey.WIND_X));
+					if(d.containsKey(DataKey.WIND_Y))
+						aw.setWindY(d.getFloat(DataKey.WIND_Y));
+				}
 			}
 			
 			if(o instanceof Bot) {
@@ -369,6 +385,17 @@ public class GameObjectFactory {
 			if (o instanceof AreaDoorTeleportCp) {
 				final AreaDoorTeleportCp at = (AreaDoorTeleportCp) r;
 				s.append(kv(DataKey.CHECKPOINT, at.getTargetCheckpointId()));
+			}
+			
+			if (o instanceof AreaWater) {
+				final AreaWater aw = (AreaWater) r;
+				s.append(kv(DataKey.DENSITY, aw.getDensity()));
+			}
+
+			if (o instanceof AreaWind) {
+				final AreaWind aw = (AreaWind) r;
+				s.append(kv(DataKey.WIND_X, aw.getWindX()));
+				s.append(kv(DataKey.WIND_Y, aw.getWindY()));
 			}
 
 		}

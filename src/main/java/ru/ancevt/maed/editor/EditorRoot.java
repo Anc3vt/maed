@@ -146,10 +146,12 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 	public void setPlayMode(boolean playMode) {
 		this.playMode = playMode;
 		
+
+		world.resetAllResettables();
+		
 		if(playMode) {
 			remove(gui);
 			world.remove(grid);
-			world.resetAllResettables();
 		} else {
 			add(gui);
 			world.add(grid);

@@ -73,5 +73,9 @@ public class DataKey {
 		SOUND_DAMAGE	= "snd-damage",
 		SOUND_EXTRA		= "snd-extra",
 		SOUND_DEATH		= "snd-death";
+
+	public static final String DENSITY = "density";
+	public static final String WIND_X = "wind-x";
+	public static final String WIND_Y = "wind-y";
 	
 }

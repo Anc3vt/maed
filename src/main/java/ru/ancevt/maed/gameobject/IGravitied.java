@@ -12,6 +12,7 @@ public interface IGravitied extends IMoveable {
 	void setVelocity(float vX, float vY);
 	float getVelocityX();
 	float getVelocityY();
+	boolean isInWater();
 	
 	void setGravityEnabled(boolean b);
 	boolean isGravityEnabled();

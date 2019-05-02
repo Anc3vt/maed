@@ -10,7 +10,9 @@
     area_checkpoint 	    32 32 16 16
     area_hook       	    48 32 16 16
     area_trigger		    64 16 16 16
-    area_door_teleleport_cp 48 16 16 16
+    area_door_teleport_cp 48 16 16 16
+    area_water              64 32 16 16
+    area_wind				80 16 16 16
     cursor      		    0 16 16 32
     textures_packed 	    32 0 16 16
 
@@ -21,6 +23,8 @@
 	wp-default-bullet-d1 	64 0 32 32 
 	wp-default-bullet-d2 	96 0 32 32 
 	wp-default-bullet-d3 	128 0 32 32
+    bubble                  80 48 16 16
+    
 	
 
 

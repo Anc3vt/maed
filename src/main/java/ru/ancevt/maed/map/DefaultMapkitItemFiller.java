@@ -16,6 +16,8 @@ public class DefaultMapkitItemFiller {
 		add("10040 | 1 | Checkpoint   | area-type = 4");
 		add("10050 | 1 | Hook         | area-type = 5");
 		add("10060 | 1 | Trigger      | area-type = 6");
+		add("10070 | 1 | Water        | area-type = 8");
+		add("10080 | 1 | Wind         | area-type = 9");
 	}
 	
 	private final void add(String dataLineSource) {

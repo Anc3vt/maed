@@ -4,8 +4,6 @@ import ru.ancevt.d2d2.display.texture.TextureAtlas;
 import ru.ancevt.d2d2.display.texture.TextureManager;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.PlayerController;
-import ru.ancevt.maed.gameobject.weapon.DefaultWeapon;
-import ru.ancevt.maed.gameobject.weapon.Weapon;
 import ru.ancevt.maed.map.DataLine;
 import ru.ancevt.maed.map.Mapkit;
 import ru.ancevt.maed.map.MapkitItem;
@@ -23,9 +21,6 @@ public class Ava extends UserActor {
 		setAnimation(AKey.IDLE, true);
 		setController(PlayerController.getInstance());
 		setGravityEnabled(true);
-		
-		final Weapon weapon = new DefaultWeapon();
-		setWeapon(weapon);
 	}
 	
 	private static MapkitItem createMapkitItemIfNotExists() {
