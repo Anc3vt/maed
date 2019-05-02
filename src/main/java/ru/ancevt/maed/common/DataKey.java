@@ -79,5 +79,7 @@ public class DataKey {
 	public static final String WIND_Y = "wind-y";
 
 	public static final String PICKUP_TYPE = "pickup-type";
+
+	public static final String CHECKPOINT_ID = "checkpoint-id";
 	
 }

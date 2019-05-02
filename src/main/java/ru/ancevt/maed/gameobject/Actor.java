@@ -276,7 +276,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 			setX(collideWith.getX());
 			setY(collideWith.getY());
 			hooked = true;
-			System.out.println("hooked");
 		}
 	}
 

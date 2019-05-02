@@ -161,7 +161,6 @@ public class Camera implements IDirectioned {
 	public final void process() {
 		processAttached();
 		processAutoZoom();
-		zoom(0.01f);
 	}
 	
 	private final void processAutoZoom() {
@@ -171,10 +170,12 @@ public class Camera implements IDirectioned {
 		
 		final float zoom = getZoom();
 		
+		/*
 		if(Math.abs(zoom - 1.0f) < 0.005f) {
 			setZoom(DEFAULT_ZOOM);
 			return;
 		}
+		*/
 		
 		if(zoom > 1.0f) setZoom(zoom - speed); else
 		if(zoom < 1.0f) setZoom(zoom + speed);

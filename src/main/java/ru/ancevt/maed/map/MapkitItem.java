@@ -100,39 +100,8 @@ public class MapkitItem {
     public final Texture getTexture() {
         final TextureManager tm = TextureManager.getInstance();
         
-		if (getCategory() == Category.AREAS) {
-
-            final int areaType = dataLine.getInt(DataKey.AREA_TYPE);
-
-            switch (areaType) {
-                case Area.COLLISION:
-                    return tm.getTexture("area_collision");
-                case Area.DAMAGING:
-                    return tm.getTexture("area_damaging");
-                case Area.CHECKPOINT:
-                    return tm.getTexture("area_checkpoint");
-                case Area.DOOR_TELEPORT:
-                    return tm.getTexture("area_door_teleport");
-                case Area.DOOR_TELEPORT_CP:
-                    return tm.getTexture("area_door_teleport_cp");
-                case Area.HOOK:
-                    return tm.getTexture("area_hook");
-                case Area.TRIGGER:
-                	return tm.getTexture("area_trigger");
-                case Area.WATER:
-                	return tm.getTexture("area_water");
-                case Area.WIND:
-                	return tm.getTexture("area_wind");
-
-                default:
-                    return null;
-            }
-
-        }
-
-		if (getCategory() == Category.PICKUP) {
-			return tm.getTexture(getName());
-		}
+        if (getCategory() == Category.AREAS) return tm.getTexture(getName());
+		if (getCategory() == Category.PICKUP) return tm.getTexture(getName());
 		
 		final TextureAtlas textureAtlas = mapkit.getTextureAtlas();
 		final TilesetZone tilesetZone = dataLine.getTilesetZone(DataKey.IDLE);

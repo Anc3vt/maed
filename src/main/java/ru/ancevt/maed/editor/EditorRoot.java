@@ -69,7 +69,8 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		rootLayer.add(cameraLayer, Viewport.WIDTH / 2, Viewport.HEIGHT / 2);
 		rootLayer.add(viewportRect);
 		add(rootLayer);
-		
+
+		world.getCamera().setAutoZoom(true);
 		world.getCamera().setBoundsLock(false);
 		world.setRoomRectVisible(true);
 

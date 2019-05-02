@@ -78,7 +78,7 @@ public class Room {
 			for(int i = 0; i < gameObjects[l].size(); i ++) {
 				final IGameObject o = gameObjects[l].get(i);
 				if(o instanceof AreaCheckpoint) {
-					if(id == o.getId()) return (AreaCheckpoint)o;
+					if(id == ((AreaCheckpoint)o).getCheckpointId()) return (AreaCheckpoint)o;
 				}
 			}
 		}

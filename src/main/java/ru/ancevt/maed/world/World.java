@@ -10,6 +10,7 @@ import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.texture.TextureManager;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.PlayProcessor;
+import ru.ancevt.maed.common.Viewport;
 import ru.ancevt.maed.gameobject.Ava;
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.IResettable;
@@ -293,13 +294,12 @@ public class World extends DisplayObjectContainer implements IWorld {
 		
 		final Room oldRoom = map.getRoomById(this.roomId);
 		
-		overlay = new Overlay(oldRoom.getWidth(), oldRoom.getHeight()) {
+		overlay = new Overlay(Viewport.WIDTH, Viewport.HEIGHT) {
 			@Override
 			public void onStateChanged(int state) {
 				if (state == Overlay.STATE_BLACK) {
 					final Room newRoom = map.getRoomById(roomIdSwitchTo);
 					setRoomId(roomIdSwitchTo);
-					setSize(newRoom.getWidth(), newRoom.getHeight());
 					setSceneryPacked(true);
 					spawnUserActor(actorX, actorY);
 					camera.setXY(actorX, actorY);
@@ -312,7 +312,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 				}
 			}
 		};
-		add(overlay);
+		getParent().add(overlay, -overlay.getWidth()/2, -overlay.getHeight()/2);
 		switchingRoomsNow = true;
 		overlay.startIn();
 	}

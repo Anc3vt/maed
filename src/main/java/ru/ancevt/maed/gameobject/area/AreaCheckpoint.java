@@ -23,7 +23,7 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 	public static final int CHECKPOINT_TYPR_COMMON = 3;
 
 	private int checkPointType;
-
+	private int checkpointId;
 	private int direction;
 
 	public AreaCheckpoint(final MapkitItem mapKitItem, final int gameObjectId) {
@@ -116,5 +116,13 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 	public void process() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int getCheckpointId() {
+		return checkpointId;
+	}
+
+	public void setCheckpointId(int checkpointId) {
+		this.checkpointId = checkpointId;
 	}
 }

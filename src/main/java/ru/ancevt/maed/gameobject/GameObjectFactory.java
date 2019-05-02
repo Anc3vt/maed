@@ -263,6 +263,8 @@ public class GameObjectFactory {
 					final AreaCheckpoint ac = (AreaCheckpoint) r;
 					if(d.containsKey(DataKey.CHECKPOINT_TYPE))
 						ac.setCheckPointType(d.getInt(DataKey.CHECKPOINT_TYPE));
+					if(d.containsKey(DataKey.CHECKPOINT_ID))
+						ac.setCheckpointId(d.getInt(DataKey.CHECKPOINT_ID));
 				}
 				
 				if (o instanceof AreaTrigger) {
@@ -404,6 +406,7 @@ public class GameObjectFactory {
 			if (o instanceof AreaCheckpoint) {
 				final AreaCheckpoint ac = (AreaCheckpoint) r;
 				s.append(kv(DataKey.CHECKPOINT_TYPE, ac.getCheckPointType()));
+				s.append(kv(DataKey.CHECKPOINT_ID, ac.getCheckpointId()));
 			}
 			
 			if (o instanceof AreaTrigger) {
