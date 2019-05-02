@@ -9,8 +9,11 @@ import ru.ancevt.maed.gameobject.area.AreaDoorTeleportCp;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
 import ru.ancevt.maed.gameobject.area.AreaWater;
 import ru.ancevt.maed.gameobject.area.AreaWind;
+import ru.ancevt.maed.inventory.KeyType;
 import ru.ancevt.maed.inventory.Pickup;
 import ru.ancevt.maed.inventory.PickupHealth;
+import ru.ancevt.maed.inventory.PickupKey;
+import ru.ancevt.maed.inventory.PickupType;
 import ru.ancevt.maed.map.DataLine;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.map.MapkitItem.Category;
@@ -85,7 +88,23 @@ public class GameObjectFactory {
 	}
 	
 	private static final Pickup createPickup(MapkitItem mapkitItem, int gameObjectId) {
-		return new PickupHealth(mapkitItem, gameObjectId);
+		switch (mapkitItem.getDataLine().getInt(DataKey.PICKUP_TYPE)) {
+			case PickupType.HEALTH:
+				return new PickupHealth(mapkitItem, gameObjectId, "p_health", 50);
+			case PickupType.HEALTH_HALF:
+				return new PickupHealth(mapkitItem, gameObjectId, "p_health_half", 25);
+			case PickupType.KEY_RED:
+				return new PickupKey(mapkitItem, gameObjectId, "p_key_red", KeyType.RED);
+			case PickupType.KEY_GREEN:
+				return new PickupKey(mapkitItem, gameObjectId, "p_key_green", KeyType.GREEN);
+			case PickupType.KEY_BLUE:
+				return new PickupKey(mapkitItem, gameObjectId, "p_key_blue", KeyType.BLUE);
+			case PickupType.KEY_YELLOW:
+				return new PickupKey(mapkitItem, gameObjectId, "p_key_yellow", KeyType.YELLOW);
+					
+		default:
+			return null;
+		}
 	}
 
 	public static final IGameObject setUpGameObject(final IGameObject o, final DataLine d) {

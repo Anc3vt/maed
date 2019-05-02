@@ -77,5 +77,7 @@ public class DataKey {
 	public static final String DENSITY = "density";
 	public static final String WIND_X = "wind-x";
 	public static final String WIND_Y = "wind-y";
+
+	public static final String PICKUP_TYPE = "pickup-type";
 	
 }

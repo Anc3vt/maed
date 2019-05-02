@@ -510,7 +510,7 @@ public class GameObjectEditor {
 			final DisplayObject asDisplayObject = (DisplayObject)gameObject;
 			asDisplayObject.move(x, y);
 			
-			if(gameObject instanceof IResettable) {
+			if(gameObject instanceof IResettable && gameObject instanceof IMoveable) {
 				final IMoveable m = (IMoveable) gameObject;
 				m.setStartXY(gameObject.getX(), gameObject.getY());
 			}

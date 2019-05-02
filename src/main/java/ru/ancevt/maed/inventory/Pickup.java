@@ -15,6 +15,7 @@ IResettable{
 	private int id;
 	private MapkitItem mapkitItem;
 	private boolean pickedUp;
+	private InventoryItem inventoryItem;
 	
 	public Pickup(MapkitItem mapkitItem, int gameObjectId) {
 		frame = new Sprite("pickup_frame");
@@ -32,7 +33,7 @@ IResettable{
 	
 	@Override
 	public void setCollisionEnabled(boolean value) {
-		
+		// has no effect
 	}
 
 	@Override
@@ -128,6 +129,14 @@ IResettable{
 	@Override
 	public void reset() {
 		setPickedUp(false);
+	}
+
+	public InventoryItem getInventoryItem() {
+		return inventoryItem;
+	}
+
+	public void setInventoryItem(InventoryItem inventoryItem) {
+		this.inventoryItem = inventoryItem;
 	}
 	
 }

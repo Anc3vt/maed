@@ -19,6 +19,11 @@ public class DefaultMapkitItemFiller {
 		add("10070 | 1 | Water        | area-type = 8");
 		add("10080 | 1 | Wind         | area-type = 9");
 		add("10090 | 6 | p_health     | pickup-type= 1");
+		add("10091 | 6 | p_health_half| pickup-type= 2");
+		add("10092 | 6 | p_key_red    | pickup-type= 3");
+		add("10093 | 6 | p_key_green  | pickup-type= 4");
+		add("10094 | 6 | p_key_blue   | pickup-type= 5");
+		add("10095 | 6 | p_key_yellow | pickup-type= 6");
 	}
 	
 	private final void add(String dataLineSource) {

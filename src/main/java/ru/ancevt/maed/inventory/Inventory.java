@@ -8,6 +8,10 @@ public class Inventory {
 		items = new InventoryItem[size];
 	}
 	
+	public final int size() {
+		return items.length;
+	}
+	
 	public final void put(int slot, InventoryItem item) {
 		items[slot] = item;
 	}

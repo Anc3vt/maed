@@ -10,6 +10,7 @@ import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Root;
+import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.maed.common.HealthBar;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.common.Viewport;
@@ -24,10 +25,17 @@ import ru.ancevt.maed.world.WorldListener;
 
 public class EditorRoot extends Root implements EditorControllerListener, WorldListener {
 
-	private static EditorRoot instance;
+	private static volatile EditorRoot instance;
 	
 	public static final EditorRoot getInstance() {
-		return instance == null ? instance = new EditorRoot() : instance;
+		if(instance == null) {
+			synchronized (EditorRoot.class) {
+				if(instance == null) {
+					instance = new EditorRoot();
+				}
+			}
+		}
+		return instance;
 	}
 	
 	private boolean playMode;
@@ -113,6 +121,9 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		
 		add(healthbar, 300, 10);
 		healthbar.setMax(world.getUserActor().getMaxHealth());
+		
+		
+		//add(new Sprite("satellite1"));
 		
 	}
 	

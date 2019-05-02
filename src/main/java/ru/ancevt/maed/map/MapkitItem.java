@@ -134,8 +134,6 @@ public class MapkitItem {
 			return tm.getTexture(getName());
 		}
 		
-		
-		
 		final TextureAtlas textureAtlas = mapkit.getTextureAtlas();
 		final TilesetZone tilesetZone = dataLine.getTilesetZone(DataKey.IDLE);
 		final Texture iconTexture = textureAtlas.createTexture(
