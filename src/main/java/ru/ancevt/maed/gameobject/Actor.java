@@ -5,6 +5,7 @@ import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.BotController;
 import ru.ancevt.maed.common.Controller;
+import ru.ancevt.maed.gameobject.area.AreaHook;
 import ru.ancevt.maed.gameobject.area.AreaWater;
 import ru.ancevt.maed.map.MapkitItem;
 
@@ -15,6 +16,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	private static int ATTACK_TIME = 20;
 	private static int UNUTAINABLE_TIME = 20;
 	private static int WATER_TIME = 20;
+	private static int HOOK_TIME = 20;
 	
 	private boolean collisionEnabled;
 	private float collX, collY, collWidth, collHeight;
@@ -36,10 +38,12 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	
 	private int jumpTime;
 	private int waterTime;
+	private int hookTime;
 	
 	private PlainRect collRect;
 	
 	private boolean jumping;
+	private boolean hooked;
 
 	public Actor(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
@@ -121,6 +125,24 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		if(waterTime > 0) {
 			waterTime--;
 		}
+		
+		if(hookTime > 0) hookTime--;
+		
+		if(hooked) {
+			if(controller.isB())
+				setAnimation(AKey.HOOK_ATTACK);
+			else
+				setAnimation(AKey.HOOK);
+		}
+		
+		if (hooked && controller.isA() && !jumping) {
+			hooked = false;
+			jumping = true;
+			jump();
+			setVelocityY(-5);
+			setGravityEnabled(true);
+			hookTime = HOOK_TIME;
+		}
 	}
 	
 	@Override
@@ -130,6 +152,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	
 	public void attack() {
 		attackTime = ATTACK_TIME;
+		
+		if(hooked) setAnimation(AKey.HOOK_ATTACK);
 	}
 	
 	
@@ -146,6 +170,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	
 	public final void go(int direction) {
 		setDirection(direction);
+		if(hooked) return;
 		setAnimation(AKey.WALK, true);
 		setVelocityX(getVelocityX() + speed * direction);
 	}
@@ -169,8 +194,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	public float getJumpPower() {
 		return jumpPower;
 	}
-	
-	
 	
 	public void onHealthChanged(int health) {
 		
@@ -247,6 +270,13 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	public void onCollide(ICollisioned collideWith) {
 		if(collideWith instanceof AreaWater) {
 			waterTime = WATER_TIME;
+		}
+		if(this instanceof UserActor && collideWith instanceof AreaHook && !hooked && hookTime == 0) {
+			setGravityEnabled(false);
+			setX(collideWith.getX());
+			setY(collideWith.getY());
+			hooked = true;
+			System.out.println("hooked");
 		}
 	}
 
@@ -331,6 +361,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setX(startX);
 		setY(startY);
 		setDirection(getStartDirection());
+		setGravityEnabled(true);
+		hooked = false;
 	}
 
 	@Override

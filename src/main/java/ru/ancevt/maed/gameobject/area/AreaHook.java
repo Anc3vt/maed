@@ -35,8 +35,7 @@ public class AreaHook extends Area {
 
 	@Override
 	public void process() {
-		// TODO Auto-generated method stub
-		
+		setSize(8, 8);
 	}
 
 }
