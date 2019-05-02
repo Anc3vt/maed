@@ -29,7 +29,7 @@ public class AreaWater extends Area{
 	@Override
 	public void process() {
 		final int rnd = (int)(Math.random() * 100);
-		if(rnd < 1) {
+		if(rnd < 2) {
 			createBubble();
 		}
 	}

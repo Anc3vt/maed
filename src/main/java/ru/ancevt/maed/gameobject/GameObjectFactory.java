@@ -9,6 +9,8 @@ import ru.ancevt.maed.gameobject.area.AreaDoorTeleportCp;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
 import ru.ancevt.maed.gameobject.area.AreaWater;
 import ru.ancevt.maed.gameobject.area.AreaWind;
+import ru.ancevt.maed.inventory.Pickup;
+import ru.ancevt.maed.inventory.PickupHealth;
 import ru.ancevt.maed.map.DataLine;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.map.MapkitItem.Category;
@@ -68,6 +70,10 @@ public class GameObjectFactory {
 			case Category.ANIMATED_SCENERY:
 				result = new AnimatedScenery(mapkitItem, gameObjectId);
 				break;
+				
+			case Category.PICKUP:
+				result = createPickup(mapkitItem, gameObjectId);
+				break;
 	
 			default:
 				result = null;
@@ -76,6 +82,10 @@ public class GameObjectFactory {
 		setUpGameObject(result, mapkitItem.getDataLine());
 
 		return result;
+	}
+	
+	private static final Pickup createPickup(MapkitItem mapkitItem, int gameObjectId) {
+		return new PickupHealth(mapkitItem, gameObjectId);
 	}
 
 	public static final IGameObject setUpGameObject(final IGameObject o, final DataLine d) {

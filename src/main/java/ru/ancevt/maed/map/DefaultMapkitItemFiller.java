@@ -18,6 +18,7 @@ public class DefaultMapkitItemFiller {
 		add("10060 | 1 | Trigger      | area-type = 6");
 		add("10070 | 1 | Water        | area-type = 8");
 		add("10080 | 1 | Wind         | area-type = 9");
+		add("10090 | 6 | p_health     | pickup-type= 1");
 	}
 	
 	private final void add(String dataLineSource) {

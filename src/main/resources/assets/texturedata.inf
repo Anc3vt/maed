@@ -25,6 +25,15 @@
 	wp-default-bullet-d3 	128 0 32 32
     bubble                  80 48 16 16
     
+    pickup_frame			160 0 16 16
+    key_red                 224 0 16 16
+    key_green               240 0 16 16
+    key_blue				224 16 16 16
+    key_yellow              244 16 16 16
+    
+    p_health                192 16 16 16
+    p_health_halh           176 16 16 16
+    
 	
 
 

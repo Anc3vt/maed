@@ -116,6 +116,7 @@ public class Bot extends Actor implements IActioned, IDamaging {
 		if (collideWith instanceof ITight && collideWith.getY() < getY()) {
 			reverseDelay ++;
 			
+			
 			if(reverseDelay > REVERSE_DELAY) {
 				reverseDelay = 0;
 				setDirection(-getDirection());

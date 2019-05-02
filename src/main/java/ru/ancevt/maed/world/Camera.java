@@ -186,7 +186,7 @@ public class Camera implements IDirectioned {
 		final boolean left = false;
 		
 		final float smooth = 25f;
-		final float side = 80.0f;
+		final float side = 80.0f * direction;
 		
 		final float aX = attachedTo.getX();
 		final float aY = attachedTo.getY();

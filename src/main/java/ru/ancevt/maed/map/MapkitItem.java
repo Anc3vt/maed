@@ -20,6 +20,7 @@ public class MapkitItem {
         public static final byte ACTOR  = 3;
         public static final byte DYNAMIC    = 4;
         public static final byte ANIMATED_SCENERY = 5;
+        public static final byte PICKUP = 6;
 
         private static final String NAME_UNKNOWN    = "Unknown";
         private static final String NAME_ALL        = "All";
@@ -28,18 +29,27 @@ public class MapkitItem {
         private static final String NAME_CHARACTERS = "Actors";
         private static final String NAME_DYNAMIC    = "Dynamic";
         private static final String NAME_ANIMATED_SCENERY = "Animated scenery";
+        private static final String NAME_PICKUP = "Pickups";
 
         public static final String getName(final int category) {
-            switch (category) {
-                case ALL:       return NAME_ALL;
-                case AREAS:     return NAME_AREAS;
-                case SCENERY:   return NAME_SCENERY;
-                case ACTOR: return NAME_CHARACTERS;
-                case DYNAMIC:   return NAME_DYNAMIC;
-                case ANIMATED_SCENERY: return NAME_ANIMATED_SCENERY;
-
-                default: return NAME_UNKNOWN;
-            }
+			switch (category) {
+			case ALL:
+				return NAME_ALL;
+			case AREAS:
+				return NAME_AREAS;
+			case SCENERY:
+				return NAME_SCENERY;
+			case ACTOR:
+				return NAME_CHARACTERS;
+			case DYNAMIC:
+				return NAME_DYNAMIC;
+			case ANIMATED_SCENERY:
+				return NAME_ANIMATED_SCENERY;
+			case PICKUP:
+				return NAME_PICKUP;
+			default:
+				return NAME_UNKNOWN;
+			}
         }
 
         public static final boolean isUnknown(final int category) {
@@ -88,9 +98,9 @@ public class MapkitItem {
     }
     
     public final Texture getTexture() {
+        final TextureManager tm = TextureManager.getInstance();
+        
 		if (getCategory() == Category.AREAS) {
-
-            final TextureManager tm = TextureManager.getInstance();
 
             final int areaType = dataLine.getInt(DataKey.AREA_TYPE);
 
@@ -119,6 +129,12 @@ public class MapkitItem {
             }
 
         }
+
+		if (getCategory() == Category.PICKUP) {
+			return tm.getTexture(getName());
+		}
+		
+		
 		
 		final TextureAtlas textureAtlas = mapkit.getTextureAtlas();
 		final TilesetZone tilesetZone = dataLine.getTilesetZone(DataKey.IDLE);
