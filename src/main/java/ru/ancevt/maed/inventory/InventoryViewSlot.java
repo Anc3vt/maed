@@ -6,13 +6,21 @@ import ru.ancevt.d2d2.display.Sprite;
 public class InventoryViewSlot extends DisplayObjectContainer{
 	
 	private final Sprite back;
+	private final Sprite sprite;
 	
 	public InventoryViewSlot() {
 		back = new Sprite("inventory_slot");
 		add(back);
+		
+		sprite = new Sprite();
+		add(sprite);
 	}
 	
-	public void put(Inventory item) {
-		
+	public final void clear() {
+		sprite.clearTexture();
+	}
+	
+	public final void setInventoryItem(InventoryItem item) {
+		sprite.setTexture(item.getTexture());
 	}
 }

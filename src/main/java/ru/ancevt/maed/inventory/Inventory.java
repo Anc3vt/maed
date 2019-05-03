@@ -2,41 +2,41 @@ package ru.ancevt.maed.inventory;
 
 public class Inventory {
 	
-	private InventoryItem[] items;
+	private InventoryItem[] slots;
 	
 	public Inventory(int size) {
-		items = new InventoryItem[size];
+		slots = new InventoryItem[size];
 	}
 	
 	public final int size() {
-		return items.length;
+		return slots.length;
 	}
 	
 	public final void put(int slot, InventoryItem item) {
-		items[slot] = item;
+		slots[slot] = item;
 	}
 	
 	public final InventoryItem get(int slot) {
-		return items[slot];
+		return slots[slot];
 	}
 	
 	public final boolean isEmpty() {
-		for(final InventoryItem i : items)
+		for(final InventoryItem i : slots)
 			if(i != null) return false;
 		 
 		return true;
 	}
 	
 	public final boolean isFull() {
-		for(final InventoryItem i : items)
+		for(final InventoryItem i : slots)
 			if(i == null) return false;
 		
 		return true;
 	}
 	
 	public final int getFreeSlot() {
-		for(int i = 0 ; i < items.length; i ++) {
-			if(items[i] == null) return i;
+		for(int i = 0 ; i < slots.length; i ++) {
+			if(slots[i] == null) return i;
 		}
 		return -1;
 	}
@@ -50,4 +50,35 @@ public class Inventory {
 			return false;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		final StringBuilder s = new StringBuilder(getClass().getSimpleName() + "[цц");
+		
+		for(int i = 0; i < slots.length; i ++) {
+			s.append("\n Slot" + i + ": " + slots[i]);
+		}
+		
+		return s.toString() + "\n]";
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

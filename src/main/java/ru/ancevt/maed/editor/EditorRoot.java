@@ -10,11 +10,14 @@ import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Root;
-import ru.ancevt.d2d2.display.Sprite;
+import ru.ancevt.maed.common.Game;
 import ru.ancevt.maed.common.HealthBar;
+import ru.ancevt.maed.common.GameListenerImpl;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.common.Viewport;
+import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
+import ru.ancevt.maed.inventory.InventoryView;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapLoader;
 import ru.ancevt.maed.map.MapkitItem;
@@ -123,9 +126,15 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		add(healthbar, 300, 10);
 		healthbar.setMax(world.getUserActor().getMaxHealth());
 		
+		add(DebugText.getIntstance(), 10, 100);
 		
-		//add(new Sprite("satellite1"));
-		
+		InventoryView inventoryView = new InventoryView(world.getUserActor().getInventory());
+		inventoryView.setScale(3f, 3f);
+		add(inventoryView);
+
+		Game.root = this;
+		Game.world = world;
+		Game.gameListener = new GameListenerImpl(this, world);
 	}
 	
 	public void loadMap(String mapFileName) {

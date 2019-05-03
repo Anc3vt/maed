@@ -17,6 +17,6 @@ public class PickupHealth extends Pickup {
 	@Override
 	public void onUserPickup(UserActor userActor) {
 		userActor.addHealth(addToHealth);
+		super.onUserPickup(userActor);
 	}
-
 }

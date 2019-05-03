@@ -110,6 +110,10 @@ public class World extends DisplayObjectContainer implements IWorld {
         }
     }
     
+    public final PlayProcessor getPlayProcessor() {
+    	return playProcessor;
+    }
+    
     private final void removeOldPackedScenery(final PackedScenery ps) {
         if(ps == null) return;
         if(ps.hasParent()) ps.getParent().remove(ps);

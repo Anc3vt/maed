@@ -2,6 +2,7 @@ package ru.ancevt.maed.inventory;
 
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Sprite;
+import ru.ancevt.maed.common.Game;
 import ru.ancevt.maed.gameobject.ICollisioned;
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.IResettable;
@@ -82,12 +83,12 @@ IResettable{
 			final UserActor userActor = (UserActor)collideWith;
 			setPickedUp(true);
 			onUserPickup(userActor);
-			setPickedUp(true);
+			
 		}
 	}
 	
 	public void onUserPickup(UserActor userActor) {
-		
+		Game.gameListener.onPuckUpPickup(this);
 	}
 
 	@Override

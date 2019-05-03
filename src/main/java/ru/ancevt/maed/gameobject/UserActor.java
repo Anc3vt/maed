@@ -10,7 +10,7 @@ public class UserActor extends Actor {
 	
 	public UserActor(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
-		inventory = new Inventory(8);
+		inventory = new Inventory(4);
 	}
 
 	@Override
@@ -24,4 +24,9 @@ public class UserActor extends Actor {
 		World.getWorld().getCamera().setDirection(direction);
 		super.setDirection(direction);
 	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
 }
