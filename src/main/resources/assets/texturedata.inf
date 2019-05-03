@@ -2,6 +2,17 @@
 	satellite 0 0 64 48
 	out-of-bnds 10 10 200 200
 	
+:display/misc.png
+	hint_lt 		48 64 16 16
+	hint_t			64 64 16 16
+	hint_rt         80 64 16 16
+	hint_l          48 80 16 16
+	hint_c          64 80 16 16
+	hint_r          80 80 16 16
+	hint_lb         48 96 16 16
+	hint_b          64 96 16 16
+	hint_rb         80 96 16 16
+		
 :display/editor.png
     grid        		    0 0 16 16
     area_collision  	    16 32 16 16
@@ -26,6 +37,7 @@
     bubble                  80 48 16 16
     
     inventory_slot			96 48 16 16
+    inventory_slot_light	112 48 16 16
     pickup_frame			160 0 16 16
     
     p_key_red               224 0 16 16

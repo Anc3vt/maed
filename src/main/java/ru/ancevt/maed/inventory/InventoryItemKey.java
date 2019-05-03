@@ -2,39 +2,41 @@ package ru.ancevt.maed.inventory;
 
 import ru.ancevt.d2d2.display.texture.Texture;
 import ru.ancevt.d2d2.display.texture.TextureManager;
+import ru.ancevt.d2d2.exception.TextureException;
 
 public class InventoryItemKey extends InventoryItem {
 	
-	private int keyType;
+	private int keyTypeId;
 	
-	public InventoryItemKey(int keyType) {
-		this.keyType = keyType;
+	public InventoryItemKey(int keyTypeId) {
+		this.keyTypeId = keyTypeId;
+	}
+	
+	public final int getKeyTypeId() {
+		return keyTypeId;
 	}
 	
 	@Override
 	public final Texture getTexture() {
 		final TextureManager tm = TextureManager.getInstance();
 		
-		switch (keyType) {
+		switch (keyTypeId) {
 			case KeyType.RED:
-				tm.getTexture("p_key_red");
-				break;
+				return tm.getTexture("p_key_red");
 			case KeyType.GREEN:
-				tm.getTexture("p_key_green");
-				break;
+				return tm.getTexture("p_key_green");
 			case KeyType.BLUE:
-				tm.getTexture("p_key_blue");
-				break;
+				return tm.getTexture("p_key_blue");
 			case KeyType.YELLOW:
-				tm.getTexture("p_key_yellow");
-				break;
+				return tm.getTexture("p_key_yellow");
+				
+			default:
+				throw new TextureException("unknown texture to key type " + keyTypeId);
 		}
-		
-		return null;
 	}
 	
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + " [" + keyType + "]";
+		return getClass().getSimpleName() + " [" + keyTypeId + "]";
 	}
 }

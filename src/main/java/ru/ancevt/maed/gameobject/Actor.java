@@ -44,6 +44,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	
 	private boolean jumping;
 	private boolean hooked;
+	protected boolean isDeath;
 
 	public Actor(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
@@ -56,6 +57,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	}
 	@Override
 	public void process() {
+		if(isDeath) return;
+		
 		boolean act = false;
 		if(controller.isRight()) {
 			go(1);
@@ -367,6 +370,9 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setDirection(getStartDirection());
 		setGravityEnabled(true);
 		hooked = false;
+		isDeath = false;
+		setRotation(0);
+		setCollisionArea(-8, -16, 16, 32);
 	}
 
 	@Override

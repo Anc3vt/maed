@@ -9,7 +9,7 @@ import ru.ancevt.maed.gameobject.IResettable;
 import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.map.MapkitItem;
 
-public class Pickup extends DisplayObjectContainer implements IGameObject, ICollisioned,
+abstract public class Pickup extends DisplayObjectContainer implements IGameObject, ICollisioned,
 IResettable{
 	private Sprite frame;
 	private Sprite icon;
@@ -83,7 +83,6 @@ IResettable{
 			final UserActor userActor = (UserActor)collideWith;
 			setPickedUp(true);
 			onUserPickup(userActor);
-			
 		}
 	}
 	
@@ -104,12 +103,6 @@ IResettable{
 	@Override
 	public MapkitItem getMapkitItem() {
 		return mapkitItem;
-	}
-
-	@Override
-	public IGameObject copy() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

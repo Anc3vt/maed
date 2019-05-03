@@ -10,14 +10,14 @@ import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Root;
+import ru.ancevt.d2d2.touch.TouchButton;
 import ru.ancevt.maed.common.Game;
-import ru.ancevt.maed.common.HealthBar;
 import ru.ancevt.maed.common.GameListenerImpl;
+import ru.ancevt.maed.common.HealthBar;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.common.Viewport;
-import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
-import ru.ancevt.maed.inventory.InventoryView;
+import ru.ancevt.maed.gui.Hint9;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapLoader;
 import ru.ancevt.maed.map.MapkitItem;
@@ -127,14 +127,27 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		healthbar.setMax(world.getUserActor().getMaxHealth());
 		
 		add(DebugText.getIntstance(), 10, 100);
-		
-		InventoryView inventoryView = new InventoryView(world.getUserActor().getInventory());
-		inventoryView.setScale(3f, 3f);
-		add(inventoryView);
 
 		Game.root = this;
 		Game.world = world;
 		Game.gameListener = new GameListenerImpl(this, world);
+		
+		
+		
+		
+		final Hint9 hint9 = new Hint9(30, 10);
+		add(hint9);
+		hint9.setScale(2f, 2f);
+		hint9.setText("Hmm. We’re having trouble finding that site.\r\n" + 
+				"\r\n" + 
+				"We can’t connect to the server at twitter.com.\r\n" + 
+				"If that address is correct, here are three other things you can try:\r\n" + 
+				"\r\n" + 
+				"    Try again later.\r\n" + 
+				"    Check your network connection.\r\n" + 
+				"    If you are connected but behind a firewall, check that Firefox has permission to access the Web.");
+		
+		
 	}
 	
 	public void loadMap(String mapFileName) {
@@ -295,6 +308,7 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 							startY = startCheckpoint.getY();
 						}
 						
+						world.getUserActor().reset();
 						world.spawnUserActor(startX, startY);
 						world.getUserActor().setHealth(1000);
 						//world.getUserActor().setAlive(true);

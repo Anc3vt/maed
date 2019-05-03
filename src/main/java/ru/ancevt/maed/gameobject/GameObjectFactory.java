@@ -68,8 +68,9 @@ public class GameObjectFactory {
 				break;
 				
 			case Category.DYNAMIC:
-				result = new Dynamic(mapkitItem, gameObjectId);
+				result = createDynamic(mapkitItem, gameObjectId);
 				break;
+			
 			case Category.ANIMATED_SCENERY:
 				result = new AnimatedScenery(mapkitItem, gameObjectId);
 				break;
@@ -105,6 +106,19 @@ public class GameObjectFactory {
 		default:
 			return null;
 		}
+	}
+	
+	private static final IDynamic createDynamic(MapkitItem mapkitItem, int gameObjectId) {
+		final int dynamicType = mapkitItem.getDataLine().getInt(DataKey.DYNAMIC_TYPE);
+		
+		switch (dynamicType) {
+			case DynamicType.DOOR:
+				return new DynamicDoor(mapkitItem, gameObjectId);
+
+		default:
+			return null;
+		}
+		
 	}
 
 	public static final IGameObject setUpGameObject(final IGameObject o, final DataLine d) {
@@ -304,6 +318,12 @@ public class GameObjectFactory {
 					r.setActionProgram(ActionProgram.parse(d.getString(DataKey.ACTION_PROGRAM)));
 			}
 			
+			if (o instanceof DynamicDoor) {
+				final DynamicDoor dr = (DynamicDoor)o;
+				if(d.containsKey(DataKey.KEY_TYPE_ID))
+					dr.setKeyTypeId(d.getInt(DataKey.KEY_TYPE_ID));
+			}
+			
 
 		} catch (Exception ex) {
 			System.err.println("Error when set up game object");
@@ -439,6 +459,11 @@ public class GameObjectFactory {
 			s.append(kv(DataKey.REACTS_ON_MARKERS, reactsOnMarkers));
 			s.append(kv(DataKey.FACE_TO_FACE, faceToFace));
 			s.append(kv(DataKey.ACTION_PROGRAM, r.getActionProgram().stringify()));
+		}
+		
+		if (o instanceof DynamicDoor) {
+			final DynamicDoor r = (DynamicDoor)o;
+			s.append(kv(DataKey.KEY_TYPE_ID, r.getKeyTypeId()));
 		}
 		
 		return s.toString();

@@ -1,5 +1,7 @@
 package ru.ancevt.maed.gameobject;
 
+import ru.ancevt.maed.common.AKey;
+import ru.ancevt.maed.common.Game;
 import ru.ancevt.maed.inventory.Inventory;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
@@ -27,6 +29,22 @@ public class UserActor extends Actor {
 
 	public Inventory getInventory() {
 		return inventory;
+	}
+	
+	@Override
+	public void setHealth(int health) {
+		if(health <= 0) {
+			Game.gameListener.onUserActorDeath();
+			death();
+		}
+		super.setHealth(health);
+	}
+	
+	private final void death() {
+		setAnimation(AKey.DAMAGE);
+		setRotation(-90);
+		isDeath = true;
+		setCollisionArea(0, 0, 8, 8);
 	}
 
 }

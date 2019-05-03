@@ -62,6 +62,23 @@ public class Inventory {
 		return s.toString() + "\n]";
 		
 	}
+	
+	public final int keySlot(int keyTypeId) {
+		for(int i = 0; i < slots.length; i ++) {
+			final InventoryItem item = slots[i];
+			if(item == null) continue;
+			if(item instanceof InventoryItemKey) {
+				final InventoryItemKey k = (InventoryItemKey)item;
+				if(keyTypeId == k.getKeyTypeId()) return i;
+			}
+		}
+		
+		return -1;
+	}
+
+	public void clearSlot(int index) {
+		slots[index] = null; 
+	}
 }
 
 

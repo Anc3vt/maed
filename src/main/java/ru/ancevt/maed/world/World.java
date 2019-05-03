@@ -9,6 +9,7 @@ import ru.ancevt.d2d2.display.DisplayObject;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.texture.TextureManager;
 import ru.ancevt.maed.common.AKey;
+import ru.ancevt.maed.common.Game;
 import ru.ancevt.maed.common.PlayProcessor;
 import ru.ancevt.maed.common.Viewport;
 import ru.ancevt.maed.gameobject.Ava;
@@ -308,6 +309,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 					spawnUserActor(actorX, actorY);
 					camera.setXY(actorX, actorY);
 					startOut();
+					Game.gameListener.onRoomSwitched(oldRoom.getId(), newRoom.getId());
 				} else
 				if (state == Overlay.STATE_DONE) {
 					removeFromParent();
@@ -392,14 +394,13 @@ public class World extends DisplayObjectContainer implements IWorld {
 	}
 	
 	public final void spawnUserActor(float x, float y) {
-		
-		System.out.println("x: " + x + ", y: " + y);
-		
 		userActor.setXY(x, y);
 		removeGameObject(userActor, false);
 		addGameObject(userActor, 5, false);
 		userActor.setAnimation(AKey.IDLE);
 		camera.setAttachedTo(userActor);
+		
+		Game.gameListener.onUserActorSpawn(roomId, x, y);
 	}
 
 	public WorldListener getWorldListener() {

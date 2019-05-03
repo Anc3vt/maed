@@ -9,7 +9,6 @@ import ru.ancevt.maed.common.DataKey;
 import ru.ancevt.maed.common.Path;
 import ru.ancevt.maed.common.SoundKey;
 import ru.ancevt.maed.common.TilesetZone;
-import ru.ancevt.maed.gameobject.area.Area;
 
 public class MapkitItem {
 	

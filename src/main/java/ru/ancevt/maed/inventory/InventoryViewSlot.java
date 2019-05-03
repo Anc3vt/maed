@@ -6,13 +6,15 @@ import ru.ancevt.d2d2.display.Sprite;
 public class InventoryViewSlot extends DisplayObjectContainer{
 	
 	private final Sprite back;
-	private final Sprite sprite;
+	private Sprite sprite;
 	
 	public InventoryViewSlot() {
 		back = new Sprite("inventory_slot");
 		add(back);
 		
 		sprite = new Sprite();
+		
+		
 		add(sprite);
 	}
 	
@@ -21,6 +23,12 @@ public class InventoryViewSlot extends DisplayObjectContainer{
 	}
 	
 	public final void setInventoryItem(InventoryItem item) {
-		sprite.setTexture(item.getTexture());
+		if(item != null) {
+			add(sprite);
+			sprite.setTexture(item.getTexture());
+		} else {
+			sprite.removeFromParent();
+		}
+		
 	}
 }

@@ -4,8 +4,9 @@ import ru.ancevt.maed.inventory.Pickup;
 
 public interface GameListener {
 	void onPuckUpPickup(Pickup pickup);
-	void onUserActorSpawn();
+	void onUserActorSpawn(int roomId, float x, float y);
 	void onUserActorDeath();
-	void onRoomSwitched();
+	void onRoomSwitched(int oldRoomId, int newRoomId);
+	void onUserActorOpenDoor();
 	
 }
