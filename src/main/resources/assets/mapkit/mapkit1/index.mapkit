@@ -106,4 +106,7 @@ walk=\
 20620 | 5 | water_su| idle=256,80,16,16;272,80,16,16;288,80,16,16
 20621 | 2 | water   | idle=256,96,16,16
 
-20630 | 4 | door_green | idle=256,112,16,32;272,112,16,32;288,112,16,32 | dynamic-type=1 | collision-area=0,0,8,32
+20629 | 4 | door_red    | idle=256,176,16,32;272,176,16,32;288,176,16,32 | dynamic-type=1 | collision-area=0,0,8,32
+20630 | 4 | door_green  | idle=256,112,16,32;272,112,16,32;288,112,16,32 | dynamic-type=1 | collision-area=0,0,8,32
+20632 | 4 | door_blue   | idle=256,144,16,32;272,144,16,32;288,144,16,32 | dynamic-type=1 | collision-area=0,0,8,32
+20633 | 4 | door_yellow | idle=256,208,16,32;272,208,16,32;288,208,16,32 | dynamic-type=1 | collision-area=0,0,8,32

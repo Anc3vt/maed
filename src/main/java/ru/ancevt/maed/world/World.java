@@ -309,7 +309,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 					spawnUserActor(actorX, actorY);
 					camera.setXY(actorX, actorY);
 					startOut();
-					Game.gameListener.onRoomSwitched(oldRoom.getId(), newRoom.getId());
+					Game.mode.onRoomSwitched(oldRoom.getId(), newRoom.getId());
 				} else
 				if (state == Overlay.STATE_DONE) {
 					removeFromParent();
@@ -400,7 +400,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 		userActor.setAnimation(AKey.IDLE);
 		camera.setAttachedTo(userActor);
 		
-		Game.gameListener.onUserActorSpawn(roomId, x, y);
+		Game.mode.onUserActorSpawn(roomId, x, y);
 	}
 
 	public WorldListener getWorldListener() {

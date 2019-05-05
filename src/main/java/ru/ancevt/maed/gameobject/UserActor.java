@@ -6,7 +6,7 @@ import ru.ancevt.maed.inventory.Inventory;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
 
-public class UserActor extends Actor {
+public class UserActor extends Actor implements IResettable {
 
 	private Inventory inventory;
 	
@@ -26,6 +26,12 @@ public class UserActor extends Actor {
 		World.getWorld().getCamera().setDirection(direction);
 		super.setDirection(direction);
 	}
+	
+	@Override
+	public void reset() {
+		inventory.clear();
+		super.reset();
+	}
 
 	public Inventory getInventory() {
 		return inventory;
@@ -34,7 +40,7 @@ public class UserActor extends Actor {
 	@Override
 	public void setHealth(int health) {
 		if(health <= 0) {
-			Game.gameListener.onUserActorDeath();
+			Game.mode.onUserActorDeath();
 			death();
 		}
 		super.setHealth(health);
@@ -45,6 +51,16 @@ public class UserActor extends Actor {
 		setRotation(-90);
 		isDeath = true;
 		setCollisionArea(0, 0, 8, 8);
+	}
+	
+	@Override
+	public void onCollide(ICollisioned collideWith) {
+		if(collideWith instanceof DynamicDoor) {
+			final DynamicDoor dynamicDoor = (DynamicDoor)collideWith;
+			Game.mode.onUserActorCollideDoor(dynamicDoor);
+			
+		}
+		super.onCollide(collideWith);
 	}
 
 }

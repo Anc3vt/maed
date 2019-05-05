@@ -6,8 +6,8 @@ import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.text.BitmapText;
 
 public class HealthBar extends DisplayObjectContainer {
-	private static final int WIDTH = 500;
-	private static final int HEIGHT = 15;
+	private static final int WIDTH = 200;
+	private static final int HEIGHT = 5;
 	
 	private static final int DEFAULT_MAX = 100;
 	private static final int DEFAULT_VALUE = 100;

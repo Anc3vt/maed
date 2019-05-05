@@ -6,6 +6,7 @@ import java.util.List;
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Sprite;
+import ru.ancevt.d2d2.touch.TouchButton;
 import ru.ancevt.maed.editor.ShadowLabel;
 
 public class Hint9 extends DisplayObjectContainer {
@@ -16,12 +17,25 @@ public class Hint9 extends DisplayObjectContainer {
 	private int cellWidth, cellHeight;
 	
 	private ShadowLabel label;
+	private TouchButton touchButton;
 	
 	public Hint9(int cellWidth, int cellHeight) {
 		sprites = new ArrayList<Sprite>();
 		
+		setScale(2f, 2f);
+		
 		this.cellWidth = cellWidth;
 		this.cellHeight = cellHeight;
+		
+		touchButton = new TouchButton(true) { 
+			@Override
+			public boolean onTouchDown(int x, int y) {
+				onTouch();
+				return super.onTouchDown(x, y);
+			}
+		};
+		add(touchButton);
+		
 		
 		label = new ShadowLabel();
 		label.setColor(Color.YELLOW);
@@ -32,6 +46,10 @@ public class Hint9 extends DisplayObjectContainer {
 		for(final Sprite s : sprites) {
 			s.removeFromParent();
 		}
+	}
+	
+	public void onTouch() {
+		
 	}
 	
 	private final void redraw() {
@@ -61,6 +79,7 @@ public class Hint9 extends DisplayObjectContainer {
 		
 		label.setXY(PADDING, PADDING);
 		label.setBounds(getWidth() - PADDING * 2, getHeight() - PADDING * 2);
+		touchButton.setSize(getWidth(), getHeight());
 		add(label);
 	}
 	

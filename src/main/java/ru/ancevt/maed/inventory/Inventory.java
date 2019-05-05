@@ -1,11 +1,21 @@
 package ru.ancevt.maed.inventory;
 
+import ru.ancevt.maed.common.Game;
+import ru.ancevt.maed.gameobject.DynamicDoor;
+
 public class Inventory {
 	
 	private InventoryItem[] slots;
 	
 	public Inventory(int size) {
 		slots = new InventoryItem[size];
+	}
+	
+	public void clear() {
+		for(int i = 0; i < slots.length; i ++) {
+			slots[i] = null;
+		}
+		Game.mode.inventoryViewUpdate();
 	}
 	
 	public final int size() {
@@ -78,6 +88,20 @@ public class Inventory {
 
 	public void clearSlot(int index) {
 		slots[index] = null; 
+	}
+
+	public boolean checkKeyTypeId(DynamicDoor dynamicDoor) {
+		for(int i = 0; i < slots.length; i ++) {
+			final InventoryItem item = slots[i];
+			if(item !=null) {
+				if(item instanceof InventoryItemKey) {
+					final InventoryItemKey k = (InventoryItemKey)item;
+					if(dynamicDoor.getKeyTypeId() == k.getKeyTypeId()) return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 }
 

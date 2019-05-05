@@ -12,6 +12,12 @@
 	hint_lb         48 96 16 16
 	hint_b          64 96 16 16
 	hint_rb         80 96 16 16
+	
+	a				96 0 32 32
+	c               32 0 32 32
+	b               64 0 32 32
+	left			64 32 32 32
+	right           96 32 32 32
 		
 :display/editor.png
     grid        		    0 0 16 16

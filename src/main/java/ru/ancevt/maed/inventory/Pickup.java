@@ -87,7 +87,7 @@ IResettable{
 	}
 	
 	public void onUserPickup(UserActor userActor) {
-		Game.gameListener.onPuckUpPickup(this);
+		Game.mode.onPuckUpPickup(this);
 	}
 
 	@Override

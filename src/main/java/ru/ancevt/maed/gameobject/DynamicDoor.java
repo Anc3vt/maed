@@ -8,11 +8,11 @@ import ru.ancevt.maed.inventory.Inventory;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
 
-public class DynamicDoor extends Sprite implements IDynamic, ITight {
+public class DynamicDoor extends Sprite implements IDynamic, ITight, IResettable {
 
 	private MapkitItem mapkitItem;
 	private int gameObjectId;
-	private boolean isOpen;
+	private boolean doorIsOpen;
 	private int keyTypeId;
 	private float collX, collY, collWidth, collHeight;
 	
@@ -26,17 +26,22 @@ public class DynamicDoor extends Sprite implements IDynamic, ITight {
 	public void open() {
 		setTexture(mapkitItem.getTexture(AKey.IDLE, 1));
 
+		doorIsOpen = true;
+		
 		final Timer timer = new Timer(200) {
 			@Override
 			public void onTimerTick() {
 				setTexture(mapkitItem.getTexture(AKey.IDLE, 2));
-				isOpen = true;
 				super.onTimerTick();
 			}
 		};
 		timer.setLoop(false);
 		timer.start();
 		
+	}
+	
+	public boolean isOpen() {
+		return doorIsOpen;
 	}
 	
 	public void close() {
@@ -80,7 +85,7 @@ public class DynamicDoor extends Sprite implements IDynamic, ITight {
 
 	@Override
 	public boolean isCollisionEnabled() {
-		return !isOpen;
+		return !doorIsOpen;
 	}
 
 	@Override
@@ -126,13 +131,13 @@ public class DynamicDoor extends Sprite implements IDynamic, ITight {
 		if(collideWith instanceof UserActor) {
 			final UserActor userActor = (UserActor)collideWith;
 			
-			if(!isOpen) {
+			if(!doorIsOpen) {
 				final Inventory inventory = userActor.getInventory();
 				final int slot = inventory.keySlot(keyTypeId);
 				if(slot != -1) {
 					open();
 					inventory.clearSlot(slot);
-					Game.gameListener.onUserActorOpenDoor();
+					Game.mode.onUserActorOpenDoor();
 				}
 				
 			}
@@ -165,6 +170,12 @@ public class DynamicDoor extends Sprite implements IDynamic, ITight {
 
 	public void setKeyTypeId(int keyId) {
 		this.keyTypeId = keyId;
+	}
+
+	@Override
+	public void reset() {
+		doorIsOpen = false;
+		setTexture(mapkitItem.getTexture());
 	}
 	
 }
