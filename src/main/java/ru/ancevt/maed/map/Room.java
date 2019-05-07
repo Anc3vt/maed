@@ -5,6 +5,7 @@ import java.util.List;
 
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.gameobject.IGameObject;
+import ru.ancevt.maed.gameobject.IResettable;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.world.WorldLayer;
 
@@ -73,6 +74,17 @@ public class Room {
 		setHeight(h);
 	}
 	
+	public final void resetAllResettables() {
+		for(int i = 0; i < gameObjects.length; i ++) {
+			for(int j = 0; j < gameObjects[i].size(); j ++) {
+				final IGameObject gameObject = gameObjects[i].get(j);
+				if(gameObject instanceof IResettable) {
+					((IResettable)gameObject).reset();
+				}
+			}
+		}
+	}
+	
 	public final AreaCheckpoint getCheckpointById(int id) {
 		for(int l = 0 ; l < gameObjects.length; l ++) {
 			for(int i = 0; i < gameObjects[l].size(); i ++) {
@@ -100,4 +112,40 @@ public class Room {
 	public final IGameObject getGameObject(final int layer, final int index) {
 		return gameObjects[layer].get(index);
 	}
+	
+	public final boolean hasGameObject(IGameObject gameObject) {
+		for(int i = 0; i < gameObjects.length; i ++) {
+			for(int j = 0; j < gameObjects[i].size(); j ++) {
+				final IGameObject g = gameObjects[i].get(j);
+				if(gameObject == g) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

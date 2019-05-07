@@ -1,16 +1,17 @@
 package ru.ancevt.maed.common;
 
-import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.Root;
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.d2d2.time.Timer;
 import ru.ancevt.maed.gameobject.DynamicDoor;
 import ru.ancevt.maed.gameobject.UserActor;
+import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gui.Hint9;
 import ru.ancevt.maed.inventory.Inventory;
 import ru.ancevt.maed.inventory.InventoryView;
 import ru.ancevt.maed.inventory.KeyType;
 import ru.ancevt.maed.inventory.Pickup;
+import ru.ancevt.maed.map.Room;
 import ru.ancevt.maed.world.World;
 
 public class GameMode  {
@@ -43,20 +44,43 @@ public class GameMode  {
 
 	public void onUserActorDeath() {
 		System.out.println("User actor death");
+		
+		final Hint9 hint = message(6, 2, "You are dead");
+		//hint.setScale(0.7f, 0.7f);
+		final Timer t = new Timer(5000) {
+			public void onTimerTick() {
+				userActor.reset();
+				
+				final AreaCheckpoint lastContinueCheckpoint = userActor.getLastContinueCheckPoint();
+				final Room room = world.getMap().getRoomByGameObject(lastContinueCheckpoint);
+				
+				world.switchRoom(room.getId(), lastContinueCheckpoint.getX(), lastContinueCheckpoint.getY());
+				userActor.reset();
+				hint.removeFromParent();
+			};
+		};
+		t.setLoop(false);
+		t.start();
 	}
 
 	public void onRoomSwitched(int oldRoomId, int newRoomId) {
 		System.out.println("Room switched from " + oldRoomId + " to " + newRoomId);
 	}
 
-	public void message(int w, int h, String text) {
+	public Hint9 message(int w, int h, String text) {
 		final Hint9 hint9 = new Hint9(w, h);
 		hint9.setText(text);
-		hint9.setXY(D2D2.getRenderer().getWidth()/2 - hint9.getWidth(), D2D2.getRenderer().getHeight()/2-hint9.getHeight());
-		root.add(hint9);
+		hint9.setXY(Viewport.WIDTH/2 - hint9.getWidth(), Viewport.HEIGHT/2-hint9.getHeight());
+		Game.rootLayer.add(hint9);
+		return hint9;
 	}
 
 	public void onUserActorCollideDoor(DynamicDoor dynamicDoor) {
+		if(!dynamicDoor.isOpen() && dynamicDoor.getKeyTypeId() == 0) {
+			dynamicDoor.open();
+			return;
+		}
+
 		if(!dynamicDoor.isOpen() && !userActor.getInventory().checkKeyTypeId(dynamicDoor)) {
 			keyMessage(dynamicDoor.getKeyTypeId());
 		} else {
@@ -86,9 +110,9 @@ public class GameMode  {
 				removeFromParent();
 			};
 		};
-		root.add(keyHint);
-		keyHint.setXY(D2D2.getRenderer().getWidth() / 2 - keyHint.getWidth(), 100);
-		keyHint.setScale(2f, 2f);
+		Game.rootLayer.add(keyHint);
+		keyHint.setScale(0.7f, 0.7f);
+		keyHint.setXY(Viewport.WIDTH / 2 - keyHint.getWidth(), Viewport.HEIGHT / 2 - keyHint.getHeight());
 		
 		String word = null;
 		String textureKey = null;
@@ -127,6 +151,12 @@ public class GameMode  {
 		};
 		timer.setLoop(false);
 		timer.start();
+	}
+
+	public void onUserActorCollideCheckpoint(AreaCheckpoint cp) {
+		if(cp.getCheckPointType() == AreaCheckpoint.CHECKPOINT_TYPE_CONTINUE) {
+			userActor.setLastContinueCheckPoint(cp);
+		}
 	}
 
 }

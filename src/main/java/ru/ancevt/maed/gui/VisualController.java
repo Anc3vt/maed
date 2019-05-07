@@ -1,6 +1,5 @@
 package ru.ancevt.maed.gui;
 
-import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.d2d2.touch.TouchButton;

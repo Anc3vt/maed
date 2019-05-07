@@ -389,7 +389,7 @@ public class GameObjectFactory {
 
 		if (o instanceof ICollisioned) {
 			final ICollisioned r = (ICollisioned) o;
-
+			
 			final String collisionArea = String.format("%s,%s,%s,%s", roundEx(r.getCollisionX()),
 					roundEx(r.getCollisionY()), roundEx(r.getCollisionWidth()), roundEx(r.getCollisionHeight()));
 

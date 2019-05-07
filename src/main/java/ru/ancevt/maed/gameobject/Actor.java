@@ -1,13 +1,14 @@
 package ru.ancevt.maed.gameobject;
 
-import ru.ancevt.d2d2.common.PlainRect;
-import ru.ancevt.d2d2.display.Color;
+import ru.ancevt.maed.arming.Weapon;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.BotController;
 import ru.ancevt.maed.common.Controller;
+import ru.ancevt.maed.debug.CollisionShowRect;
 import ru.ancevt.maed.gameobject.area.AreaHook;
 import ru.ancevt.maed.gameobject.area.AreaWater;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 abstract public class Actor extends Animated implements IGameObject, IDirectioned, IMoveable, IAnimated,
 IDestroyable, ITight, IResettable, IGravitied, IControllable {
@@ -40,11 +41,13 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	private int waterTime;
 	private int hookTime;
 	
-	private PlainRect collRect;
-	
 	private boolean jumping;
 	private boolean hooked;
 	protected boolean isDeath;
+	
+	private Weapon weapon;
+	
+	private CollisionShowRect collisionShowRect;
 
 	public Actor(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
@@ -60,10 +63,11 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		if(isDeath) return;
 		
 		boolean act = false;
+		
 		if(controller.isRight()) {
 			go(1);
 			act = true;
-		} else 
+		} 
 		if(controller.isLeft()){
 			go(-1);
 			act = true;
@@ -162,6 +166,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		attackTime = ATTACK_TIME;
 		
 		if(hooked) setAnimation(AKey.HOOK_ATTACK);
+		
+		World.getWorld().actorAttack(this);
 	}
 	
 	
@@ -192,7 +198,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	}
 	
 	public void setWeaponXY(float x, float y) {
-		
+		weapX = x;
+		weapY = y;
 	}
 	
 	public void setJumpPower(float value) {
@@ -249,24 +256,12 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	public void setCollisionVisible(boolean b) {
 		this.collisionVisible = b;
 
-		if(collRect != null && collRect.hasParent()) {
-			collRect.removeFromParent();
-			collRect = null;
-		}
+		if(collisionShowRect != null) collisionShowRect.removeFromParent();
 		
-		if(collRect == null) {
-			collRect = new PlainRect(Color.DARK_GREEN);
-			collRect.setX(getCollisionX());
-			collRect.setY(getCollisionY());
-			collRect.setWidth(getCollisionWidth());
-			collRect.setHeight(getCollisionHeight());
-			add(collRect);
-		}
-		
-		if (!collisionVisible && collRect != null) {
-			collRect.removeFromParent();
-			collRect = null;
-		}
+		if(collisionVisible) {
+			collisionShowRect = new CollisionShowRect(this);
+			add(collisionShowRect);
+		} 
 	}
 
 	@Override
@@ -372,7 +367,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		hooked = false;
 		isDeath = false;
 		setRotation(0);
-		setCollisionArea(-8, -16, 16, 32);
 	}
 
 	@Override
@@ -509,5 +503,11 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	@Override
 	public boolean isUnattainable() {
 		return unattainableTime > 0;
+	}
+	public Weapon getWeapon() {
+		return weapon;
+	}
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 }

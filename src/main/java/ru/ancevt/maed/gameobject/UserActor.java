@@ -1,7 +1,9 @@
 package ru.ancevt.maed.gameobject;
 
+import ru.ancevt.maed.arming.DefaultWeapon;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.Game;
+import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.inventory.Inventory;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
@@ -9,10 +11,12 @@ import ru.ancevt.maed.world.World;
 public class UserActor extends Actor implements IResettable {
 
 	private Inventory inventory;
+	private AreaCheckpoint lastContinueCheckpoint;
 	
 	public UserActor(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
 		inventory = new Inventory(4);
+		setWeapon(new DefaultWeapon());
 	}
 
 	@Override
@@ -29,7 +33,9 @@ public class UserActor extends Actor implements IResettable {
 	
 	@Override
 	public void reset() {
-		inventory.clear();
+		//inventory.clear();
+		setHealth(getMaxHealth());
+		setCollisionArea(-8,-16,16,32);
 		super.reset();
 	}
 
@@ -51,6 +57,7 @@ public class UserActor extends Actor implements IResettable {
 		setRotation(-90);
 		isDeath = true;
 		setCollisionArea(0, 0, 8, 8);
+		Game.mode.onUserActorDeath();
 	}
 	
 	@Override
@@ -58,9 +65,19 @@ public class UserActor extends Actor implements IResettable {
 		if(collideWith instanceof DynamicDoor) {
 			final DynamicDoor dynamicDoor = (DynamicDoor)collideWith;
 			Game.mode.onUserActorCollideDoor(dynamicDoor);
-			
+		}
+		if(collideWith instanceof AreaCheckpoint) {
+			Game.mode.onUserActorCollideCheckpoint((AreaCheckpoint)collideWith);
 		}
 		super.onCollide(collideWith);
+	}
+
+	public void setLastContinueCheckPoint(AreaCheckpoint cp) {
+		this.lastContinueCheckpoint = cp;
+	}
+
+	public AreaCheckpoint getLastContinueCheckPoint() {
+		return lastContinueCheckpoint;
 	}
 
 }

@@ -8,10 +8,12 @@ import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.d2d2.display.DisplayObject;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.texture.TextureManager;
+import ru.ancevt.maed.arming.Bullet;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.Game;
 import ru.ancevt.maed.common.PlayProcessor;
 import ru.ancevt.maed.common.Viewport;
+import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.Ava;
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.IResettable;
@@ -206,12 +208,21 @@ public class World extends DisplayObjectContainer implements IWorld {
 		return switchingRoomsNow;
 	}
 	
-	public void resetAllResettables() {
-		for(int i = 0; i < gameObjects.size(); i ++) {
-			final IGameObject gameObject = gameObjects.get(i);
-			if(gameObject instanceof IResettable) {
-				final IResettable r = (IResettable) gameObject;
-				if(r != userActor) r.reset();
+	public void resetAllResettables(boolean allRooms) {
+		if(allRooms) {
+			if(map != null) {
+				for(int r = 0; r < map.getRoomsCount(); r ++ ) {
+					final Room room = map.getRoomByIndex(r);
+					room.resetAllResettables();
+				}
+			}
+		} else {
+			for(int i = 0; i < gameObjects.size(); i ++) {
+				final IGameObject gameObject = gameObjects.get(i);
+				if(gameObject instanceof IResettable) {
+					final IResettable r = (IResettable) gameObject;
+					if(r != userActor) r.reset();
+				}
 			}
 		}
 	}
@@ -251,6 +262,12 @@ public class World extends DisplayObjectContainer implements IWorld {
 		
 		if(map.getRoomsCount() > 0) 
 			setRoomId(map.getRoomByIndex(0).getId());
+		
+		onMapSet();
+	}
+	
+	public void onMapSet() {
+		
 	}
 	
 	public void update() {
@@ -383,7 +400,22 @@ public class World extends DisplayObjectContainer implements IWorld {
 	}
 	
 	public void onUserActorHealthChanged(float health) {
+		// to override
+	}
+	
+	public void actorAttack(Actor actor) {
+		if(actor.getWeapon() == null) return;
 		
+		final Bullet bullet = actor.getWeapon().createBullet(actor);
+		
+		
+		final float weaponX = actor.getX() + (actor.getWeaponX() * actor.getDirection());
+		final float weaponY = actor.getY() + actor.getWeaponY();
+		
+		
+		bullet.setXY(weaponX, weaponY);
+		bullet.setDirection(actor.getDirection());
+		addGameObject(bullet, 5, false);
 	}
 
 	public final void removeUserActor() {
@@ -411,7 +443,7 @@ public class World extends DisplayObjectContainer implements IWorld {
 		this.listener = listener;
 	}
 
-	public final AreaCheckpoint detectStartCHeckpoint() {
+	public final AreaCheckpoint detectStartCheckpoint() {
 		for( int i = 0 ; i < gameObjects.size(); i ++ ) {
 			final IGameObject g = gameObjects.get(i);
 			if(g instanceof AreaCheckpoint) {

@@ -59,6 +59,8 @@ public class AreaTrigger extends Area {
 	}
 	
 	private static final void checkDublicate(String test) {
+		if(test == null) return;
+		
 		final String pattern = "<>JS";
 
 		for (int i = 0; i < pattern.length(); i ++) {

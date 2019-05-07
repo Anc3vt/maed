@@ -1,5 +1,7 @@
 package ru.ancevt.maed.gameobject;
 
+import ru.ancevt.maed.common.BotController;
+import ru.ancevt.maed.common.Controller;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProcessor;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
@@ -21,6 +23,7 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	public Bot(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
 		actionProcessor = new ActionProcessor(this);
+		actionProcessor.setController(getController());
 	}
 	
 	@Override
@@ -114,8 +117,14 @@ public class Bot extends Actor implements IActioned, IDamaging {
 				jump();
 			} 
 				
-			if(!at.isJump() && at.isRight() && getDirection() == -1) go(1);
-			if(!at.isJump() && at.isLeft() && getDirection() == 1) go(-1);
+			if(!at.isJump() && at.isRight() && getDirection() == -1) {
+				if(getController().isLeft()) getController().setLeft(false);
+				go(1);
+			}
+			if(!at.isJump() && at.isLeft() && getDirection() == 1) {
+				if(getController().isRight()) getController().setRight(false);
+				go(-1);
+			}
 		}
 		
 		if (collideWith instanceof ITight && collideWith.getY() < getY()) {
@@ -133,11 +142,11 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	
 	@Override
 	public void process() {
+		super.process();
 		if(face2face) {
 			final float userX = World.getWorld().getUserActor().getX();
 			if(userX < getX()) go(-1); else go(1);
 		}
-		super.onEachFrame();
 	}
 
 }

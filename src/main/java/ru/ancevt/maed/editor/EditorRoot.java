@@ -132,8 +132,6 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		Game.world = world;
 		Game.mode = new GameMode(this, world);
 		
-		final VisualController vc = new VisualController(PlayerController.getInstance());
-		rootLayer.add(vc);
 		
 //		final Hint9 hint9 = new Hint9(9, 3) {
 //			public void onTouch() {
@@ -177,9 +175,8 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 	
 	public void setPlayMode(boolean playMode) {
 		this.playMode = playMode;
-		
 
-		world.resetAllResettables();
+		world.resetAllResettables(true);
 		
 		if(playMode) {
 			remove(gui);
@@ -300,7 +297,8 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 						setGridEnabled(false);
 						
 						float startX = 0, startY = 0;
-						final AreaCheckpoint startCheckpoint = world.detectStartCHeckpoint();
+						final AreaCheckpoint startCheckpoint = world.detectStartCheckpoint();
+						world.getUserActor().setLastContinueCheckPoint(startCheckpoint);
 						if(startCheckpoint != null) {
 							startX = startCheckpoint.getX();
 							startY = startCheckpoint.getY();
@@ -315,7 +313,7 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 						camera.setBoundsLock(true);
 						rootLayer.setScale(0.1f, 0.1f);
 						world.setSceneryPacked(true);
-						world.resetAllResettables();
+						world.resetAllResettables(true);
 						while(Viewport.WIDTH * rootLayer.getScaleX() < D2D2.getRenderer().getWidth()) {
 							rootLayer.toScale(1.01f, 1.01f);
 						}
@@ -378,6 +376,27 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 					break;
 				case KeyEvent.VK_NUMPAD2:
 					world.switchRoom(2, 16, 16);
+					break;
+				case KeyEvent.VK_NUMPAD3:
+					world.switchRoom(3, 16, 16);
+					break;
+				case KeyEvent.VK_NUMPAD4:
+					world.switchRoom(4, 16, 16);
+					break;
+				case KeyEvent.VK_NUMPAD5:
+					world.switchRoom(5, 16, 16);
+					break;
+				case KeyEvent.VK_NUMPAD6:
+					world.switchRoom(6, 16, 16);
+					break;
+				case KeyEvent.VK_NUMPAD7:
+					world.switchRoom(7, 16, 16);
+					break;
+				case KeyEvent.VK_NUMPAD8:
+					world.switchRoom(8, 16, 16);
+					break;
+				case KeyEvent.VK_NUMPAD9:
+					world.switchRoom(9, 16, 16);
 					break;
 					
 				case KeyEvent.VK_F4:

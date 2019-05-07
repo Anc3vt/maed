@@ -83,9 +83,9 @@ walk=\
 	fall=0,208,48,48 |\ 
 	attack=48,208,48,48;96,208,48,48 |\ 
 	damage=144,208,48,48 |\
-	collision-area = -8,-16,16,37 
+	collision-area = -8,-11,16,32
 
-30010 | 3 | turtle | idle=224,112,16,32;240,112,16,32 | collision-area = -8,-3,16,18
+30010 | 3 | turtle | idle=224,112,16,32;240,112,16,32 | collision-area = -8,-3,16,18 | jump-power = 2.5 | damaging-power = 5 | speed = 0.3 | weight = 0.06 | action-program = walk;
 
 20600 | 5 | dragon | idle=\
 160,0,48,16;\

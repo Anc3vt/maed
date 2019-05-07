@@ -22,8 +22,6 @@ public class Hint9 extends DisplayObjectContainer {
 	public Hint9(int cellWidth, int cellHeight) {
 		sprites = new ArrayList<Sprite>();
 		
-		setScale(2f, 2f);
-		
 		this.cellWidth = cellWidth;
 		this.cellHeight = cellHeight;
 		

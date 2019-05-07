@@ -41,7 +41,18 @@ public class ActionProcessor {
 			
 			switch (actionKey) {
 				case Action.WALK:
-					bot.go(bot.getDirection());
+					
+					if(bot.getDirection() > 0) {
+						controller.setRight(true);
+						controller.setLeft(false);
+					} else {
+						controller.setLeft(true);
+						controller.setRight(false);
+					}
+					break;
+				case Action.STOP:
+					controller.setLeft(false);
+					controller.setRight(false);
 					break;
 				case Action.LEFT:
 					if(!bot.isFace2Face()) bot.go(-1);

@@ -135,6 +135,14 @@ public class Map {
 		this.music = music;
 	}
 	
+	public final Room getRoomByGameObject(IGameObject gameObject) {
+		for(int i = 0; i < rooms.size(); i ++) {
+			final Room room = rooms.get(i);
+			if(room.hasGameObject(gameObject)) return room;
+		}
+		
+		return null;
+	}
 }
 
 
