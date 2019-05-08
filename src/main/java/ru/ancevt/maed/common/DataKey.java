@@ -84,4 +84,5 @@ public class DataKey {
 
 	public static final String DYNAMIC_TYPE = "dynamic-type";
 	public static final String KEY_TYPE_ID = "key-type-id";
+	public static final String WEAPON_TYPE = "weapon-type";
 }

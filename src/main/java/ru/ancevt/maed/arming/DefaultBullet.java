@@ -17,6 +17,7 @@ public class DefaultBullet extends Bullet  {
 	
 	public DefaultBullet() {
 		setCollisionArea(-2, -2, 4, 4);
+		setDamagingPower(5);
 		
 		fly = true;
 		
@@ -59,7 +60,6 @@ public class DefaultBullet extends Bullet  {
 	@Override
 	public void onCollide(ICollisioned collideWith) {
 		if(!killed && collideWith instanceof ITight) {
-			final ITight t = (ITight)collideWith;
 			add(explosionFrameSet);
 			explosionFrameSet.play();
 			fly = false;

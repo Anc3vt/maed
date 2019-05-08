@@ -10,7 +10,7 @@ import ru.ancevt.maed.gameobject.area.AreaWater;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
 
-abstract public class Actor extends Animated implements IGameObject, IDirectioned, IMoveable, IAnimated,
+abstract public class Actor extends Animated implements IDirectioned, IMoveable, IAnimated,
 IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	private static int JUMP_TIME = 20;
@@ -364,6 +364,8 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setY(startY);
 		setDirection(getStartDirection());
 		setGravityEnabled(true);
+		setCollisionEnabled(true);
+		setHealth(getMaxHealth());
 		hooked = false;
 		isDeath = false;
 		setRotation(0);
@@ -494,6 +496,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setAnimation(AKey.DAMAGE);
 		unattainableTime = UNUTAINABLE_TIME;
 		addHealth(-damagingFrom.getDamagingPower());
+		setVelocity(-getDirection() * 5, -2);
 	}
 	
 	@Override

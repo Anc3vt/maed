@@ -111,7 +111,7 @@ public class GameMode  {
 			};
 		};
 		Game.rootLayer.add(keyHint);
-		keyHint.setScale(0.7f, 0.7f);
+		//keyHint.setScale(0.7f, 0.7f);
 		keyHint.setXY(Viewport.WIDTH / 2 - keyHint.getWidth(), Viewport.HEIGHT / 2 - keyHint.getHeight());
 		
 		String word = null;

@@ -3,6 +3,7 @@ package ru.ancevt.maed.arming;
 import ru.ancevt.maed.gameobject.Actor;
 
 abstract public class Weapon {
+	
 	private static final int DEFAULT_BULLET_COUNT = -1;
 	
 	private int bulletCount;

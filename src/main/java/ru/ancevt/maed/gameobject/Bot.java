@@ -1,7 +1,7 @@
 package ru.ancevt.maed.gameobject;
 
-import ru.ancevt.maed.common.BotController;
-import ru.ancevt.maed.common.Controller;
+import ru.ancevt.maed.arming.DefaultWeapon;
+import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProcessor;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
@@ -24,6 +24,7 @@ public class Bot extends Actor implements IActioned, IDamaging {
 		super(mapkitItem, gameObjectId);
 		actionProcessor = new ActionProcessor(this);
 		actionProcessor.setController(getController());
+		
 	}
 	
 	@Override
@@ -43,7 +44,25 @@ public class Bot extends Actor implements IActioned, IDamaging {
 		bot.setJumpPower(getJumpPower());
 		bot.setCollisionArea(getCollisionX(), getCollisionY(), getCollisionWidth(), getCollisionHeight());
 		
+				
 		return bot;
+	}
+	
+	@Override
+	public void setHealth(int health) {
+		if(health <= 0) {
+			death();
+		}
+		super.setHealth(health);
+	}
+	
+	private final void death() {
+		setAnimation(AKey.DAMAGE);
+		setRotation(-180);
+		isDeath = true;
+		setDamagingPower(0);
+		setCollisionEnabled(false);
+		setVelocityY(-5);
 	}
 
 	@Override
@@ -130,7 +149,6 @@ public class Bot extends Actor implements IActioned, IDamaging {
 		if (collideWith instanceof ITight && collideWith.getY() < getY()) {
 			reverseDelay ++;
 			
-			
 			if(reverseDelay > REVERSE_DELAY) {
 				reverseDelay = 0;
 				setDirection(-getDirection());
@@ -147,6 +165,7 @@ public class Bot extends Actor implements IActioned, IDamaging {
 			final float userX = World.getWorld().getUserActor().getX();
 			if(userX < getX()) go(-1); else go(1);
 		}
+		
 	}
 
 }

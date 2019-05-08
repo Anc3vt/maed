@@ -1,5 +1,6 @@
 package ru.ancevt.maed.gameobject;
 
+import ru.ancevt.maed.arming.WeaponGiver;
 import ru.ancevt.maed.common.DataKey;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.Area;
@@ -257,6 +258,10 @@ public class GameObjectFactory {
 						: DEFAULT_WEAPON_POS_Y;
 
 				r.setWeaponXY(wx, wy);
+				
+				if(d.containsKey(DataKey.WEAPON_TYPE)) {
+					WeaponGiver.arm(r, d);
+				}
 
 			}
 
