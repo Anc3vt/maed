@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.ancevt.maed.gameobject.IGameObject;
+import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.music.Music;
 import ru.ancevt.maed.world.WorldLayer;
 
@@ -139,6 +140,16 @@ public class Map {
 		for(int i = 0; i < rooms.size(); i ++) {
 			final Room room = rooms.get(i);
 			if(room.hasGameObject(gameObject)) return room;
+		}
+		
+		return null;
+	}
+	
+	public final AreaCheckpoint getStartCheckpoint() {
+		for(int i = 0; i < rooms.size(); i ++) {
+			final Room room = rooms.get(i);
+			final AreaCheckpoint acp = room.getStartCheckpoint();
+			if(acp != null) return acp;
 		}
 		
 		return null;

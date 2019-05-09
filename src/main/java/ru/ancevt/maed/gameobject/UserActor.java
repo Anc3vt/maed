@@ -10,6 +10,7 @@ import ru.ancevt.maed.world.World;
 
 public class UserActor extends Actor implements IResettable {
 
+	private int money;
 	private Inventory inventory;
 	private AreaCheckpoint lastContinueCheckpoint;
 	
@@ -19,12 +20,6 @@ public class UserActor extends Actor implements IResettable {
 		setWeapon(new DefaultWeapon());
 	}
 
-	@Override
-	public void onDamage(IDamaging damagingFrom) {
-		World.getWorld().getCamera().setZoom(1.5f);
-		super.onDamage(damagingFrom);
-	}
-	
 	@Override
 	public void setDirection(int direction) {
 		World.getWorld().getCamera().setDirection(direction);
@@ -49,6 +44,8 @@ public class UserActor extends Actor implements IResettable {
 			Game.mode.onUserActorDeath();
 			death();
 		}
+		if(Game.mode != null) Game.mode.onUserActorHealthChanged(health);
+		
 		super.setHealth(health);
 	}
 	
@@ -78,6 +75,19 @@ public class UserActor extends Actor implements IResettable {
 
 	public AreaCheckpoint getLastContinueCheckPoint() {
 		return lastContinueCheckpoint;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+		Game.mode.onUserActorMoneyChange(money);
+	}
+	
+	public void addMoney(int money) {
+		setMoney(getMoney() + money);
 	}
 
 }

@@ -210,10 +210,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		return jumpPower;
 	}
 	
-	public void onHealthChanged(int health) {
-		
-	}
-	
 	@Override
 	public void setCollisionEnabled(boolean value) {
 		collisionEnabled = value;
@@ -406,8 +402,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		if(health < 0) health = 0; else
 		if(health > maxHealth) health = maxHealth;
 		this.health = health;
-		
-		onHealthChanged(health);
 	}
 
 	@Override

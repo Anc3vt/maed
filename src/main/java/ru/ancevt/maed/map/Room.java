@@ -124,6 +124,20 @@ public class Room {
 		}
 		return false;
 	}
+	
+	public final AreaCheckpoint getStartCheckpoint() {
+		for(int i = 0; i < gameObjects.length; i ++) {
+			for(int j = 0; j < gameObjects[i].size(); j ++) {
+				final IGameObject g = gameObjects[i].get(j);
+				if(g instanceof AreaCheckpoint) {
+					final AreaCheckpoint acp = (AreaCheckpoint)g;
+					if(acp.getCheckPointType() == AreaCheckpoint.CHECKPOINT_TYPE_START)
+						return acp;
+				}
+			}
+		}
+		return null;
+	}
 }
 
 

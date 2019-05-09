@@ -27,5 +27,10 @@ public class DefaultWeapon extends Weapon {
 		if(increment > pool.length - 1) increment = 0;
 		return result;
 	}
+
+	@Override
+	public int getType() {
+		return WeaponType.DEFAULT;
+	}
 	
 }

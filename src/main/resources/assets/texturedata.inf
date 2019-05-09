@@ -35,17 +35,22 @@
 
 :display/weapons-and-pickups.png
 
+	wp-default-icon         0 0 16 16
 	wp-default-bullet 		16 0 16 16 
 	wp-default-bullet-d0 	32 0 32 32 
 	wp-default-bullet-d1 	64 0 32 32 
 	wp-default-bullet-d2 	96 0 32 32 
 	wp-default-bullet-d3 	128 0 32 32
 	
+	wp-triple-icon			0 16 16 16
+	wp-triple-bullet		16 16 16 16
+	
     bubble                  80 48 16 16
     
     inventory_slot			96 48 16 16
     inventory_slot_light	112 48 16 16
     pickup_frame			160 0 16 16
+    money_indicator			192 0 16 16
     
     p_key_red               224 0 16 16
     p_key_green             240 0 16 16
@@ -55,6 +60,8 @@
     p_health                192 16 16 16
     p_health_half           176 16 16 16
     
-	
+	p_money                 176 0 16 16
+	p_extra_money			208 0 16 16
+	p_extra_money2			208 16 16 16
 
 

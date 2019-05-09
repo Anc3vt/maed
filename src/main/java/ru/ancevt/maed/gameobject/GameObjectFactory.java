@@ -1,5 +1,6 @@
 package ru.ancevt.maed.gameobject;
 
+import ru.ancevt.maed.arming.Weapon;
 import ru.ancevt.maed.arming.WeaponGiver;
 import ru.ancevt.maed.common.DataKey;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
@@ -14,6 +15,7 @@ import ru.ancevt.maed.inventory.KeyType;
 import ru.ancevt.maed.inventory.Pickup;
 import ru.ancevt.maed.inventory.PickupHealth;
 import ru.ancevt.maed.inventory.PickupKey;
+import ru.ancevt.maed.inventory.PickupMoney;
 import ru.ancevt.maed.inventory.PickupType;
 import ru.ancevt.maed.map.DataLine;
 import ru.ancevt.maed.map.MapkitItem;
@@ -90,7 +92,9 @@ public class GameObjectFactory {
 	}
 	
 	private static final Pickup createPickup(MapkitItem mapkitItem, int gameObjectId) {
-		switch (mapkitItem.getDataLine().getInt(DataKey.PICKUP_TYPE)) {
+		final int pickupType = mapkitItem.getDataLine().getInt(DataKey.PICKUP_TYPE);
+		
+		switch (pickupType) {
 			case PickupType.HEALTH:
 				return new PickupHealth(mapkitItem, gameObjectId, "p_health", 50);
 			case PickupType.HEALTH_HALF:
@@ -103,9 +107,15 @@ public class GameObjectFactory {
 				return new PickupKey(mapkitItem, gameObjectId, "p_key_blue", KeyType.BLUE);
 			case PickupType.KEY_YELLOW:
 				return new PickupKey(mapkitItem, gameObjectId, "p_key_yellow", KeyType.YELLOW);
+			case PickupType.MONEY:
+				return new PickupMoney(mapkitItem, gameObjectId, "p_money", 5);
+			case PickupType.EXTRA_MONEY:
+				return new PickupMoney(mapkitItem, gameObjectId, "p_extra_money", 50);
+			case PickupType.EXTRA_MONEY2:
+				return new PickupMoney(mapkitItem, gameObjectId, "p_extra_money2", 100);
 					
 		default:
-			return null;
+			throw new RuntimeException("no such pickup type " + pickupType);
 		}
 	}
 	
@@ -413,6 +423,14 @@ public class GameObjectFactory {
 			s.append(kv(DataKey.JUMP_POWER, r.getJumpPower()));
 			s.append(kv(DataKey.WEAPON_POS_X, r.getWeaponX()));
 			s.append(kv(DataKey.WEAPON_POS_Y, r.getWeaponY()));
+			
+			final Weapon w = r.getWeapon();
+			if(w == null) {
+				s.append(kv(DataKey.WEAPON_TYPE, 0));
+			} else {
+				s.append(kv(DataKey.WEAPON_TYPE, r.getWeapon().getType()));
+			}
+			
 		}
 
 		if (o instanceof Area) {

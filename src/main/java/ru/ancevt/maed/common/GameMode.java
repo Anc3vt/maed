@@ -1,11 +1,11 @@
 package ru.ancevt.maed.common;
 
-import ru.ancevt.d2d2.display.Root;
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.d2d2.time.Timer;
 import ru.ancevt.maed.gameobject.DynamicDoor;
 import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
+import ru.ancevt.maed.gui.GameGUI;
 import ru.ancevt.maed.gui.Hint9;
 import ru.ancevt.maed.inventory.Inventory;
 import ru.ancevt.maed.inventory.InventoryView;
@@ -16,15 +16,15 @@ import ru.ancevt.maed.world.World;
 
 public class GameMode  {
 	
-	private Root root;
 	private World world;
 	private UserActor userActor;
 	private InventoryView inventoryView;
 	private Hint9 keyHint;
+	private GameGUI gameGui;
 	
-	public GameMode(Root root, World world) {
-		this.root = root;
+	public GameMode(World world, GameGUI gameGui) {
 		this.world = world;
+		this.gameGui = gameGui;
 		userActor = world.getUserActor();
 		inventoryView = new InventoryView(userActor.getInventory());
 		inventoryView.setXY(Viewport.WIDTH - inventoryView.getWidth(), 0);
@@ -46,7 +46,6 @@ public class GameMode  {
 		System.out.println("User actor death");
 		
 		final Hint9 hint = message(6, 2, "You are dead");
-		//hint.setScale(0.7f, 0.7f);
 		final Timer t = new Timer(5000) {
 			public void onTimerTick() {
 				userActor.reset();
@@ -111,7 +110,6 @@ public class GameMode  {
 			};
 		};
 		Game.rootLayer.add(keyHint);
-		//keyHint.setScale(0.7f, 0.7f);
 		keyHint.setXY(Viewport.WIDTH / 2 - keyHint.getWidth(), Viewport.HEIGHT / 2 - keyHint.getHeight());
 		
 		String word = null;
@@ -157,6 +155,14 @@ public class GameMode  {
 		if(cp.getCheckPointType() == AreaCheckpoint.CHECKPOINT_TYPE_CONTINUE) {
 			userActor.setLastContinueCheckPoint(cp);
 		}
+	}
+
+	public void onUserActorMoneyChange(int money) {
+		gameGui.setMoney(money);
+	}
+
+	public void onUserActorHealthChanged(int health) {
+		gameGui.setHealth(health);
 	}
 
 }

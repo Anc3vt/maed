@@ -12,6 +12,9 @@ public class WeaponGiver {
 			case WeaponType.DEFAULT: 
 				actor.setWeapon(new DefaultWeapon());
 				break;
+				
+			default:
+				actor.setWeapon(null);
 		}
 	}
 }

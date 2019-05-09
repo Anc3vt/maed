@@ -30,5 +30,7 @@ abstract public class Weapon {
 	}
 	
 	public abstract Bullet createBullet(Actor owActor);
+
+	public abstract int getType();
 	
 }

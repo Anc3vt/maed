@@ -20,7 +20,6 @@ import ru.ancevt.maed.gameobject.IResettable;
 import ru.ancevt.maed.gameobject.Scenery;
 import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.gameobject.area.Area;
-import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.Room;
 
@@ -391,16 +390,8 @@ public class World extends DisplayObjectContainer implements IWorld {
 				super.onEachFrame();
 			}
 			
-			@Override
-			public void onHealthChanged(int health) {
-				onUserActorHealthChanged(health);
-			}
 		};
 		addGameObject(userActor, 5, false);
-	}
-	
-	public void onUserActorHealthChanged(float health) {
-		// to override
 	}
 	
 	public void actorAttack(Actor actor) {
@@ -408,10 +399,8 @@ public class World extends DisplayObjectContainer implements IWorld {
 		
 		final Bullet bullet = actor.getWeapon().createBullet(actor);
 		
-		
 		final float weaponX = actor.getX() + (actor.getWeaponX() * actor.getDirection());
 		final float weaponY = actor.getY() + actor.getWeaponY();
-		
 		
 		bullet.setXY(weaponX, weaponY);
 		bullet.setDirection(actor.getDirection());
@@ -442,17 +431,4 @@ public class World extends DisplayObjectContainer implements IWorld {
 	public void setWorldListener(WorldListener listener) {
 		this.listener = listener;
 	}
-
-	public final AreaCheckpoint detectStartCheckpoint() {
-		for( int i = 0 ; i < gameObjects.size(); i ++ ) {
-			final IGameObject g = gameObjects.get(i);
-			if(g instanceof AreaCheckpoint) {
-				final AreaCheckpoint ac = (AreaCheckpoint) g;
-				if(ac.getCheckPointType() == AreaCheckpoint.CHECKPOINT_TYPE_START) return ac;
-			}
-		}
-		
-		return null;
-	}
-
 }

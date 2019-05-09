@@ -93,6 +93,10 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 			s.append(STR_COMMON);
 			break;
 		}
+		
+		if(getCheckpointId() != 0) {
+			s.append(", id: " + getCheckpointId());
+		}
 
 		setText(s.toString());
 	}
@@ -124,5 +128,6 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 
 	public void setCheckpointId(int checkpointId) {
 		this.checkpointId = checkpointId;
+		updateText();
 	}
 }

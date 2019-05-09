@@ -7,4 +7,7 @@ public class PickupType {
 	public static final int KEY_GREEN = 4;
 	public static final int KEY_BLUE = 5;
 	public static final int KEY_YELLOW = 6;
+	public static final int MONEY = 7;
+	public static final int EXTRA_MONEY = 8;
+	public static final int EXTRA_MONEY2 = 9;
 }

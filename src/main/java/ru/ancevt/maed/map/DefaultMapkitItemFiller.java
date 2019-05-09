@@ -24,6 +24,9 @@ public class DefaultMapkitItemFiller {
 		add("10093 | 6 | p_key_green          | pickup-type= 4");
 		add("10094 | 6 | p_key_blue           | pickup-type= 5");
 		add("10095 | 6 | p_key_yellow         | pickup-type= 6");
+		add("10096 | 6 | p_money              | pickup-type= 7");
+		add("10097 | 6 | p_extra_money        | pickup-type= 8");
+		add("10098 | 6 | p_extra_money2       | pickup-type= 9");
 	}
 	
 	private final void add(String dataLineSource) {

@@ -133,11 +133,7 @@ public class PlayProcessor {
 		
 		if(!o.isUnattainable()) {
 			final int damagingPower = damaging.getDamagingPower();
-			
 			o.addHealth(-damagingPower);
-			
-			System.out.println(o.getHealth() + "/" + o.getMaxHealth());
-			
 			o.onDamage(damaging);
 		}
 	}

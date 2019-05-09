@@ -21,6 +21,8 @@ public class Ava extends UserActor {
 		setAnimation(AKey.IDLE, true);
 		setController(PlayerController.getInstance());
 		setGravityEnabled(true);
+		
+		System.out.println("Created Ava");
 	}
 	
 	private static MapkitItem createMapkitItemIfNotExists() {

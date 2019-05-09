@@ -46,9 +46,6 @@ public class Mapkit {
 	
 	public void addItem(MapkitItem item) {
 		items.add(item);
-		
-		System.out.println("addedto mpakit mapkit item " + item);
-		
 	}
 	
 	public void removeItem(MapkitItem item) {

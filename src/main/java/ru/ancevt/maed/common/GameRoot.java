@@ -6,6 +6,7 @@ import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Root;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
+import ru.ancevt.maed.gui.GameGUI;
 import ru.ancevt.maed.gui.VisualController;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapLoader;
@@ -20,25 +21,20 @@ public class GameRoot extends Root implements WorldListener {
 	private String mapToLoad;
 	private DisplayObjectContainer rootLayer;
 	private DisplayObjectContainer cameraLayer;
+	private GameGUI gameGui;
 	
 	public GameRoot() {
-		final HealthBar healthbar = new HealthBar();
 		world = new World() {
-			@Override
-			public void onUserActorHealthChanged(float health) {
-				healthbar.setValue(health);
-			}
 			
 			@Override
 			public void onMapSet() {
 				float startX = 0, startY = 0;
-				final AreaCheckpoint startCheckpoint = world.detectStartCheckpoint();
+				final AreaCheckpoint startCheckpoint = world.getMap().getStartCheckpoint();
 				world.getUserActor().setLastContinueCheckPoint(startCheckpoint);
 				if(startCheckpoint != null) {
 					startX = startCheckpoint.getX();
 					startY = startCheckpoint.getY();
 				}
-				
 				
 				world.setSceneryPacked(true);
 				world.getUserActor().reset();
@@ -59,10 +55,13 @@ public class GameRoot extends Root implements WorldListener {
 		world.getCamera().setBoundsLock(false);
 		world.setRoomRectVisible(true);
 		
+		gameGui = new GameGUI(world.getUserActor());
+		rootLayer.add(gameGui);
+		
 		Game.root = this;
 		Game.rootLayer = rootLayer;
 		Game.world = world;
-		Game.mode = new GameMode(this, world);
+		Game.mode = new GameMode(world, gameGui);
 		
 		final VisualController vc = new VisualController(PlayerController.getInstance());
 		rootLayer.add(vc);
@@ -80,7 +79,6 @@ public class GameRoot extends Root implements WorldListener {
 			rootLayer.toScale(1.01f, 1.01f);
 		}
 
-		rootLayer.add(healthbar);
 		update();
 		
 		

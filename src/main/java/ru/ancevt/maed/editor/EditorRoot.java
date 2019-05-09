@@ -12,11 +12,10 @@ import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Root;
 import ru.ancevt.maed.common.Game;
 import ru.ancevt.maed.common.GameMode;
-import ru.ancevt.maed.common.HealthBar;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.common.Viewport;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
-import ru.ancevt.maed.gui.VisualController;
+import ru.ancevt.maed.gui.GameGUI;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapLoader;
 import ru.ancevt.maed.map.MapkitItem;
@@ -53,17 +52,12 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 	private int worldMouseX, worldMouseY;
 	private GameObjectEditor editor;
 
+	private GameGUI gameGui;
+
 	public EditorRoot() {
 		viewportRect = new BorderedRect(Viewport.WIDTH, Viewport.HEIGHT, null, Color.DARK_GRAY);
 		
-		final HealthBar healthbar = new HealthBar();
-		
-		world = new World() {
-			@Override
-			public void onUserActorHealthChanged(float health) {
-				healthbar.setValue(health);
-			}
-		};
+		world = new World();
 		world.setWorldListener(this);
 		rootLayer = new DisplayObjectContainer();
 		cameraLayer = new DisplayObjectContainer();
@@ -122,28 +116,16 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		update();
 		setPlayMode(false);
 		
-		rootLayer.add(healthbar, 0, 10);
-		healthbar.setMax(world.getUserActor().getMaxHealth());
 		
 		add(DebugText.getIntstance(), 10, 100);
 
+		gameGui = new GameGUI(world.getUserActor());
+		rootLayer.add(gameGui);
+		
 		Game.root = this;
 		Game.rootLayer = rootLayer;
 		Game.world = world;
-		Game.mode = new GameMode(this, world);
-		
-		
-//		final Hint9 hint9 = new Hint9(9, 3) {
-//			public void onTouch() {
-//				removeFromParent();
-//			};
-//		};
-//		add(hint9);
-//		hint9.setXY(D2D2.getRenderer().getWidth() / 2 - hint9.getWidth(), 100);
-//		hint9.setScale(2f, 2f);
-//		hint9.setText("   Need green key to unlock this door");
-//		final Sprite greenKey = new Sprite("p_key_green");
-//		hint9.add(greenKey, 6, 10);
+		Game.mode = new GameMode(world, gameGui);
 	}
 	
 	public void loadMap(String mapFileName) {
@@ -297,16 +279,18 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 						setGridEnabled(false);
 						
 						float startX = 0, startY = 0;
-						final AreaCheckpoint startCheckpoint = world.detectStartCheckpoint();
+						final AreaCheckpoint startCheckpoint = world.getMap().getStartCheckpoint();
 						world.getUserActor().setLastContinueCheckPoint(startCheckpoint);
 						if(startCheckpoint != null) {
 							startX = startCheckpoint.getX();
 							startY = startCheckpoint.getY();
 						}
 						
+						final Room room = world.getMap().getRoomByGameObject(startCheckpoint);
+						
 						world.getUserActor().reset();
+						world.switchRoom(room.getId(), startX, startY);
 						world.spawnUserActor(startX, startY);
-						world.getUserActor().setHealth(1000);
 						//world.getUserActor().setAlive(true);
 						if(startCheckpoint != null) world.getUserActor().setDirection(startCheckpoint.getDirection());
 						
@@ -350,6 +334,10 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 					break;
 					
 				case KeyEvent.VK_R:
+					if(shift) {
+						world.resetAllResettables(true);
+					} else
+					
 					world.spawnUserActor(worldMouseX, worldMouseY);
 					break;
 				
