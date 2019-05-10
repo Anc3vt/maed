@@ -310,8 +310,11 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 					} else {
 						world.spawnUserActor(worldMouseX, worldMouseY);
 					}
+					
 					setPlayMode(!isPlayMode());
-					if(!isPlayMode() && world.isSceneryPacked()) world.setSceneryPacked(false);
+					
+					if(!isPlayMode() && world.isSceneryPacked()) 
+						world.setSceneryPacked(false);
 					
 					break;
 					
@@ -342,9 +345,9 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 				case KeyEvent.VK_R:
 					if(shift) {
 						world.resetAllResettables(true);
-					} else
-					
-					world.spawnUserActor(worldMouseX, worldMouseY);
+					} else {
+						world.spawnUserActor(worldMouseX, worldMouseY);
+					}
 					break;
 				
 					

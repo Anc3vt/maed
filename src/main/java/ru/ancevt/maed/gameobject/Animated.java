@@ -17,7 +17,6 @@ abstract public class Animated extends DisplayObjectContainer implements IAnimat
 	private final int id;
 	private int directionOnDemend;
 	
-	
 	public Animated(final MapkitItem mapKitItem, final int gameObjectId) {
 		this.mapkitItem = mapKitItem;
 		this.id = gameObjectId;

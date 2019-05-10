@@ -8,7 +8,6 @@ import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gui.GameGUI;
 import ru.ancevt.maed.gui.Hint9;
 import ru.ancevt.maed.inventory.Inventory;
-import ru.ancevt.maed.inventory.InventoryView;
 import ru.ancevt.maed.inventory.KeyType;
 import ru.ancevt.maed.inventory.Pickup;
 import ru.ancevt.maed.map.Room;
@@ -18,7 +17,7 @@ public class GameMode  {
 	
 	private World world;
 	private UserActor userActor;
-	private Hint9 keyHint;
+	private Hint9 hint;
 	private GameGUI gameGui;
 	
 	public GameMode(World world, GameGUI gameGui) {
@@ -41,7 +40,7 @@ public class GameMode  {
 	public void onUserActorDeath() {
 		System.out.println("User actor death");
 		
-		final Hint9 hint = message(6, 2, "You are dead");
+		hint = message(6, 2, "You are dead");
 		final Timer t = new Timer(5000) {
 			public void onTimerTick() {
 				userActor.reset();
@@ -63,11 +62,16 @@ public class GameMode  {
 	}
 
 	public Hint9 message(int w, int h, String text) {
-		final Hint9 hint9 = new Hint9(w, h);
-		hint9.setText(text);
-		hint9.setXY(Viewport.WIDTH/2 - hint9.getWidth(), Viewport.HEIGHT/2-hint9.getHeight());
-		Game.rootLayer.add(hint9);
-		return hint9;
+		if(hint != null && hint.hasParent()) hint.removeFromParent();
+		
+		hint = new Hint9(w, h);
+		hint.setText(text);
+		hint.setXY(
+			Viewport.WIDTH/2 - hint.getWidth(),
+			Viewport.HEIGHT/2 - hint.getHeight()
+		);
+		Game.rootLayer.add(hint);
+		return hint;
 	}
 
 	public void onUserActorCollideDoor(DynamicDoor dynamicDoor) {
@@ -98,15 +102,18 @@ public class GameMode  {
 	}
 	
 	private final void keyMessage(int keyTypeId) {
-		if(keyHint != null) return;
+		if(hint != null) return;
 		
-		keyHint = new Hint9(10, 3) {
+		hint = new Hint9(10, 3) {
 			public void onTouch() {
 				removeFromParent();
 			};
 		};
-		Game.rootLayer.add(keyHint);
-		keyHint.setXY(Viewport.WIDTH / 2 - keyHint.getWidth(), Viewport.HEIGHT / 2 - keyHint.getHeight());
+		Game.rootLayer.add(hint);
+		hint.setXY(
+			Viewport.WIDTH / 2 - hint.getWidth(), 
+			Viewport.HEIGHT / 2 - hint.getHeight() 
+		);
 		
 		String word = null;
 		String textureKey = null;
@@ -130,16 +137,15 @@ public class GameMode  {
 				break;
 		}
 		
-		
-		keyHint.setText(String.format("    Need %s key to \nunlock this door", word));
+		hint.setText(String.format("    Need %s key to \nunlock this door", word));
 		final Sprite greenKey = new Sprite(textureKey);
-		keyHint.add(greenKey, 12, 10);
+		hint.add(greenKey, 12, 10);
 		
 		final Timer timer = new Timer(5000) {
 			@Override
 			public void onTimerTick() {
-				keyHint.removeFromParent();
-				keyHint = null;
+				hint.removeFromParent();
+				hint = null;
 				super.onTimerTick();
 			}
 		};
