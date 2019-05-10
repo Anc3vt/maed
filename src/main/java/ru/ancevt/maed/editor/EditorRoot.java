@@ -113,14 +113,16 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		EditorController.getInstance().setListener(this);
 		EditorController.getInstance().start();
 		
+		gameGui = new GameGUI(world.getUserActor());
+		rootLayer.add(gameGui);
+		
 		update();
 		setPlayMode(false);
 		
 		
 		add(DebugText.getIntstance(), 10, 100);
 
-		gameGui = new GameGUI(world.getUserActor());
-		rootLayer.add(gameGui);
+		
 		
 		Game.root = this;
 		Game.rootLayer = rootLayer;
@@ -158,6 +160,8 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 	public void setPlayMode(boolean playMode) {
 		this.playMode = playMode;
 
+		gameGui.setVisible(playMode);
+		
 		world.resetAllResettables(true);
 		
 		if(playMode) {
@@ -303,7 +307,9 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 						}
 						update();
 						
-					} 
+					} else {
+						world.spawnUserActor(worldMouseX, worldMouseY);
+					}
 					setPlayMode(!isPlayMode());
 					if(!isPlayMode() && world.isSceneryPacked()) world.setSceneryPacked(false);
 					

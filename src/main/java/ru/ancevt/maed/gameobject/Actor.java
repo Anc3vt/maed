@@ -398,10 +398,10 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	}
 
 	@Override
-	public void setHealth(int health) {
-		if(health < 0) health = 0; else
-		if(health > maxHealth) health = maxHealth;
-		this.health = health;
+	public void setHealth(int value) {
+		if(value < 0) value = 0; else
+		if(value > maxHealth) value = maxHealth;
+		this.health = value;
 	}
 
 	@Override

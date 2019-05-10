@@ -1,6 +1,5 @@
 package ru.ancevt.maed.gameobject;
 
-import ru.ancevt.maed.arming.DefaultWeapon;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProcessor;
 import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;

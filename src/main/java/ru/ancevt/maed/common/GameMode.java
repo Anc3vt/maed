@@ -18,7 +18,6 @@ public class GameMode  {
 	
 	private World world;
 	private UserActor userActor;
-	private InventoryView inventoryView;
 	private Hint9 keyHint;
 	private GameGUI gameGui;
 	
@@ -26,16 +25,13 @@ public class GameMode  {
 		this.world = world;
 		this.gameGui = gameGui;
 		userActor = world.getUserActor();
-		inventoryView = new InventoryView(userActor.getInventory());
-		inventoryView.setXY(Viewport.WIDTH - inventoryView.getWidth(), 0);
-		Game.rootLayer.add(inventoryView);
 		
 		//message(6, 5, "Hello world;");
 	}
 	
 	public void onPuckUpPickup(Pickup pickup) {
 		System.out.println("Picked up: " + pickup);
-		inventoryView.update();
+		gameGui.updateInventory();
 	}
 
 	public void onUserActorSpawn(int roomId, float x, float y) {
@@ -98,7 +94,7 @@ public class GameMode  {
 	}
 	
 	public void inventoryViewUpdate() {
-		inventoryView.update();
+		gameGui.updateInventory();
 	}
 	
 	private final void keyMessage(int keyTypeId) {

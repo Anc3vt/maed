@@ -40,13 +40,13 @@ public class UserActor extends Actor implements IResettable {
 	
 	@Override
 	public void setHealth(int health) {
+		super.setHealth(health);
+		
 		if(health <= 0) {
 			Game.mode.onUserActorDeath();
 			death();
 		}
 		if(Game.mode != null) Game.mode.onUserActorHealthChanged(health);
-		
-		super.setHealth(health);
 	}
 	
 	private final void death() {
@@ -89,5 +89,4 @@ public class UserActor extends Actor implements IResettable {
 	public void addMoney(int money) {
 		setMoney(getMoney() + money);
 	}
-
 }

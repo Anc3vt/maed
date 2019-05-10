@@ -6,10 +6,10 @@ import ru.ancevt.d2d2.display.DisplayObjectContainer;
 
 public class HealthBar extends DisplayObjectContainer {
 	private static final int WIDTH = 50;
-	private static final int HEIGHT = 16;
+	private static final int HEIGHT = 8;
 	
 	private static final int DEFAULT_MAX = 50;
-	private static final int DEFAULT_VALUE = 100;
+	private static final int DEFAULT_VALUE = 50;
 	
 	private PlainRect back;
 	private PlainRect fore;
@@ -37,6 +37,8 @@ public class HealthBar extends DisplayObjectContainer {
 	}
 	
 	public final void setValue(float value) {
+		if(value < 0) value = 0; else
+		if(value > max) value = max;
 		this.value = value;
 		redraw();
 	}
