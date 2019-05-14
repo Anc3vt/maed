@@ -1,8 +1,8 @@
 package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AreaHook extends Area {
 
@@ -17,7 +17,7 @@ public class AreaHook extends Area {
 
 	@Override
 	public Area copy() {
-		final AreaHook result = new AreaHook(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		final AreaHook result = new AreaHook(getMapkitItem(), World.getWorld().getMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
 		return result;

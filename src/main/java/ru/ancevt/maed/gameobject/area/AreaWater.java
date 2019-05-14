@@ -2,8 +2,8 @@ package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.maed.gameobject.IGameObject;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AreaWater extends Area{
 
@@ -19,7 +19,7 @@ public class AreaWater extends Area{
 	@Override
 	public IGameObject copy() {
 		final AreaWater result = new AreaWater(getMapkitItem(), 
-				Map.getCurrentMap().getNextFreeGameObjectId());
+				World.getWorld().getMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
 		result.setDensity(getDensity());

@@ -4,13 +4,13 @@ import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.d2d2.display.text.BitmapText;
 
-public class MoneyIndicator extends DisplayObjectContainer {
+public class MoneyHUD extends DisplayObjectContainer {
 	
 	private Sprite icon;
 	private BitmapText text;
 	private int money;
 	
-	public MoneyIndicator() {
+	public MoneyHUD() {
 		icon = new Sprite("money_indicator");
 		text = new BitmapText(Font.getGameFont());
 		

@@ -1,16 +1,16 @@
-package ru.ancevt.maed.gameobject.actionprogram;
+package ru.ancevt.maed.gameobject.actorprogram;
 
 import ru.ancevt.maed.common.Controller;
 import ru.ancevt.maed.gameobject.Bot;
 
 public class ActionProcessor {
 	
-	private ActionProgram actionProgram;
+	private ActorProgram actionProgram;
 	private Controller controller;
 	private Bot bot;
 	
 	public ActionProcessor(Bot bot) {
-		actionProgram = new ActionProgram();
+		actionProgram = new ActorProgram();
 		this.bot = bot;
 	}
 	
@@ -18,11 +18,11 @@ public class ActionProcessor {
 		this.controller = controller;
 	}
 	
-	public void setActionProgram(ActionProgram actionProgram) {
+	public void setActionProgram(ActorProgram actionProgram) {
 		this.actionProgram = actionProgram;
 	}
 	
-	public ActionProgram getActionProgram() {
+	public ActorProgram getActionProgram() {
 		return actionProgram;
 	}
 	

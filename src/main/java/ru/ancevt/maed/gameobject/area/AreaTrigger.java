@@ -1,8 +1,8 @@
 package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AreaTrigger extends Area {
 
@@ -24,7 +24,7 @@ public class AreaTrigger extends Area {
 
 	@Override
 	public Area copy() {
-		final AreaTrigger result = new AreaTrigger(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		final AreaTrigger result = new AreaTrigger(getMapkitItem(), World.getWorld().getMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
 		result.setTriggerOptions(getTriggerOptions());

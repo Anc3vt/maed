@@ -1,10 +1,9 @@
 package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.maed.common.AKey;
-import ru.ancevt.maed.gameobject.actionprogram.ActionProcessor;
-import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
+import ru.ancevt.maed.gameobject.actorprogram.ActionProcessor;
+import ru.ancevt.maed.gameobject.actorprogram.ActorProgram;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
 
@@ -28,7 +27,7 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	
 	@Override
 	public IGameObject copy() {
-		final Bot bot = new Bot(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		final Bot bot = new Bot(getMapkitItem(), World.getWorld().getMap().getNextFreeGameObjectId());
 		bot.setDamagingPower(damagingPower);
 		bot.setActionProgram(actionProcessor.getActionProgram().copy());
 		bot.setReactsOnTriggers(reactsOnTriggers);
@@ -85,12 +84,12 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	}
 
 	@Override
-	public void setActionProgram(ActionProgram actionProgram) {
+	public void setActionProgram(ActorProgram actionProgram) {
 		actionProcessor.setActionProgram(actionProgram);
 	}
 
 	@Override
-	public ActionProgram getActionProgram() {
+	public ActorProgram getActionProgram() {
 		return actionProcessor.getActionProgram();
 	}
 

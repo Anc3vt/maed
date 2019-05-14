@@ -1,8 +1,8 @@
 package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AreaDoorTeleport extends Area {
 
@@ -25,7 +25,7 @@ public class AreaDoorTeleport extends Area {
 	@Override
 	public Area copy() {
 		final AreaDoorTeleport result = new AreaDoorTeleport(getMapkitItem(),
-				Map.getCurrentMap().getNextFreeGameObjectId());
+				World.getWorld().getMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
 		return result;

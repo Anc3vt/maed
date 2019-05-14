@@ -2,8 +2,8 @@ package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.gameobject.IDirectioned;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AreaCheckpoint extends Area implements IDirectioned {
 
@@ -51,7 +51,7 @@ public class AreaCheckpoint extends Area implements IDirectioned {
 
 	@Override
 	public Area copy() {
-		final AreaCheckpoint result = new AreaCheckpoint(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		final AreaCheckpoint result = new AreaCheckpoint(getMapkitItem(), World.getWorld().getMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
 		result.setCheckPointType(getCheckPointType());

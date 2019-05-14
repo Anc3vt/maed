@@ -3,7 +3,7 @@ package ru.ancevt.maed.gameobject;
 import ru.ancevt.maed.arming.Weapon;
 import ru.ancevt.maed.arming.WeaponGiver;
 import ru.ancevt.maed.common.DataKey;
-import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
+import ru.ancevt.maed.gameobject.actorprogram.ActorProgram;
 import ru.ancevt.maed.gameobject.area.Area;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
 import ru.ancevt.maed.gameobject.area.AreaDoorTeleport;
@@ -330,7 +330,7 @@ public class GameObjectFactory {
 				if(d.containsKey(DataKey.FACE_TO_FACE))
 					r.setFace2Face(d.getBoolean(DataKey.FACE_TO_FACE));
 				if(d.containsKey(DataKey.ACTION_PROGRAM))
-					r.setActionProgram(ActionProgram.parse(d.getString(DataKey.ACTION_PROGRAM)));
+					r.setActionProgram(ActorProgram.parse(d.getString(DataKey.ACTION_PROGRAM)));
 			}
 			
 			if (o instanceof DynamicDoor) {

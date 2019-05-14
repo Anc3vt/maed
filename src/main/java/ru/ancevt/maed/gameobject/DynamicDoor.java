@@ -5,8 +5,8 @@ import ru.ancevt.d2d2.time.Timer;
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.common.Game;
 import ru.ancevt.maed.inventory.Inventory;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class DynamicDoor extends Sprite implements IDynamic, ITight, IResettable {
 
@@ -65,7 +65,7 @@ public class DynamicDoor extends Sprite implements IDynamic, ITight, IResettable
 
 	@Override
 	public IGameObject copy() {
-		final DynamicDoor door = new DynamicDoor(mapkitItem, Map.getCurrentMap().getNextFreeGameObjectId());
+		final DynamicDoor door = new DynamicDoor(mapkitItem, World.getWorld().getMap().getNextFreeGameObjectId());
 		door.setXY(getX(), getY());
 		
 		return door;

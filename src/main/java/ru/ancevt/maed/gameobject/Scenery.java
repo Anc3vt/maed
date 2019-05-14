@@ -2,8 +2,8 @@ package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.maed.common.AKey;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class Scenery extends Sprite implements IGameObject, IRepeatable, IRotatable, IScalable, IAlphable {
 
@@ -33,7 +33,7 @@ public class Scenery extends Sprite implements IGameObject, IRepeatable, IRotata
 
 	@Override
 	public Scenery copy() {
-		final Scenery scenery = new Scenery(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		final Scenery scenery = new Scenery(getMapkitItem(), World.getWorld().getMap().getNextFreeGameObjectId());
 		scenery.setXY(getX(), getY());
 		scenery.setRepeat(getRepeatX(), getRepeatY());
 		scenery.setRotation(getRotation());

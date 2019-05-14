@@ -8,14 +8,14 @@ import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.inventory.InventoryView;
 
 public class HUD extends DisplayObjectContainer {
-	private MoneyIndicator moneyIndicator;
-	private WeaponIndicator weaponIndicator;
+	private MoneyHUD moneyIndicator;
+	private WeaponHUD weaponIndicator;
 	private InventoryView inventoryView;
 	private HealthBar healthBar;
 	
 	public HUD(UserActor userActor) {
-		moneyIndicator = new MoneyIndicator();
-		weaponIndicator = new WeaponIndicator();
+		moneyIndicator = new MoneyHUD();
+		weaponIndicator = new WeaponHUD();
 		inventoryView = new InventoryView(userActor.getInventory());
 		healthBar = new HealthBar();
 		

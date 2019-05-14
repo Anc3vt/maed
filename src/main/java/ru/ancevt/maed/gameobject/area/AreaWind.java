@@ -2,8 +2,8 @@ package ru.ancevt.maed.gameobject.area;
 
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.gameobject.IGameObject;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AreaWind extends Area {
 
@@ -21,7 +21,7 @@ public class AreaWind extends Area {
 	
 	@Override
 	public IGameObject copy() {
-		final AreaWind result = new AreaWind(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		final AreaWind result = new AreaWind(getMapkitItem(), World.getWorld().getMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
 		result.setWindX(getWindX());

@@ -8,7 +8,7 @@ import ru.ancevt.maed.world.World;
 
 public class DefaultBullet extends Bullet  {
 	
-	private static final float SPEED = 3f;
+	private static final float SPEED = 4f;
 	
 	private Sprite sprite;
 	private FrameSet explosionFrameSet;

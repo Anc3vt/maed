@@ -3,8 +3,8 @@ package ru.ancevt.maed.gameobject.area;
 import ru.ancevt.d2d2.display.Color;
 import ru.ancevt.maed.gameobject.Actor;
 import ru.ancevt.maed.gameobject.IDamaging;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AreaDamaging extends Area implements IDamaging {
 
@@ -43,7 +43,7 @@ public class AreaDamaging extends Area implements IDamaging {
 	@Override
 	public Area copy() {
 		final AreaDamaging result = new AreaDamaging(getMapkitItem(), 
-				Map.getCurrentMap().getNextFreeGameObjectId());
+				World.getWorld().getMap().getNextFreeGameObjectId());
 		result.setXY(getX(), getY());
 		result.setSize(getWidth(), getHeight());
 		result.setDamagingPower(getDamagingPower());

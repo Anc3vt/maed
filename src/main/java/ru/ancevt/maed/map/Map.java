@@ -23,10 +23,7 @@ public class Map {
 	private Mapkit mapkit;
 	private Music music;
 	
-	private static Map currentMap;
-	
 	public Map() {
-		currentMap = this;
 		rooms = new ArrayList<Room>();
 		setName(DEFAULT_NAME);
 		setGravity(DEFAULT_GRAVITY);
@@ -120,14 +117,6 @@ public class Map {
 		return INVALID_GAME_OBJECT_ID;
 	}
 
-	public static Map getCurrentMap() {
-		return currentMap;
-	}
-
-	public static void setCurrentMap(Map currentMap) {
-		Map.currentMap = currentMap;
-	}
-	
 	public Music getMusic() {
 		return music;
 	}

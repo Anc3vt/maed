@@ -1,4 +1,4 @@
-package ru.ancevt.maed.gameobject.actionprogram;
+package ru.ancevt.maed.gameobject.actorprogram;
 
 public class Action {
 	public final static String WALK = "walk";

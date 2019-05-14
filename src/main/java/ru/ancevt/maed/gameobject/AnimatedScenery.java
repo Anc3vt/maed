@@ -2,8 +2,8 @@ package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.d2d2.display.Sprite;
 import ru.ancevt.maed.common.AKey;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class AnimatedScenery extends Sprite implements IGameObject,  
 	IRepeatable, IScalable, IAlphable, IRotatable{
@@ -43,7 +43,7 @@ public class AnimatedScenery extends Sprite implements IGameObject,
 
 	@Override
 	public IGameObject copy() {
-		final AnimatedScenery animatedScenery = new AnimatedScenery(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId());
+		final AnimatedScenery animatedScenery = new AnimatedScenery(getMapkitItem(), World.getWorld().getMap().getNextFreeGameObjectId());
 		animatedScenery.setXY(getX(), getY());
 		animatedScenery.setRepeat(getRepeatX(), getRepeatY());
 		animatedScenery.setRotation(getRotation());

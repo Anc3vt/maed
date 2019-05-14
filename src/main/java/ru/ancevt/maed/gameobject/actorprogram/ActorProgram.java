@@ -1,16 +1,16 @@
-package ru.ancevt.maed.gameobject.actionprogram;
+package ru.ancevt.maed.gameobject.actorprogram;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ActionProgram {
+public class ActorProgram {
 
 	
 	
 	private int currentActionIndex;
 	private List<Action> actions;
 	
-	public ActionProgram() {
+	public ActorProgram() {
 		actions = new LinkedList<Action>();
 	}
 	
@@ -18,14 +18,14 @@ public class ActionProgram {
 		return actions.isEmpty();
 	}
 	
-	public final ActionProgram copy() {
-		return ActionProgram.parse(stringify());
+	public final ActorProgram copy() {
+		return ActorProgram.parse(stringify());
 	}
 
-	public static final ActionProgram parse(String source) {
+	public static final ActorProgram parse(String source) {
 		source = source.replaceAll("\\n", "");
 		
-		final ActionProgram actionProgram = new ActionProgram();
+		final ActorProgram actionProgram = new ActorProgram();
 		
 		final String[] splitted = source.split(";");
 		for(int i = 0 ; i < splitted.length; i ++) {

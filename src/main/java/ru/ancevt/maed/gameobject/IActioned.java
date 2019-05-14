@@ -1,9 +1,9 @@
 package ru.ancevt.maed.gameobject;
 
-import ru.ancevt.maed.gameobject.actionprogram.ActionProgram;
+import ru.ancevt.maed.gameobject.actorprogram.ActorProgram;
 
 public interface IActioned extends IGameObject{
-	void setActionProgram(ActionProgram actionProgram);
-	ActionProgram getActionProgram();
+	void setActionProgram(ActorProgram actionProgram);
+	ActorProgram getActionProgram();
 	void actionProcess();
 }
