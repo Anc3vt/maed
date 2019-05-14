@@ -15,7 +15,7 @@ import ru.ancevt.maed.common.GameMode;
 import ru.ancevt.maed.common.PlayerController;
 import ru.ancevt.maed.common.Viewport;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
-import ru.ancevt.maed.gui.GameGUI;
+import ru.ancevt.maed.gui.HUD;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapLoader;
 import ru.ancevt.maed.map.MapkitItem;
@@ -26,6 +26,7 @@ import ru.ancevt.maed.world.WorldListener;
 
 public class EditorRoot extends Root implements EditorControllerListener, WorldListener {
 
+	/*
 	private static volatile EditorRoot instance;
 	
 	public static final EditorRoot getInstance() {
@@ -38,6 +39,7 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		}
 		return instance;
 	}
+	*/
 	
 	private boolean playMode;
 	
@@ -52,7 +54,7 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 	private int worldMouseX, worldMouseY;
 	private GameObjectEditor editor;
 
-	private GameGUI gameGui;
+	private HUD gameGui;
 
 	public EditorRoot() {
 		viewportRect = new BorderedRect(Viewport.WIDTH, Viewport.HEIGHT, null, Color.DARK_GRAY);
@@ -113,7 +115,7 @@ public class EditorRoot extends Root implements EditorControllerListener, WorldL
 		EditorController.getInstance().setListener(this);
 		EditorController.getInstance().start();
 		
-		gameGui = new GameGUI(world.getUserActor());
+		gameGui = new HUD(world.getUserActor());
 		rootLayer.add(gameGui);
 		
 		update();

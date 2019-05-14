@@ -330,7 +330,8 @@ public class World extends DisplayObjectContainer implements IWorld {
 				if (state == Overlay.STATE_DONE) {
 					removeFromParent();
 					switchingRoomsNow = false;
-					userActor.setDirection(userActor.getDirectionOnDemend());
+					final int dir = userActor.getDirectionOnDemend();
+					userActor.setDirection(dir == 0 ? 1 : dir);
 				}
 			}
 		};

@@ -5,7 +5,7 @@ import ru.ancevt.d2d2.time.Timer;
 import ru.ancevt.maed.gameobject.DynamicDoor;
 import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
-import ru.ancevt.maed.gui.GameGUI;
+import ru.ancevt.maed.gui.HUD;
 import ru.ancevt.maed.gui.Hint9;
 import ru.ancevt.maed.inventory.Inventory;
 import ru.ancevt.maed.inventory.KeyType;
@@ -18,9 +18,9 @@ public class GameMode  {
 	private World world;
 	private UserActor userActor;
 	private Hint9 hint;
-	private GameGUI gameGui;
+	private HUD gameGui;
 	
-	public GameMode(World world, GameGUI gameGui) {
+	public GameMode(World world, HUD gameGui) {
 		this.world = world;
 		this.gameGui = gameGui;
 		userActor = world.getUserActor();

@@ -23,6 +23,8 @@ public class EntryPointEditor {
 	public static final int SCREEN_WIDTH = 1024;
 	public static final int SCREEN_HEIGHT = 800;
 	
+	private static EditorRoot editorRoot;
+	
 	public static void main(String[] args) {
 		final D2D2Window window = new D2D2Window(1500, 850) {
 
@@ -69,12 +71,15 @@ public class EntryPointEditor {
 		
 		prepareInput(window.canvas());
 		
+		editorRoot = new EditorRoot();
+		
+		
 		// Entry point
-		stage.setRoot(EditorRoot.getInstance());
+		stage.setRoot(editorRoot);
 		
 		CommandInterpreter commandInterpreter = new CommandInterpreter();
 		commandInterpreter.addCommand("load", (args)->{
-			EditorRoot.getInstance().loadMap(args.getString(0));
+			editorRoot.loadMap(args.getString(0));
 		});
 		commandInterpreter.startThread();
 		commandInterpreter.execute("load map1.map");
@@ -86,19 +91,19 @@ public class EntryPointEditor {
 		component.addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				EditorRoot.getInstance().mouseMoved(e.getX(), e.getY(), false);
+				editorRoot.mouseMoved(e.getX(), e.getY(), false);
 			}
 			
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				EditorRoot.getInstance().mouseMoved(e.getX(), e.getY(), true);
+				editorRoot.mouseMoved(e.getX(), e.getY(), true);
 			}
 		});
 		
 		component.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				EditorRoot.getInstance().update();
+				editorRoot.update();
 			}
 		});
 		

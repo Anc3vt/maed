@@ -7,13 +7,13 @@ import ru.ancevt.maed.common.Viewport;
 import ru.ancevt.maed.gameobject.UserActor;
 import ru.ancevt.maed.inventory.InventoryView;
 
-public class GameGUI extends DisplayObjectContainer {
+public class HUD extends DisplayObjectContainer {
 	private MoneyIndicator moneyIndicator;
 	private WeaponIndicator weaponIndicator;
 	private InventoryView inventoryView;
 	private HealthBar healthBar;
 	
-	public GameGUI(UserActor userActor) {
+	public HUD(UserActor userActor) {
 		moneyIndicator = new MoneyIndicator();
 		weaponIndicator = new WeaponIndicator();
 		inventoryView = new InventoryView(userActor.getInventory());

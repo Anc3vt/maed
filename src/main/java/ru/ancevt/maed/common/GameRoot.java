@@ -6,7 +6,7 @@ import ru.ancevt.d2d2.common.D2D2;
 import ru.ancevt.d2d2.display.DisplayObjectContainer;
 import ru.ancevt.d2d2.display.Root;
 import ru.ancevt.maed.gameobject.area.AreaCheckpoint;
-import ru.ancevt.maed.gui.GameGUI;
+import ru.ancevt.maed.gui.HUD;
 import ru.ancevt.maed.gui.VisualController;
 import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapLoader;
@@ -21,7 +21,7 @@ public class GameRoot extends Root implements WorldListener {
 	private String mapToLoad;
 	private DisplayObjectContainer rootLayer;
 	private DisplayObjectContainer cameraLayer;
-	private GameGUI gameGui;
+	private HUD gameGui;
 	
 	public GameRoot() {
 		world = new World() {
@@ -55,7 +55,7 @@ public class GameRoot extends Root implements WorldListener {
 		world.getCamera().setBoundsLock(false);
 		world.setRoomRectVisible(true);
 		
-		gameGui = new GameGUI(world.getUserActor());
+		gameGui = new HUD(world.getUserActor());
 		rootLayer.add(gameGui);
 		
 		Game.root = this;
