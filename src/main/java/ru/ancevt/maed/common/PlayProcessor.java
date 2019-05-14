@@ -23,7 +23,6 @@ import ru.ancevt.maed.world.IWorld;
 public class PlayProcessor {
 
 	private static final float DEFAULT_GRAVITY = 1f;
-	private static final int DEFAULT_SPEED = 60;
 	
 	public static final float MAX_VELOCITY_X = 20f;
 	public static final float MAX_VELOCITY_Y = 10f;
@@ -32,11 +31,8 @@ public class PlayProcessor {
 	
 	private float gravity;
 	
-	private int delay;
-	
 	public PlayProcessor() {
 		gravity = DEFAULT_GRAVITY;
-		setSpeed(DEFAULT_SPEED);
 	}
 	
 	public void setGravity(float gravity) {
@@ -257,9 +253,11 @@ public class PlayProcessor {
 	private final void processDoorTeleport2(final Actor actor, final AreaDoorTeleportCp area) {
 		if(getWorld().isSwitchingRoomsNow()) return;
 		
+		final Map map = world.getMap();
+		
 		final int checkpointId = area.getTargetCheckpointId();
-		for(int i = 0; i < Map.getCurrentMap().getRoomsCount(); i ++) {
-			final Room room = Map.getCurrentMap().getRoomByIndex(i);
+		for(int i = 0; i < map.getRoomsCount(); i ++) {
+			final Room room = map.getRoomByIndex(i);
 			final AreaCheckpoint cp = room.getCheckpointById(checkpointId);
 			if(cp != null) {
 				getWorld().switchRoom(room.getId(), cp.getX(), cp.getY());
@@ -267,15 +265,6 @@ public class PlayProcessor {
 			}
 		}
 	}
-	
-	public final void setSpeed(int value) {
-		delay = 1000 / value;
-	}
-	
-	public final int getSpeed() {
-		return 1000 / delay;
-	}
-	
 }
 
 

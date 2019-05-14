@@ -3,8 +3,8 @@ package ru.ancevt.maed.inventory;
 
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.UserActor;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class PickupHealth extends Pickup {
 
@@ -27,7 +27,7 @@ public class PickupHealth extends Pickup {
 	@Override
 	public IGameObject copy() {
 		final PickupHealth pickupHealth = new PickupHealth(getMapkitItem(),
-				Map.getCurrentMap().getNextFreeGameObjectId(), iconKey, addToHealth);
+				World.getWorld().getMap().getNextFreeGameObjectId(), iconKey, addToHealth);
 		
 		pickupHealth.setXY(getX(), getY());
 		

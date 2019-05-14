@@ -2,8 +2,8 @@ package ru.ancevt.maed.inventory;
 
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.UserActor;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class PickupKey extends Pickup {
 
@@ -31,7 +31,7 @@ public class PickupKey extends Pickup {
 	@Override
 	public IGameObject copy() {
 		final PickupKey result = new PickupKey(getMapkitItem(), 
-				Map.getCurrentMap().getNextFreeGameObjectId(), textureKey, keyType);
+				World.getWorld().getMap().getNextFreeGameObjectId(), textureKey, keyType);
 	
 	
 		result.setXY(getX(), getY());

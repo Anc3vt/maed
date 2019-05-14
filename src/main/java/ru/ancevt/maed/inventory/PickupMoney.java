@@ -2,8 +2,8 @@ package ru.ancevt.maed.inventory;
 
 import ru.ancevt.maed.gameobject.IGameObject;
 import ru.ancevt.maed.gameobject.UserActor;
-import ru.ancevt.maed.map.Map;
 import ru.ancevt.maed.map.MapkitItem;
+import ru.ancevt.maed.world.World;
 
 public class PickupMoney extends Pickup {
 
@@ -19,7 +19,8 @@ public class PickupMoney extends Pickup {
 
 	@Override
 	public IGameObject copy() {
-		final PickupMoney r = new PickupMoney(getMapkitItem(), Map.getCurrentMap().getNextFreeGameObjectId(), iconKey, money);
+		final PickupMoney r = new PickupMoney(getMapkitItem(), 
+				World.getWorld().getMap().getNextFreeGameObjectId(), iconKey, money);
 		r.setXY(getX(), getY());
 		return null;
 	}
