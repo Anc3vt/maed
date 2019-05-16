@@ -15,12 +15,12 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 
 	private static int JUMP_TIME = 20;
 	private static int ATTACK_TIME = 20;
-	private static int UNUTAINABLE_TIME = 20;
+	private static int UNUTTAINABLE_TIME = 20;
 	private static int WATER_TIME = 20;
 	private static int HOOK_TIME = 20;
 	
 	private boolean collisionEnabled;
-	private float collX, collY, collWidth, collHeight;
+	private float collisionX, collisionY, collisionWidth, collisionHeight;
 	private boolean collisionVisible;
 	private Controller controller;
 	private float weight;
@@ -28,11 +28,11 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	private float startX, startY;
 	private int startDirection;
 	private ICollisioned floor;
-	private float velX, velY;
+	private float velocityX, velocityY;
 	private boolean gravityEnabled;
 	private int maxHealth, health;
 	private float movingSpeedX, movingSpeedY;
-	private float weapX, weapY;
+	private float weaponX, weaponY;
 	private float jumpPower;
 	private int unattainableTime;
 	private int attackTime;
@@ -43,9 +43,10 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	
 	private boolean jumping;
 	private boolean hooked;
-	protected boolean isDeath;
+	protected boolean dead;
 	
 	private Weapon weapon;
+	private boolean going;
 	
 	private CollisionShowRect collisionShowRect;
 
@@ -56,11 +57,11 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setCollisionEnabled(true);
 		setAnimation(AKey.IDLE);
 		setController(new BotController());
-		
 	}
+	
 	@Override
 	public void process() {
-		if(isDeath) return;
+		if(dead) return;
 		
 		boolean act = false;
 		
@@ -100,7 +101,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		
 		if(getDirection() != 0 && getFloor() != null && !(this instanceof UserActor)) {
 			setAnimation(AKey.WALK);
-			//dtoVelocityX(speed * getDirection());
 		}
 		
 		if(getFloor() != null && getFloor() instanceof IMoveable) {
@@ -155,6 +155,25 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		if(isUnattainable()) {
 			setAnimation(AKey.DAMAGE);
 		}
+		
+		if(going) {
+			if(!(this instanceof UserActor))
+				setVelocityX(getVelocityX() + speed * getDirection());
+		}
+	}
+	
+	public final void stop() {
+		going = false;
+	}
+
+	public final void go(int direction) {
+		setDirection(direction);
+		if(hooked) return;
+		setAnimation(AKey.WALK, true);
+		going = true;
+		if(this instanceof UserActor) {
+			setVelocityX(getVelocityX() + speed * getDirection());
+		}
 	}
 	
 	@Override
@@ -170,7 +189,6 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		World.getWorld().actorAttack(this);
 	}
 	
-	
 	public void jump() {
 		if(!jumping && getFloor() != null) {
 			if(this instanceof UserActor) jumping = true;
@@ -178,28 +196,26 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 			jumpTime = JUMP_TIME;
 			setAnimation(AKey.JUMP);
 		} else {
-			setAnimation(AKey.IDLE);
+			if(Math.abs(getMovingSpeedX()) > 0) {
+				setAnimation(AKey.WALK);
+			} else {
+				setAnimation(AKey.IDLE);
+			}
 		}
 	}
 	
-	public final void go(int direction) {
-		setDirection(direction);
-		if(hooked) return;
-		setAnimation(AKey.WALK, true);
-		setVelocityX(getVelocityX() + speed * direction);
-	}
 	
 	public float getWeaponX() {
-		return weapX;
+		return weaponX;
 	}
 	
 	public float getWeaponY() {
-		return weapY;
+		return weaponY;
 	}
 	
-	public void setWeaponXY(float x, float y) {
-		weapX = x;
-		weapY = y;
+	public void setWeaponXY(float weaponX, float weaponY) {
+		this.weaponX = weaponX;
+		this.weaponY = weaponY;
 	}
 	
 	public void setJumpPower(float value) {
@@ -221,36 +237,36 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	}
 
 	@Override
-	public void setCollisionArea(float x, float y, float w, float h) {
-		collX = x;
-		collY = y;
-		collWidth = w;
-		collHeight = h;
+	public void setCollisionArea(float collisionX, float collisionY, float collisionWidth, float collisionHeight) {
+		this.collisionX = collisionX;
+		this.collisionY = collisionY;
+		this.collisionWidth = collisionWidth;
+		this.collisionHeight = collisionHeight;
 	}
 
 	@Override
 	public float getCollisionX() {
-		return collX;
+		return collisionX;
 	}
 
 	@Override
 	public float getCollisionY() {
-		return collY;
+		return collisionY;
 	}
 
 	@Override
 	public float getCollisionWidth() {
-		return collWidth;
+		return collisionWidth;
 	}
 
 	@Override
 	public float getCollisionHeight() {
-		return collHeight;
+		return collisionHeight;
 	}
 
 	@Override
-	public void setCollisionVisible(boolean b) {
-		this.collisionVisible = b;
+	public void setCollisionVisible(boolean value) {
+		this.collisionVisible = value;
 
 		if(collisionShowRect != null) collisionShowRect.removeFromParent();
 		
@@ -310,38 +326,38 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 	
 	@Override
 	public void toVelocityX(float value) {
-		velX += value;
+		velocityX += value;
 	}
 	
 	@Override
 	public void toVelocityY(float value) {
-		velY += value;
+		velocityY += value;
 	}
 
 	@Override
 	public void setVelocityX(float velocityX) {
-		velX = velocityX;
+		this.velocityX = velocityX;
 	}
 
 	@Override
 	public void setVelocityY(float velocityY) {
-		velY = velocityY;
+		this.velocityY = velocityY;
 	}
 
 	@Override
-	public void setVelocity(float vX, float vY) {
-		velX = vX;
-		velY = vY;
+	public void setVelocity(float velocityX, float velocityY) {
+		this.velocityX = velocityX;
+		this.velocityY = velocityY;
 	}
 
 	@Override
 	public float getVelocityX() {
-		return velX;
+		return velocityX;
 	}
 
 	@Override
 	public float getVelocityY() {
-		return velY;
+		return velocityY;
 	}
 
 	@Override
@@ -363,7 +379,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		setCollisionEnabled(true);
 		setHealth(getMaxHealth());
 		hooked = false;
-		isDeath = false;
+		dead = false;
 		setRotation(0);
 	}
 
@@ -488,7 +504,7 @@ IDestroyable, ITight, IResettable, IGravitied, IControllable {
 		
 		setUnattainable(true);
 		setAnimation(AKey.DAMAGE);
-		unattainableTime = UNUTAINABLE_TIME;
+		unattainableTime = UNUTTAINABLE_TIME;
 		addHealth(-damagingFrom.getDamagingPower());
 		setVelocity(-getDirection() * 5, -2);
 	}

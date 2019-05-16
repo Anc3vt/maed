@@ -5,12 +5,12 @@ import ru.ancevt.maed.gameobject.Bot;
 
 public class ActionProcessor {
 	
-	private ActorProgram actionProgram;
+	private ActionProgram actionProgram;
 	private Controller controller;
 	private Bot bot;
 	
 	public ActionProcessor(Bot bot) {
-		actionProgram = new ActorProgram();
+		actionProgram = new ActionProgram();
 		this.bot = bot;
 	}
 	
@@ -18,11 +18,11 @@ public class ActionProcessor {
 		this.controller = controller;
 	}
 	
-	public void setActionProgram(ActorProgram actionProgram) {
+	public void setActionProgram(ActionProgram actionProgram) {
 		this.actionProgram = actionProgram;
 	}
 	
-	public ActorProgram getActionProgram() {
+	public ActionProgram getActionProgram() {
 		return actionProgram;
 	}
 	
@@ -39,16 +39,11 @@ public class ActionProcessor {
 			
 			final String actionKey = currentAction.getActionKey();
 			
+			System.out.println(actionKey);
+			
 			switch (actionKey) {
 				case Action.WALK:
-					
-					if(bot.getDirection() > 0) {
-						controller.setRight(true);
-						controller.setLeft(false);
-					} else {
-						controller.setLeft(true);
-						controller.setRight(false);
-					}
+					bot.go(bot.getDirection());
 					break;
 				case Action.STOP:
 					controller.setLeft(false);
@@ -69,6 +64,10 @@ public class ActionProcessor {
 				case Action.JUMP:
 					controller.setA(true);
 					break;
+				case Action.UNJUMP:
+					controller.setA(false);
+					break;
+					
 				case Action.P:
 				case Action.PAUSE:
 					pauseDelay = currentAction.getValue();

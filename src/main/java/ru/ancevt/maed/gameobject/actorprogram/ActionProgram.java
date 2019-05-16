@@ -3,14 +3,14 @@ package ru.ancevt.maed.gameobject.actorprogram;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ActorProgram {
+public class ActionProgram {
 
 	
 	
 	private int currentActionIndex;
 	private List<Action> actions;
 	
-	public ActorProgram() {
+	public ActionProgram() {
 		actions = new LinkedList<Action>();
 	}
 	
@@ -18,14 +18,14 @@ public class ActorProgram {
 		return actions.isEmpty();
 	}
 	
-	public final ActorProgram copy() {
-		return ActorProgram.parse(stringify());
+	public final ActionProgram copy() {
+		return ActionProgram.parse(stringify());
 	}
 
-	public static final ActorProgram parse(String source) {
+	public static final ActionProgram parse(String source) {
 		source = source.replaceAll("\\n", "");
 		
-		final ActorProgram actionProgram = new ActorProgram();
+		final ActionProgram actionProgram = new ActionProgram();
 		
 		final String[] splitted = source.split(";");
 		for(int i = 0 ; i < splitted.length; i ++) {

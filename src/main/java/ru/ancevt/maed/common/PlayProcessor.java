@@ -87,9 +87,7 @@ public class PlayProcessor {
 						processCollisionsHits(collisioned1, collisioned2);
 					}
 				}
-				
 			}
-			
 		}
 	}
 	

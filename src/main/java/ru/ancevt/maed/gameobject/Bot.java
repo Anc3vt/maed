@@ -2,21 +2,17 @@ package ru.ancevt.maed.gameobject;
 
 import ru.ancevt.maed.common.AKey;
 import ru.ancevt.maed.gameobject.actorprogram.ActionProcessor;
-import ru.ancevt.maed.gameobject.actorprogram.ActorProgram;
+import ru.ancevt.maed.gameobject.actorprogram.ActionProgram;
 import ru.ancevt.maed.gameobject.area.AreaTrigger;
 import ru.ancevt.maed.map.MapkitItem;
 import ru.ancevt.maed.world.World;
 
 public class Bot extends Actor implements IActioned, IDamaging {
 
-	private static final int REVERSE_DELAY = 50;
-	
 	private int damagingPower;
 	private ActionProcessor actionProcessor;
 	private boolean reactsOnTriggers;
 	private boolean face2face;
-	
-	private int reverseDelay;
 	
 	public Bot(MapkitItem mapkitItem, int gameObjectId) {
 		super(mapkitItem, gameObjectId);
@@ -57,7 +53,7 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	private final void death() {
 		setAnimation(AKey.DAMAGE);
 		setRotation(-180);
-		isDeath = true;
+		dead = true;
 		setDamagingPower(0);
 		setCollisionEnabled(false);
 		setVelocityY(-5);
@@ -84,12 +80,12 @@ public class Bot extends Actor implements IActioned, IDamaging {
 	}
 
 	@Override
-	public void setActionProgram(ActorProgram actionProgram) {
+	public void setActionProgram(ActionProgram actionProgram) {
 		actionProcessor.setActionProgram(actionProgram);
 	}
 
 	@Override
-	public ActorProgram getActionProgram() {
+	public ActionProgram getActionProgram() {
 		return actionProcessor.getActionProgram();
 	}
 
@@ -144,13 +140,13 @@ public class Bot extends Actor implements IActioned, IDamaging {
 			}
 		}
 		
-		if (collideWith instanceof ITight && collideWith.getY() < getY()) {
-			reverseDelay ++;
-			
-			if(reverseDelay > REVERSE_DELAY) {
-				reverseDelay = 0;
-				setDirection(-getDirection());
-			}
+		
+		
+		if (collideWith instanceof ITight && getX() < collideWith.getX() && getFloor() != collideWith) {
+			setDirection(-1);
+		} else
+		if (collideWith instanceof ITight && getX() > collideWith.getX() + collideWith.getCollisionX() + collideWith.getCollisionWidth()) {
+			setDirection(1);
 		}
 		
 		super.onCollide(collideWith);
@@ -162,7 +158,8 @@ public class Bot extends Actor implements IActioned, IDamaging {
 		if(face2face) {
 			final float userX = World.getWorld().getUserActor().getX();
 			if(userX < getX()) go(-1); else go(1);
-		}
+		} 
+		
 		
 	}
 

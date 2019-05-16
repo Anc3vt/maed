@@ -10,6 +10,7 @@ public class Action {
 	public final static String P = "p";
 	public final static String JUMP = "jump";
 	public final static String ATTACK = "attack";
+	public final static String UNJUMP = "unjump";
 		
 	private String action;
 	private int value;

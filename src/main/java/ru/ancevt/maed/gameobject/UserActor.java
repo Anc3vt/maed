@@ -52,7 +52,7 @@ public class UserActor extends Actor implements IResettable {
 	private final void death() {
 		setAnimation(AKey.DAMAGE);
 		setRotation(-90);
-		isDeath = true;
+		dead = true;
 		setCollisionArea(0, 0, 8, 8);
 		Game.mode.onUserActorDeath();
 	}
