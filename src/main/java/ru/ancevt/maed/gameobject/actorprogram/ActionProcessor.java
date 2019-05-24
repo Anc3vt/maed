@@ -39,8 +39,6 @@ public class ActionProcessor {
 			
 			final String actionKey = currentAction.getActionKey();
 			
-			System.out.println(actionKey);
-			
 			switch (actionKey) {
 				case Action.WALK:
 					bot.go(bot.getDirection());

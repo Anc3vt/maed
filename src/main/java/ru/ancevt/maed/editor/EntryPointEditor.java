@@ -73,7 +73,6 @@ public class EntryPointEditor {
 		
 		editorRoot = new EditorRoot();
 		
-		
 		// Entry point
 		stage.setRoot(editorRoot);
 		
