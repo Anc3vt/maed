@@ -44,7 +44,7 @@ public class MapLoader {
 	public static final Map load(final String assetFilePath) throws NumberFormatException, IOException {
 		final Map map = new Map();
 		
-		Mapkit mapKit = null;
+		Mapkit mapkit = null;
 		Room room = null;
 		
 		final BufferedReader reader = Assets.readFile(Path.MAP_DIRECTORY + assetFilePath);
@@ -66,8 +66,8 @@ public class MapLoader {
 				final String usingMapKit = dataLine.getString(DataKey.USING_MAPKIT);
 				
 				try {
-					mapKit = MapkitLoader.load(usingMapKit);
-					map.setMapKit(mapKit);
+					mapkit = MapkitLoader.load(usingMapKit);
+					map.setMapKit(mapkit);
 					
 				} catch (FileNotFoundException e) {
 					System.err.printf(
@@ -86,7 +86,7 @@ public class MapLoader {
 				
 				if(dataLine.containsKey(DataKey.MUSIC)) {
 					final String fileName = dataLine.getString(DataKey.MUSIC);
-					final String mapKitDirectoryName = mapKit.getDirectory();
+					final String mapKitDirectoryName = mapkit.getDirectory();
 					
 					final Music music = new Music(fileName, Path.MAPKIT_DIRECTORY + mapKitDirectoryName + fileName);
 					map.setMusic(music);
@@ -116,7 +116,7 @@ public class MapLoader {
 			}
 			
 			final int mapkitItemId = dataLine.getInt(1);
-			final MapkitItem mapkitItem = mapKit.getItemById(mapkitItemId);
+			final MapkitItem mapkitItem = mapkit.getItemById(mapkitItemId);
 			
 			if(mapkitItem == null) {
 				System.err.println("mapki id " +mapkitItemId + " not found in mapkit");

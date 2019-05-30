@@ -16,10 +16,10 @@ public class MapkitItem {
         public static final byte ALL        = 0;
         public static final byte AREAS      = 1;
         public static final byte SCENERY    = 2;
-        public static final byte ACTOR  = 3;
+        public static final byte ACTOR      = 3;
         public static final byte DYNAMIC    = 4;
         public static final byte ANIMATED_SCENERY = 5;
-        public static final byte PICKUP = 6;
+        public static final byte PICKUP     = 6;
 
         private static final String NAME_UNKNOWN    = "Unknown";
         private static final String NAME_ALL        = "All";
