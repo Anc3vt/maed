@@ -9,6 +9,8 @@ import ru.ancevt.maed.common.Path;
 
 public class Mapkit {
 	
+	private static final String TILESET = "tileset.png";
+	
 	private String name;
 	private List<MapkitItem> items;
 	private TextureAtlas textureAtlas;
@@ -73,8 +75,9 @@ public class Mapkit {
     }
 
 	public TextureAtlas getTextureAtlas() {
-		if(textureAtlas == null) {
-			textureAtlas = TextureManager.getInstance().loadTextureAtlas(Path.MAPKIT_DIRECTORY + assetDirectoryPath + "tileset.png");
+		if (textureAtlas == null) {
+			textureAtlas = TextureManager.getInstance()
+					.loadTextureAtlas(Path.MAPKIT_DIRECTORY + assetDirectoryPath + TILESET);
 		}
 		return textureAtlas;
 	}
